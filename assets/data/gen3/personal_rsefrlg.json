@@ -1,0 +1,4250 @@
+{
+  "species": {
+    "1": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "2": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "3": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "4": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "5": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "6": {
+      "typeIds": [
+        9,
+        2
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "7": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "8": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "9": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "10": {
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "11": {
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "12": {
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        14,
+        14
+      ],
+      "genderRatio": 127
+    },
+    "13": {
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "14": {
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "15": {
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        68,
+        68
+      ],
+      "genderRatio": 127
+    },
+    "16": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "17": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "18": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "19": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "20": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "21": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "22": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "23": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        22,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "24": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        22,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "25": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "26": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "27": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        8,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "28": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        8,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "29": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 254
+    },
+    "30": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 254
+    },
+    "31": {
+      "typeIds": [
+        3,
+        4
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 254
+    },
+    "32": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 0
+    },
+    "33": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 0
+    },
+    "34": {
+      "typeIds": [
+        3,
+        4
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 0
+    },
+    "35": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "36": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "37": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        18,
+        18
+      ],
+      "genderRatio": 191
+    },
+    "38": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        18,
+        18
+      ],
+      "genderRatio": 191
+    },
+    "39": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "40": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "41": {
+      "typeIds": [
+        3,
+        2
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "42": {
+      "typeIds": [
+        3,
+        2
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "43": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "44": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "45": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "46": {
+      "typeIds": [
+        6,
+        11
+      ],
+      "abilityIds": [
+        27,
+        27
+      ],
+      "genderRatio": 127
+    },
+    "47": {
+      "typeIds": [
+        6,
+        11
+      ],
+      "abilityIds": [
+        27,
+        27
+      ],
+      "genderRatio": 127
+    },
+    "48": {
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        14,
+        14
+      ],
+      "genderRatio": 127
+    },
+    "49": {
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "50": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        8,
+        71
+      ],
+      "genderRatio": 127
+    },
+    "51": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        8,
+        71
+      ],
+      "genderRatio": 127
+    },
+    "52": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "53": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        7,
+        7
+      ],
+      "genderRatio": 127
+    },
+    "54": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        6,
+        13
+      ],
+      "genderRatio": 127
+    },
+    "55": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        6,
+        13
+      ],
+      "genderRatio": 127
+    },
+    "56": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        72,
+        72
+      ],
+      "genderRatio": 127
+    },
+    "57": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        72,
+        72
+      ],
+      "genderRatio": 127
+    },
+    "58": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        22,
+        18
+      ],
+      "genderRatio": 63
+    },
+    "59": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        22,
+        18
+      ],
+      "genderRatio": 63
+    },
+    "60": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        11,
+        6
+      ],
+      "genderRatio": 127
+    },
+    "61": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        11,
+        6
+      ],
+      "genderRatio": 127
+    },
+    "62": {
+      "typeIds": [
+        10,
+        1
+      ],
+      "abilityIds": [
+        11,
+        6
+      ],
+      "genderRatio": 127
+    },
+    "63": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        39
+      ],
+      "genderRatio": 63
+    },
+    "64": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        39
+      ],
+      "genderRatio": 63
+    },
+    "65": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        39
+      ],
+      "genderRatio": 63
+    },
+    "66": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "67": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "68": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "69": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "70": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "71": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "72": {
+      "typeIds": [
+        10,
+        3
+      ],
+      "abilityIds": [
+        29,
+        64
+      ],
+      "genderRatio": 127
+    },
+    "73": {
+      "typeIds": [
+        10,
+        3
+      ],
+      "abilityIds": [
+        29,
+        64
+      ],
+      "genderRatio": 127
+    },
+    "74": {
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "75": {
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "76": {
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "77": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        50,
+        18
+      ],
+      "genderRatio": 127
+    },
+    "78": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        50,
+        18
+      ],
+      "genderRatio": 127
+    },
+    "79": {
+      "typeIds": [
+        10,
+        13
+      ],
+      "abilityIds": [
+        12,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "80": {
+      "typeIds": [
+        10,
+        13
+      ],
+      "abilityIds": [
+        12,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "81": {
+      "typeIds": [
+        12,
+        8
+      ],
+      "abilityIds": [
+        42,
+        5
+      ],
+      "genderRatio": 255
+    },
+    "82": {
+      "typeIds": [
+        12,
+        8
+      ],
+      "abilityIds": [
+        42,
+        5
+      ],
+      "genderRatio": 255
+    },
+    "83": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "84": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        50,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "85": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        50,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "86": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "87": {
+      "typeIds": [
+        10,
+        14
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "88": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        1,
+        60
+      ],
+      "genderRatio": 127
+    },
+    "89": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        1,
+        60
+      ],
+      "genderRatio": 127
+    },
+    "90": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        75,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "91": {
+      "typeIds": [
+        10,
+        14
+      ],
+      "abilityIds": [
+        75,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "92": {
+      "typeIds": [
+        7,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "93": {
+      "typeIds": [
+        7,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "94": {
+      "typeIds": [
+        7,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "95": {
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "96": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "97": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "98": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        52,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "99": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        52,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "100": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        43,
+        9
+      ],
+      "genderRatio": 255
+    },
+    "101": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        43,
+        9
+      ],
+      "genderRatio": 255
+    },
+    "102": {
+      "typeIds": [
+        11,
+        13
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "103": {
+      "typeIds": [
+        11,
+        13
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "104": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        69,
+        31
+      ],
+      "genderRatio": 127
+    },
+    "105": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        69,
+        31
+      ],
+      "genderRatio": 127
+    },
+    "106": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        7,
+        7
+      ],
+      "genderRatio": 0
+    },
+    "107": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 0
+    },
+    "108": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        20,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "109": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "110": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "111": {
+      "typeIds": [
+        4,
+        5
+      ],
+      "abilityIds": [
+        31,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "112": {
+      "typeIds": [
+        4,
+        5
+      ],
+      "abilityIds": [
+        31,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "113": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        30,
+        32
+      ],
+      "genderRatio": 254
+    },
+    "114": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "115": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        48,
+        48
+      ],
+      "genderRatio": 254
+    },
+    "116": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "117": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 127
+    },
+    "118": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        41
+      ],
+      "genderRatio": 127
+    },
+    "119": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        41
+      ],
+      "genderRatio": 127
+    },
+    "120": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        35,
+        30
+      ],
+      "genderRatio": 255
+    },
+    "121": {
+      "typeIds": [
+        10,
+        13
+      ],
+      "abilityIds": [
+        35,
+        30
+      ],
+      "genderRatio": 255
+    },
+    "122": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        43,
+        43
+      ],
+      "genderRatio": 127
+    },
+    "123": {
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        68,
+        68
+      ],
+      "genderRatio": 127
+    },
+    "124": {
+      "typeIds": [
+        14,
+        13
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 254
+    },
+    "125": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 63
+    },
+    "126": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        49,
+        49
+      ],
+      "genderRatio": 63
+    },
+    "127": {
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        52,
+        52
+      ],
+      "genderRatio": 127
+    },
+    "128": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 0
+    },
+    "129": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "130": {
+      "typeIds": [
+        10,
+        2
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "131": {
+      "typeIds": [
+        10,
+        14
+      ],
+      "abilityIds": [
+        11,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "132": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        7,
+        7
+      ],
+      "genderRatio": 255
+    },
+    "133": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        50
+      ],
+      "genderRatio": 31
+    },
+    "134": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        11,
+        11
+      ],
+      "genderRatio": 31
+    },
+    "135": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        10,
+        10
+      ],
+      "genderRatio": 31
+    },
+    "136": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        18,
+        18
+      ],
+      "genderRatio": 31
+    },
+    "137": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        36,
+        36
+      ],
+      "genderRatio": 255
+    },
+    "138": {
+      "typeIds": [
+        5,
+        10
+      ],
+      "abilityIds": [
+        33,
+        75
+      ],
+      "genderRatio": 31
+    },
+    "139": {
+      "typeIds": [
+        5,
+        10
+      ],
+      "abilityIds": [
+        33,
+        75
+      ],
+      "genderRatio": 31
+    },
+    "140": {
+      "typeIds": [
+        5,
+        10
+      ],
+      "abilityIds": [
+        33,
+        4
+      ],
+      "genderRatio": 31
+    },
+    "141": {
+      "typeIds": [
+        5,
+        10
+      ],
+      "abilityIds": [
+        33,
+        4
+      ],
+      "genderRatio": 31
+    },
+    "142": {
+      "typeIds": [
+        5,
+        2
+      ],
+      "abilityIds": [
+        69,
+        46
+      ],
+      "genderRatio": 31
+    },
+    "143": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        17,
+        47
+      ],
+      "genderRatio": 31
+    },
+    "144": {
+      "typeIds": [
+        14,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "145": {
+      "typeIds": [
+        12,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "146": {
+      "typeIds": [
+        9,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "147": {
+      "typeIds": [
+        15,
+        15
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "148": {
+      "typeIds": [
+        15,
+        15
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "149": {
+      "typeIds": [
+        15,
+        2
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "150": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "151": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        28
+      ],
+      "genderRatio": 255
+    },
+    "152": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "153": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "154": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "155": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "156": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "157": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "158": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "159": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "160": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "161": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "162": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "163": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        15,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "164": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        15,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "165": {
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        68,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "166": {
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        68,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "167": {
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        68,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "168": {
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        68,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "169": {
+      "typeIds": [
+        3,
+        2
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "170": {
+      "typeIds": [
+        10,
+        12
+      ],
+      "abilityIds": [
+        10,
+        35
+      ],
+      "genderRatio": 127
+    },
+    "171": {
+      "typeIds": [
+        10,
+        12
+      ],
+      "abilityIds": [
+        10,
+        35
+      ],
+      "genderRatio": 127
+    },
+    "172": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "173": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "174": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "175": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        55,
+        32
+      ],
+      "genderRatio": 31
+    },
+    "176": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        55,
+        32
+      ],
+      "genderRatio": 31
+    },
+    "177": {
+      "typeIds": [
+        13,
+        2
+      ],
+      "abilityIds": [
+        28,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "178": {
+      "typeIds": [
+        13,
+        2
+      ],
+      "abilityIds": [
+        28,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "179": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "180": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "181": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "182": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "183": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        47,
+        37
+      ],
+      "genderRatio": 127
+    },
+    "184": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        47,
+        37
+      ],
+      "genderRatio": 127
+    },
+    "185": {
+      "typeIds": [
+        5,
+        5
+      ],
+      "abilityIds": [
+        5,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "186": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        11,
+        6
+      ],
+      "genderRatio": 127
+    },
+    "187": {
+      "typeIds": [
+        11,
+        2
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "188": {
+      "typeIds": [
+        11,
+        2
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "189": {
+      "typeIds": [
+        11,
+        2
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "190": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "191": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "192": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "193": {
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        3,
+        14
+      ],
+      "genderRatio": 127
+    },
+    "194": {
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        6,
+        11
+      ],
+      "genderRatio": 127
+    },
+    "195": {
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        6,
+        11
+      ],
+      "genderRatio": 127
+    },
+    "196": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        28
+      ],
+      "genderRatio": 31
+    },
+    "197": {
+      "typeIds": [
+        16,
+        16
+      ],
+      "abilityIds": [
+        28,
+        28
+      ],
+      "genderRatio": 31
+    },
+    "198": {
+      "typeIds": [
+        16,
+        2
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "199": {
+      "typeIds": [
+        10,
+        13
+      ],
+      "abilityIds": [
+        12,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "200": {
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "201": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "202": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        23,
+        23
+      ],
+      "genderRatio": 127
+    },
+    "203": {
+      "typeIds": [
+        0,
+        13
+      ],
+      "abilityIds": [
+        39,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "204": {
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        5,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "205": {
+      "typeIds": [
+        6,
+        8
+      ],
+      "abilityIds": [
+        5,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "206": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        32,
+        50
+      ],
+      "genderRatio": 127
+    },
+    "207": {
+      "typeIds": [
+        4,
+        2
+      ],
+      "abilityIds": [
+        52,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "208": {
+      "typeIds": [
+        8,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "209": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        22,
+        50
+      ],
+      "genderRatio": 191
+    },
+    "210": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 191
+    },
+    "211": {
+      "typeIds": [
+        10,
+        3
+      ],
+      "abilityIds": [
+        38,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "212": {
+      "typeIds": [
+        6,
+        8
+      ],
+      "abilityIds": [
+        68,
+        68
+      ],
+      "genderRatio": 127
+    },
+    "213": {
+      "typeIds": [
+        6,
+        5
+      ],
+      "abilityIds": [
+        5,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "214": {
+      "typeIds": [
+        6,
+        1
+      ],
+      "abilityIds": [
+        68,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "215": {
+      "typeIds": [
+        16,
+        14
+      ],
+      "abilityIds": [
+        39,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "216": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "217": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "218": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        40,
+        49
+      ],
+      "genderRatio": 127
+    },
+    "219": {
+      "typeIds": [
+        9,
+        5
+      ],
+      "abilityIds": [
+        40,
+        49
+      ],
+      "genderRatio": 127
+    },
+    "220": {
+      "typeIds": [
+        14,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "221": {
+      "typeIds": [
+        14,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "222": {
+      "typeIds": [
+        10,
+        5
+      ],
+      "abilityIds": [
+        55,
+        30
+      ],
+      "genderRatio": 191
+    },
+    "223": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        55,
+        55
+      ],
+      "genderRatio": 127
+    },
+    "224": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        21,
+        21
+      ],
+      "genderRatio": 127
+    },
+    "225": {
+      "typeIds": [
+        14,
+        2
+      ],
+      "abilityIds": [
+        72,
+        55
+      ],
+      "genderRatio": 127
+    },
+    "226": {
+      "typeIds": [
+        10,
+        2
+      ],
+      "abilityIds": [
+        33,
+        11
+      ],
+      "genderRatio": 127
+    },
+    "227": {
+      "typeIds": [
+        8,
+        2
+      ],
+      "abilityIds": [
+        51,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "228": {
+      "typeIds": [
+        16,
+        9
+      ],
+      "abilityIds": [
+        48,
+        18
+      ],
+      "genderRatio": 127
+    },
+    "229": {
+      "typeIds": [
+        16,
+        9
+      ],
+      "abilityIds": [
+        48,
+        18
+      ],
+      "genderRatio": 127
+    },
+    "230": {
+      "typeIds": [
+        10,
+        15
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "231": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "232": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        5,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "233": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        36,
+        36
+      ],
+      "genderRatio": 255
+    },
+    "234": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "235": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        20,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "236": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 0
+    },
+    "237": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 0
+    },
+    "238": {
+      "typeIds": [
+        14,
+        13
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 254
+    },
+    "239": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 63
+    },
+    "240": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        49,
+        49
+      ],
+      "genderRatio": 63
+    },
+    "241": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 254
+    },
+    "242": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        30,
+        32
+      ],
+      "genderRatio": 254
+    },
+    "243": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "244": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "245": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "246": {
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "247": {
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "248": {
+      "typeIds": [
+        5,
+        16
+      ],
+      "abilityIds": [
+        45,
+        45
+      ],
+      "genderRatio": 127
+    },
+    "249": {
+      "typeIds": [
+        13,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "250": {
+      "typeIds": [
+        9,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "251": {
+      "typeIds": [
+        13,
+        11
+      ],
+      "abilityIds": [
+        30,
+        30
+      ],
+      "genderRatio": 255
+    },
+    "252": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "253": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "254": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "255": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "256": {
+      "typeIds": [
+        9,
+        1
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "257": {
+      "typeIds": [
+        9,
+        1
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "258": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "259": {
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "260": {
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "261": {
+      "typeIds": [
+        16,
+        16
+      ],
+      "abilityIds": [
+        50,
+        50
+      ],
+      "genderRatio": 127
+    },
+    "262": {
+      "typeIds": [
+        16,
+        16
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "263": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "264": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "265": {
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "266": {
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "267": {
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        68,
+        68
+      ],
+      "genderRatio": 127
+    },
+    "268": {
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "269": {
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "270": {
+      "typeIds": [
+        10,
+        11
+      ],
+      "abilityIds": [
+        33,
+        44
+      ],
+      "genderRatio": 127
+    },
+    "271": {
+      "typeIds": [
+        10,
+        11
+      ],
+      "abilityIds": [
+        33,
+        44
+      ],
+      "genderRatio": 127
+    },
+    "272": {
+      "typeIds": [
+        10,
+        11
+      ],
+      "abilityIds": [
+        33,
+        44
+      ],
+      "genderRatio": 127
+    },
+    "273": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "274": {
+      "typeIds": [
+        11,
+        16
+      ],
+      "abilityIds": [
+        34,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "275": {
+      "typeIds": [
+        11,
+        16
+      ],
+      "abilityIds": [
+        34,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "276": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "277": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "278": {
+      "typeIds": [
+        10,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "279": {
+      "typeIds": [
+        10,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "280": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        36
+      ],
+      "genderRatio": 127
+    },
+    "281": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        36
+      ],
+      "genderRatio": 127
+    },
+    "282": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        36
+      ],
+      "genderRatio": 127
+    },
+    "283": {
+      "typeIds": [
+        6,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "284": {
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "285": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        27,
+        27
+      ],
+      "genderRatio": 127
+    },
+    "286": {
+      "typeIds": [
+        11,
+        1
+      ],
+      "abilityIds": [
+        27,
+        27
+      ],
+      "genderRatio": 127
+    },
+    "287": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        54,
+        54
+      ],
+      "genderRatio": 127
+    },
+    "288": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        72,
+        72
+      ],
+      "genderRatio": 127
+    },
+    "289": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        54,
+        54
+      ],
+      "genderRatio": 127
+    },
+    "290": {
+      "typeIds": [
+        6,
+        4
+      ],
+      "abilityIds": [
+        14,
+        14
+      ],
+      "genderRatio": 127
+    },
+    "291": {
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        3,
+        3
+      ],
+      "genderRatio": 127
+    },
+    "292": {
+      "typeIds": [
+        6,
+        7
+      ],
+      "abilityIds": [
+        25,
+        25
+      ],
+      "genderRatio": 255
+    },
+    "293": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        43,
+        43
+      ],
+      "genderRatio": 127
+    },
+    "294": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        43,
+        43
+      ],
+      "genderRatio": 127
+    },
+    "295": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        43,
+        43
+      ],
+      "genderRatio": 127
+    },
+    "296": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        47,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "297": {
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        47,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "298": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        47,
+        37
+      ],
+      "genderRatio": 191
+    },
+    "299": {
+      "typeIds": [
+        5,
+        5
+      ],
+      "abilityIds": [
+        5,
+        42
+      ],
+      "genderRatio": 127
+    },
+    "300": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "301": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "302": {
+      "typeIds": [
+        16,
+        7
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "303": {
+      "typeIds": [
+        8,
+        8
+      ],
+      "abilityIds": [
+        52,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "304": {
+      "typeIds": [
+        8,
+        5
+      ],
+      "abilityIds": [
+        5,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "305": {
+      "typeIds": [
+        8,
+        5
+      ],
+      "abilityIds": [
+        5,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "306": {
+      "typeIds": [
+        8,
+        5
+      ],
+      "abilityIds": [
+        5,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "307": {
+      "typeIds": [
+        1,
+        13
+      ],
+      "abilityIds": [
+        74,
+        74
+      ],
+      "genderRatio": 127
+    },
+    "308": {
+      "typeIds": [
+        1,
+        13
+      ],
+      "abilityIds": [
+        74,
+        74
+      ],
+      "genderRatio": 127
+    },
+    "309": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        31
+      ],
+      "genderRatio": 127
+    },
+    "310": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        31
+      ],
+      "genderRatio": 127
+    },
+    "311": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        57,
+        57
+      ],
+      "genderRatio": 127
+    },
+    "312": {
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        58,
+        58
+      ],
+      "genderRatio": 127
+    },
+    "313": {
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        35,
+        68
+      ],
+      "genderRatio": 0
+    },
+    "314": {
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 254
+    },
+    "315": {
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        30,
+        38
+      ],
+      "genderRatio": 127
+    },
+    "316": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        64,
+        60
+      ],
+      "genderRatio": 127
+    },
+    "317": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        64,
+        60
+      ],
+      "genderRatio": 127
+    },
+    "318": {
+      "typeIds": [
+        10,
+        16
+      ],
+      "abilityIds": [
+        24,
+        24
+      ],
+      "genderRatio": 127
+    },
+    "319": {
+      "typeIds": [
+        10,
+        16
+      ],
+      "abilityIds": [
+        24,
+        24
+      ],
+      "genderRatio": 127
+    },
+    "320": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        41,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "321": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        41,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "322": {
+      "typeIds": [
+        9,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "323": {
+      "typeIds": [
+        9,
+        4
+      ],
+      "abilityIds": [
+        40,
+        40
+      ],
+      "genderRatio": 127
+    },
+    "324": {
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        73,
+        73
+      ],
+      "genderRatio": 127
+    },
+    "325": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        47,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "326": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        47,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "327": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        20,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "328": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        52,
+        71
+      ],
+      "genderRatio": 127
+    },
+    "329": {
+      "typeIds": [
+        4,
+        15
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "330": {
+      "typeIds": [
+        4,
+        15
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "331": {
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        8,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "332": {
+      "typeIds": [
+        11,
+        16
+      ],
+      "abilityIds": [
+        8,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "333": {
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        30,
+        30
+      ],
+      "genderRatio": 127
+    },
+    "334": {
+      "typeIds": [
+        15,
+        2
+      ],
+      "abilityIds": [
+        30,
+        30
+      ],
+      "genderRatio": 127
+    },
+    "335": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        17,
+        17
+      ],
+      "genderRatio": 127
+    },
+    "336": {
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "337": {
+      "typeIds": [
+        5,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "338": {
+      "typeIds": [
+        5,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "339": {
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "340": {
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "341": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        52,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "342": {
+      "typeIds": [
+        10,
+        16
+      ],
+      "abilityIds": [
+        52,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "343": {
+      "typeIds": [
+        4,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "344": {
+      "typeIds": [
+        4,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "345": {
+      "typeIds": [
+        5,
+        11
+      ],
+      "abilityIds": [
+        21,
+        21
+      ],
+      "genderRatio": 31
+    },
+    "346": {
+      "typeIds": [
+        5,
+        11
+      ],
+      "abilityIds": [
+        21,
+        21
+      ],
+      "genderRatio": 31
+    },
+    "347": {
+      "typeIds": [
+        5,
+        6
+      ],
+      "abilityIds": [
+        4,
+        4
+      ],
+      "genderRatio": 31
+    },
+    "348": {
+      "typeIds": [
+        5,
+        6
+      ],
+      "abilityIds": [
+        4,
+        4
+      ],
+      "genderRatio": 31
+    },
+    "349": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "350": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        63,
+        63
+      ],
+      "genderRatio": 127
+    },
+    "351": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        59,
+        59
+      ],
+      "genderRatio": 127
+    },
+    "352": {
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        16,
+        16
+      ],
+      "genderRatio": 127
+    },
+    "353": {
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "354": {
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "355": {
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "356": {
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 127
+    },
+    "357": {
+      "typeIds": [
+        11,
+        2
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "358": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "359": {
+      "typeIds": [
+        16,
+        16
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 127
+    },
+    "360": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        23,
+        23
+      ],
+      "genderRatio": 127
+    },
+    "361": {
+      "typeIds": [
+        14,
+        14
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "362": {
+      "typeIds": [
+        14,
+        14
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "363": {
+      "typeIds": [
+        14,
+        10
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "364": {
+      "typeIds": [
+        14,
+        10
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "365": {
+      "typeIds": [
+        14,
+        10
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "366": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        75,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "367": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "368": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "369": {
+      "typeIds": [
+        10,
+        5
+      ],
+      "abilityIds": [
+        33,
+        69
+      ],
+      "genderRatio": 31
+    },
+    "370": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 191
+    },
+    "371": {
+      "typeIds": [
+        15,
+        15
+      ],
+      "abilityIds": [
+        69,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "372": {
+      "typeIds": [
+        15,
+        15
+      ],
+      "abilityIds": [
+        69,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "373": {
+      "typeIds": [
+        15,
+        2
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "374": {
+      "typeIds": [
+        8,
+        13
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "375": {
+      "typeIds": [
+        8,
+        13
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "376": {
+      "typeIds": [
+        8,
+        13
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "377": {
+      "typeIds": [
+        5,
+        5
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "378": {
+      "typeIds": [
+        14,
+        14
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "379": {
+      "typeIds": [
+        8,
+        8
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "380": {
+      "typeIds": [
+        15,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 254
+    },
+    "381": {
+      "typeIds": [
+        15,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 0
+    },
+    "382": {
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        2,
+        2
+      ],
+      "genderRatio": 255
+    },
+    "383": {
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        70,
+        70
+      ],
+      "genderRatio": 255
+    },
+    "384": {
+      "typeIds": [
+        15,
+        2
+      ],
+      "abilityIds": [
+        76,
+        76
+      ],
+      "genderRatio": 255
+    },
+    "385": {
+      "typeIds": [
+        8,
+        13
+      ],
+      "abilityIds": [
+        32,
+        32
+      ],
+      "genderRatio": 255
+    },
+    "386": {
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    }
+  }
+}

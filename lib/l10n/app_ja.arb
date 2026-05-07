@@ -1,0 +1,161 @@
+{
+  "@@locale": "ja",
+  "appTitle": "PokeRNG G3",
+  "hunt": "検索",
+  "calibrate": "調整",
+  "tools": "ツール",
+  "settings": "設定",
+  "target": "目標",
+  "encounter": "遭遇",
+  "search": "検索",
+  "searching": "検索中...",
+  "cancelSearch": "検索をキャンセル",
+  "attempt": "試行",
+  "pokemon": "ポケモン",
+  "pokemonSearchLimitHint": "ポケモンの番号を入力するとその番号から表示します。名前のキーワードでも検索できます。候補は最大 50 件です。",
+  "shiny": "色違い",
+  "nature": "性格",
+  "minimumIv": "最低 IV",
+  "seed": "Seed",
+  "initialAdvance": "開始 Advance",
+  "maxAdvance": "最大 Advance",
+  "delay": "遅延",
+  "results": "結果",
+  "selectAResult": "結果を選択",
+  "gameVersion": "ゲーム",
+  "defaultSeed": "既定 Seed",
+  "save": "保存",
+  "observedNature": "観測した性格",
+  "observedIvs": "観測 IV",
+  "idSid": "ID/SID",
+  "ivsToPid": "IVからPID",
+  "battleVideo": "バトルビデオ",
+  "painting": "絵画",
+  "locationEgg": "場所 / タマゴ",
+  "egg": "タマゴ",
+  "eggUnsupported": "タマゴ（後で対応）",
+  "method": "生成方式",
+  "wildMethod1": "野生 1",
+  "wildMethod2": "野生 2",
+  "wildMethod4": "野生 4",
+  "staticMethod1": "Method 1",
+  "staticMethod2": "Method 2",
+  "staticMethod4": "Method 4",
+  "ability": "特性",
+  "gender": "性別",
+  "any": "任意",
+  "slot": "Slot",
+  "lead": "先頭特性",
+  "leadNone": "なし",
+  "leadPressure": "プレッシャー",
+  "leadSynchronize": "シンクロ",
+  "leadStatic": "せいでんき",
+  "leadMagnetPull": "じりょく",
+  "leadCuteCharmFemale": "メロメロボディ ♀",
+  "leadCuteCharmMale": "メロメロボディ ♂",
+  "syncNature": "シンクロ性格",
+  "feebasTile": "ヒンバスのマス",
+  "ivAnyNote": "-1 = 任意 IV",
+  "searchRangeNote": "最大 - 開始 <= {maxAdvanceDelta} フレーム · 結果 <= {maxResults}",
+  "@searchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "resultLimitNote": "最初の {maxResults} 件だけを表示しています。条件を絞るか範囲を下げると後続を確認できます。",
+  "@resultLimitNote": {
+    "placeholders": {
+      "maxResults": {}
+    }
+  },
+  "selectPokemonEncounterLocationError": "ポケモン、遭遇方式、場所を選択してください。",
+  "huntInputError": "Seed、フレーム範囲、遅延、IV条件を確認してください。最大 - 開始は {maxAdvanceDelta} 以下です。",
+  "@huntInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
+  "runHuntAndEnterObservedIvsError": "先に検索を実行し、観測 IV を入力してください。",
+  "noMatchingAdvanceError": "現在の検索範囲に一致するフレームがありません。",
+  "noResults": "結果がありません。条件を緩めるか最大 Advance を上げてください。",
+  "searchCancelled": "検索をキャンセルしました。",
+  "settingsInputError": "TID、SID、Seed を確認してください。",
+  "targetAdvance": "目標 {advance}",
+  "@targetAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "hitAdvance": "命中 {advance}",
+  "@hitAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "deltaValue": "差分 {delta}",
+  "@deltaValue": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
+  "delayValue": "遅延 {delay}",
+  "@delayValue": {
+    "placeholders": {
+      "delay": {}
+    }
+  },
+  "encounterGrass": "くさむら",
+  "encounterSurfing": "なみのり",
+  "encounterRockSmash": "いわくだき",
+  "encounterOldRod": "ボロのつりざお",
+  "encounterGoodRod": "いいつりざお",
+  "encounterSuperRod": "すごいつりざお",
+  "staticStarter": "御三家",
+  "staticFossil": "化石",
+  "staticGift": "もらう",
+  "staticGameCorner": "ゲームコーナー",
+  "staticStationary": "固定",
+  "staticLegend": "伝説",
+  "staticEvent": "イベント",
+  "staticRoamer": "徘徊",
+  "abilitySlot": "特性{slot} - {name}",
+  "@abilitySlot": {
+    "placeholders": {
+      "slot": {},
+      "name": {}
+    }
+  },
+  "statAttack": "こうげき",
+  "statDefense": "ぼうぎょ",
+  "statSpeed": "すばやさ",
+  "statSpecialAttack": "とくこう",
+  "statSpecialDefense": "とくぼう",
+  "natureNeutral": "補正なし",
+  "failedLoadTargetData": "目標データの読み込みに失敗しました: {error}",
+  "@failedLoadTargetData": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "resultAdvance": "Adv",
+  "resultPress": "押下",
+  "levelShort": "Lv",
+  "hiddenPower": "めざパ",
+  "typeFighting": "かくとう",
+  "typeFlying": "ひこう",
+  "typePoison": "どく",
+  "typeGround": "じめん",
+  "typeRock": "いわ",
+  "typeBug": "むし",
+  "typeGhost": "ゴースト",
+  "typeSteel": "はがね",
+  "typeFire": "ほのお",
+  "typeWater": "みず",
+  "typeGrass": "くさ",
+  "typeElectric": "でんき",
+  "typePsychic": "エスパー",
+  "typeIce": "こおり",
+  "typeDragon": "ドラゴン",
+  "typeDark": "あく"
+}

@@ -1,0 +1,805 @@
+{
+  "encounters": [
+    {
+      "game": "emerald",
+      "type": "starter",
+      "description": "Chikorita @ Littleroot Town",
+      "species": 152,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "starter",
+      "description": "Cyndaquil @ Littleroot Town",
+      "species": 155,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "starter",
+      "description": "Totodile @ Littleroot Town",
+      "species": 158,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "starter",
+      "description": "Treecko @ Route 101",
+      "species": 252,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "starter",
+      "description": "Torchic @ Route 101",
+      "species": 255,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "starter",
+      "description": "Mudkip @ Route 101",
+      "species": 258,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "starter",
+      "description": "Bulbasaur @ Pallet Town",
+      "species": 1,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "starter",
+      "description": "Bulbasaur @ Pallet Town",
+      "species": 1,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "starter",
+      "description": "Squirtle @ Pallet Town",
+      "species": 4,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "starter",
+      "description": "Squirtle @ Pallet Town",
+      "species": 4,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "starter",
+      "description": "Charmander @ Pallet Town",
+      "species": 7,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "starter",
+      "description": "Charmander @ Pallet Town",
+      "species": 7,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "fossil",
+      "description": "Lileep @ Rustboro City",
+      "species": 345,
+      "form": 0,
+      "level": 20,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "fossil",
+      "description": "Anorith @ Rustboro City",
+      "species": 347,
+      "form": 0,
+      "level": 20,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "fossil",
+      "description": "Omanyte @ Cinnabar Islands",
+      "species": 138,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "fossil",
+      "description": "Omanyte @ Cinnabar Islands",
+      "species": 138,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "fossil",
+      "description": "Kabuto @ Cinnabar Islands",
+      "species": 140,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "fossil",
+      "description": "Kabuto @ Cinnabar Islands",
+      "species": 140,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "fossil",
+      "description": "Aerodactyl @ Cinnabar Islands",
+      "species": 142,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "fossil",
+      "description": "Aerodactyl @ Cinnabar Islands",
+      "species": 142,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "gift",
+      "description": "Castform @ Weather Institute",
+      "species": 351,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "gift",
+      "description": "Beldum @ Mossdeep City",
+      "species": 374,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "gift",
+      "description": "Wynaut Egg",
+      "species": 360,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gift",
+      "description": "Hitmonlee @ Saffron City",
+      "species": 106,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gift",
+      "description": "Hitmonlee @ Saffron City",
+      "species": 106,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gift",
+      "description": "Hitmonchan @ Saffron City",
+      "species": 107,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gift",
+      "description": "Hitmonchan @ Saffron City",
+      "species": 107,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gift",
+      "description": "Magikarp @ Route 4",
+      "species": 129,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gift",
+      "description": "Magikarp @ Route 4",
+      "species": 129,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gift",
+      "description": "Lapras @ Silph Co.",
+      "species": 131,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gift",
+      "description": "Lapras @ Silph Co.",
+      "species": 131,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gift",
+      "description": "Eevee @ Celadon City",
+      "species": 133,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gift",
+      "description": "Eevee @ Celadon City",
+      "species": 133,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gift",
+      "description": "Togepi Egg",
+      "species": 175,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gift",
+      "description": "Togepi Egg",
+      "species": 175,
+      "form": 0,
+      "level": 5,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gameCorner",
+      "description": "Abra @ Celadon City",
+      "species": 63,
+      "form": 0,
+      "level": 9,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gameCorner",
+      "description": "Clefairy @ Celadon City",
+      "species": 35,
+      "form": 0,
+      "level": 8,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gameCorner",
+      "description": "Scyther @ Celadon City",
+      "species": 123,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gameCorner",
+      "description": "Dratini @ Celadon City",
+      "species": 147,
+      "form": 0,
+      "level": 18,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "gameCorner",
+      "description": "Porygon @ Celadon City",
+      "species": 137,
+      "form": 0,
+      "level": 26,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gameCorner",
+      "description": "Abra @ Celadon City",
+      "species": 63,
+      "form": 0,
+      "level": 7,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gameCorner",
+      "description": "Clefairy @ Celadon City",
+      "species": 35,
+      "form": 0,
+      "level": 12,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gameCorner",
+      "description": "Pinsir @ Celadon City",
+      "species": 127,
+      "form": 0,
+      "level": 18,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gameCorner",
+      "description": "Dratini @ Celadon City",
+      "species": 147,
+      "form": 0,
+      "level": 24,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "gameCorner",
+      "description": "Porygon @ Celadon City",
+      "species": 137,
+      "form": 0,
+      "level": 18,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "stationary",
+      "description": "Kecleon @ Route 119/120",
+      "species": 352,
+      "form": 0,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "stationary",
+      "description": "Voltorb @ New Mauville",
+      "species": 100,
+      "form": 0,
+      "level": 25,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "stationary",
+      "description": "Electrode @ Magma/Aqua Hideout",
+      "species": 101,
+      "form": 0,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "stationary",
+      "description": "Sudowoodo @ Battle Frontier",
+      "species": 185,
+      "form": 0,
+      "level": 40,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "stationary",
+      "description": "Snorlax @ Route 12/16",
+      "species": 143,
+      "form": 0,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "stationary",
+      "description": "Snorlax @ Route 12/16",
+      "species": 143,
+      "form": 0,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "stationary",
+      "description": "Electrode @ Power Plant",
+      "species": 101,
+      "form": 0,
+      "level": 34,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "stationary",
+      "description": "Electrode @ Power Plant",
+      "species": 101,
+      "form": 0,
+      "level": 34,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "stationary",
+      "description": "Hypno @ Berry Forest",
+      "species": 97,
+      "form": 0,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "stationary",
+      "description": "Hypno @ Berry Forest",
+      "species": 97,
+      "form": 0,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "legend",
+      "description": "Regirock @ Desert Ruins",
+      "species": 377,
+      "form": 0,
+      "level": 40,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "legend",
+      "description": "Regice @ Desert Ruins",
+      "species": 378,
+      "form": 0,
+      "level": 40,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "legend",
+      "description": "Registeel @ Desert Ruins",
+      "species": 379,
+      "form": 0,
+      "level": 40,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "legend",
+      "description": "Latias @ Southern Island",
+      "species": 380,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "legend",
+      "description": "Latios @ Southern Island",
+      "species": 381,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "legend",
+      "description": "Kyogre @ Marine Cave",
+      "species": 382,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "legend",
+      "description": "Groudon @ Terra Cave",
+      "species": 383,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "legend",
+      "description": "Rayquaza @ Sky Pillar",
+      "species": 384,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "legend",
+      "description": "Articuno @ Seafoam Islands",
+      "species": 144,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "legend",
+      "description": "Articuno @ Seafoam Islands",
+      "species": 144,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "legend",
+      "description": "Zapdos @ Power Plant",
+      "species": 145,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "legend",
+      "description": "Zapdos @ Power Plant",
+      "species": 145,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "legend",
+      "description": "Moltres @ Mt. Ember",
+      "species": 146,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "legend",
+      "description": "Moltres @ Mt. Ember",
+      "species": 146,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "legend",
+      "description": "Mewtwo @ Cerulean Cave",
+      "species": 150,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "legend",
+      "description": "Mewtwo @ Cerulean Cave",
+      "species": 150,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "event",
+      "description": "Mew @ Faraway Island",
+      "species": 151,
+      "form": 0,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "event",
+      "description": "Deoxys @ Birth Islands",
+      "species": 386,
+      "form": 3,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "event",
+      "description": "Deoxys @ Birth Islands",
+      "species": 386,
+      "form": 1,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "event",
+      "description": "Deoxys @ Birth Islands",
+      "species": 386,
+      "form": 2,
+      "level": 30,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "event",
+      "description": "Lugia @ Navel Rock",
+      "species": 249,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "event",
+      "description": "Lugia @ Navel Rock",
+      "species": 249,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "event",
+      "description": "Lugia @ Navel Rock",
+      "species": 249,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "event",
+      "description": "Ho-Oh @ Navel Rock",
+      "species": 250,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "event",
+      "description": "Ho-Oh @ Navel Rock",
+      "species": 250,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "leafGreen",
+      "type": "event",
+      "description": "Ho-Oh @ Navel Rock",
+      "species": 250,
+      "form": 0,
+      "level": 70,
+      "buggedRoamer": false
+    },
+    {
+      "game": "fireRed",
+      "type": "roamer",
+      "description": "Raikou",
+      "species": 243,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": true
+    },
+    {
+      "game": "leafGreen",
+      "type": "roamer",
+      "description": "Raikou",
+      "species": 243,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": true
+    },
+    {
+      "game": "fireRed",
+      "type": "roamer",
+      "description": "Entei",
+      "species": 244,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": true
+    },
+    {
+      "game": "leafGreen",
+      "type": "roamer",
+      "description": "Entei",
+      "species": 244,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": true
+    },
+    {
+      "game": "fireRed",
+      "type": "roamer",
+      "description": "Suicune",
+      "species": 245,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": true
+    },
+    {
+      "game": "leafGreen",
+      "type": "roamer",
+      "description": "Suicune",
+      "species": 245,
+      "form": 0,
+      "level": 50,
+      "buggedRoamer": true
+    },
+    {
+      "game": "emerald",
+      "type": "roamer",
+      "description": "Latias",
+      "species": 380,
+      "form": 0,
+      "level": 40,
+      "buggedRoamer": false
+    },
+    {
+      "game": "emerald",
+      "type": "roamer",
+      "description": "Latios",
+      "species": 381,
+      "form": 0,
+      "level": 40,
+      "buggedRoamer": false
+    }
+  ]
+}

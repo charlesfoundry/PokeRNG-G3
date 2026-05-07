@@ -1,0 +1,161 @@
+{
+  "@@locale": "en",
+  "appTitle": "PokeRNG G3",
+  "hunt": "Hunt",
+  "calibrate": "Calibrate",
+  "tools": "Tools",
+  "settings": "Settings",
+  "target": "Target",
+  "encounter": "Encounter",
+  "search": "Search",
+  "searching": "Searching...",
+  "cancelSearch": "Cancel search",
+  "attempt": "Attempt",
+  "pokemon": "Pokemon",
+  "pokemonSearchLimitHint": "Type a Pokemon number to browse from that number, or enter a name keyword. Up to 50 suggestions are shown.",
+  "shiny": "Shiny",
+  "nature": "Nature",
+  "minimumIv": "Minimum IV",
+  "seed": "Seed",
+  "initialAdvance": "Initial",
+  "maxAdvance": "Max",
+  "delay": "Delay",
+  "results": "Results",
+  "selectAResult": "Select a result",
+  "gameVersion": "Game version",
+  "defaultSeed": "Default seed",
+  "save": "Save",
+  "observedNature": "Observed nature",
+  "observedIvs": "Observed IVs",
+  "idSid": "ID/SID",
+  "ivsToPid": "IVs to PID",
+  "battleVideo": "Battle Video",
+  "painting": "Painting",
+  "locationEgg": "Location / Egg",
+  "egg": "Egg",
+  "eggUnsupported": "Egg (later)",
+  "method": "Method",
+  "wildMethod1": "Wild 1",
+  "wildMethod2": "Wild 2",
+  "wildMethod4": "Wild 4",
+  "staticMethod1": "Method 1",
+  "staticMethod2": "Method 2",
+  "staticMethod4": "Method 4",
+  "ability": "Ability",
+  "gender": "Gender",
+  "any": "Any",
+  "slot": "Slot",
+  "lead": "Lead",
+  "leadNone": "None",
+  "leadPressure": "Pressure",
+  "leadSynchronize": "Synchronize",
+  "leadStatic": "Static",
+  "leadMagnetPull": "Magnet Pull",
+  "leadCuteCharmFemale": "Cute Charm ♀",
+  "leadCuteCharmMale": "Cute Charm ♂",
+  "syncNature": "Sync nature",
+  "feebasTile": "Feebas tile",
+  "ivAnyNote": "-1 = Any IV",
+  "searchRangeNote": "Max - Initial <= {maxAdvanceDelta} advances · results <= {maxResults}",
+  "@searchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "resultLimitNote": "Showing first {maxResults} matches. Narrow filters or lower range to inspect later matches.",
+  "@resultLimitNote": {
+    "placeholders": {
+      "maxResults": {}
+    }
+  },
+  "selectPokemonEncounterLocationError": "Select a Pokemon, encounter method, and location.",
+  "huntInputError": "Check seed, advances, delay, and IV filter. Max - Initial must be <= {maxAdvanceDelta}.",
+  "@huntInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
+  "runHuntAndEnterObservedIvsError": "Run a hunt search and enter observed IVs.",
+  "noMatchingAdvanceError": "No matching advance in the current search range.",
+  "noResults": "No results. Loosen filters or increase Max Advance.",
+  "searchCancelled": "Search cancelled.",
+  "settingsInputError": "Check TID, SID, and seed.",
+  "targetAdvance": "Target {advance}",
+  "@targetAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "hitAdvance": "Hit {advance}",
+  "@hitAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "deltaValue": "Delta {delta}",
+  "@deltaValue": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
+  "delayValue": "Delay {delay}",
+  "@delayValue": {
+    "placeholders": {
+      "delay": {}
+    }
+  },
+  "encounterGrass": "Grass",
+  "encounterSurfing": "Surfing",
+  "encounterRockSmash": "Rock Smash",
+  "encounterOldRod": "Old Rod",
+  "encounterGoodRod": "Good Rod",
+  "encounterSuperRod": "Super Rod",
+  "staticStarter": "Starter",
+  "staticFossil": "Fossil",
+  "staticGift": "Gift",
+  "staticGameCorner": "Game Corner",
+  "staticStationary": "Stationary",
+  "staticLegend": "Legend",
+  "staticEvent": "Event",
+  "staticRoamer": "Roamer",
+  "abilitySlot": "Ability {slot} - {name}",
+  "@abilitySlot": {
+    "placeholders": {
+      "slot": {},
+      "name": {}
+    }
+  },
+  "statAttack": "Atk",
+  "statDefense": "Def",
+  "statSpeed": "Spe",
+  "statSpecialAttack": "SpA",
+  "statSpecialDefense": "SpD",
+  "natureNeutral": "Neutral",
+  "failedLoadTargetData": "Failed to load target data: {error}",
+  "@failedLoadTargetData": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "resultAdvance": "Adv",
+  "resultPress": "Press",
+  "levelShort": "Lv",
+  "hiddenPower": "HPower",
+  "typeFighting": "fighting",
+  "typeFlying": "flying",
+  "typePoison": "poison",
+  "typeGround": "ground",
+  "typeRock": "rock",
+  "typeBug": "bug",
+  "typeGhost": "ghost",
+  "typeSteel": "steel",
+  "typeFire": "fire",
+  "typeWater": "water",
+  "typeGrass": "grass",
+  "typeElectric": "electric",
+  "typePsychic": "psychic",
+  "typeIce": "ice",
+  "typeDragon": "dragon",
+  "typeDark": "dark"
+}

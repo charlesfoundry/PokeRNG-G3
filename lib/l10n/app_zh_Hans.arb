@@ -1,0 +1,161 @@
+{
+  "@@locale": "zh_Hans",
+  "appTitle": "PokeRNG G3",
+  "hunt": "狩猎",
+  "calibrate": "校准",
+  "tools": "工具",
+  "settings": "设置",
+  "target": "目标",
+  "encounter": "遇敌",
+  "search": "搜索",
+  "searching": "搜索中...",
+  "cancelSearch": "取消搜索",
+  "attempt": "尝试",
+  "pokemon": "宝可梦",
+  "pokemonSearchLimitHint": "请输入宝可梦编号从该编号开始浏览，或者输入名字关键字。最多显示 50 个候选。",
+  "shiny": "闪光",
+  "nature": "性格",
+  "minimumIv": "最低 IV",
+  "seed": "Seed",
+  "initialAdvance": "起始 Advance",
+  "maxAdvance": "最大 Advance",
+  "delay": "延迟",
+  "results": "结果",
+  "selectAResult": "选择一个结果",
+  "gameVersion": "游戏版本",
+  "defaultSeed": "默认 Seed",
+  "save": "保存",
+  "observedNature": "观测性格",
+  "observedIvs": "观测 IV",
+  "idSid": "ID/SID",
+  "ivsToPid": "IV 转 PID",
+  "battleVideo": "对战录像",
+  "painting": "画作",
+  "locationEgg": "地点 / 蛋",
+  "egg": "蛋",
+  "eggUnsupported": "蛋（之后支持）",
+  "method": "生成方式",
+  "wildMethod1": "野生 1",
+  "wildMethod2": "野生 2",
+  "wildMethod4": "野生 4",
+  "staticMethod1": "Method 1",
+  "staticMethod2": "Method 2",
+  "staticMethod4": "Method 4",
+  "ability": "特性",
+  "gender": "性别",
+  "any": "任意",
+  "slot": "Slot",
+  "lead": "队首特性",
+  "leadNone": "无",
+  "leadPressure": "压迫感",
+  "leadSynchronize": "同步",
+  "leadStatic": "静电",
+  "leadMagnetPull": "磁力",
+  "leadCuteCharmFemale": "迷人之躯 ♀",
+  "leadCuteCharmMale": "迷人之躯 ♂",
+  "syncNature": "同步性格",
+  "feebasTile": "丑丑鱼水格",
+  "ivAnyNote": "-1 = 任意 IV",
+  "searchRangeNote": "最大 - 起始 <= {maxAdvanceDelta} 帧 · 结果 <= {maxResults}",
+  "@searchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "resultLimitNote": "只显示前 {maxResults} 个结果。请缩小筛选条件或降低范围来查看后续结果。",
+  "@resultLimitNote": {
+    "placeholders": {
+      "maxResults": {}
+    }
+  },
+  "selectPokemonEncounterLocationError": "请选择宝可梦、遇敌方式和地点。",
+  "huntInputError": "请检查 Seed、帧范围、延迟和 IV 筛选。最大 - 起始必须 <= {maxAdvanceDelta}。",
+  "@huntInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
+  "runHuntAndEnterObservedIvsError": "请先运行狩猎搜索，并输入观测 IV。",
+  "noMatchingAdvanceError": "当前搜索范围内没有匹配的帧。",
+  "noResults": "未找到结果。请放宽条件或提高最大 Advance。",
+  "searchCancelled": "搜索已取消。",
+  "settingsInputError": "请检查 TID、SID 和 Seed。",
+  "targetAdvance": "目标 {advance}",
+  "@targetAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "hitAdvance": "命中 {advance}",
+  "@hitAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "deltaValue": "偏差 {delta}",
+  "@deltaValue": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
+  "delayValue": "延迟 {delay}",
+  "@delayValue": {
+    "placeholders": {
+      "delay": {}
+    }
+  },
+  "encounterGrass": "草丛",
+  "encounterSurfing": "冲浪",
+  "encounterRockSmash": "碎岩",
+  "encounterOldRod": "破旧钓竿",
+  "encounterGoodRod": "好钓竿",
+  "encounterSuperRod": "厉害钓竿",
+  "staticStarter": "初始宝可梦",
+  "staticFossil": "化石",
+  "staticGift": "礼物",
+  "staticGameCorner": "游戏厅",
+  "staticStationary": "固定",
+  "staticLegend": "传说",
+  "staticEvent": "事件",
+  "staticRoamer": "徘徊",
+  "abilitySlot": "特性{slot} - {name}",
+  "@abilitySlot": {
+    "placeholders": {
+      "slot": {},
+      "name": {}
+    }
+  },
+  "statAttack": "攻击",
+  "statDefense": "防御",
+  "statSpeed": "速度",
+  "statSpecialAttack": "特攻",
+  "statSpecialDefense": "特防",
+  "natureNeutral": "平衡",
+  "failedLoadTargetData": "目标数据加载失败：{error}",
+  "@failedLoadTargetData": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "resultAdvance": "Adv",
+  "resultPress": "按下",
+  "levelShort": "Lv",
+  "hiddenPower": "觉醒力量",
+  "typeFighting": "格斗",
+  "typeFlying": "飞行",
+  "typePoison": "毒",
+  "typeGround": "地面",
+  "typeRock": "岩石",
+  "typeBug": "虫",
+  "typeGhost": "幽灵",
+  "typeSteel": "钢",
+  "typeFire": "火",
+  "typeWater": "水",
+  "typeGrass": "草",
+  "typeElectric": "电",
+  "typePsychic": "超能力",
+  "typeIce": "冰",
+  "typeDragon": "龙",
+  "typeDark": "恶"
+}
