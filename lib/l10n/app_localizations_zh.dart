@@ -313,6 +313,78 @@ class AppLocalizationsZh extends AppLocalizations {
   String get hiddenPower => '觉醒力量';
 
   @override
+  String get sendToCalibration => '发送到校准';
+
+  @override
+  String get saveTarget => '保存目标';
+
+  @override
+  String get targetSaved => '目标已保存';
+
+  @override
+  String get savedTargets => '目标记录';
+
+  @override
+  String get noSavedTargets => '在结果页长按或右键某个野生结果，可以保存目标。';
+
+  @override
+  String get deleteTarget => '删除目标';
+
+  @override
+  String get calibrationTarget => '校准目标';
+
+  @override
+  String get noCalibrationTarget => '在结果页长按或右键某个野生结果，然后发送到校准。';
+
+  @override
+  String get currentTargetAdvance => '本次目标 Adv';
+
+  @override
+  String get actualAdvance => '实际 Adv';
+
+  @override
+  String get calibrationOutput => '输出';
+
+  @override
+  String get targetDelta => '总偏差值';
+
+  @override
+  String get calculateNextPress => '计算下一次目标 Adv';
+
+  @override
+  String get observedPokemon => '实际宝可梦';
+
+  @override
+  String get observedStats => '能力值';
+
+  @override
+  String get reverseHitAdvance => '反查实际帧';
+
+  @override
+  String get reverseResults => '反查结果';
+
+  @override
+  String get calibrationFrameInputError => '请检查此次目标 Adv 和实际 Adv。';
+
+  @override
+  String get runHuntAndEnterObservedStatsError => '请先从结果页发送目标，并输入实际能力值。';
+
+  @override
+  String actualAdvanceOutput(Object advance) {
+    return '实际 Adv $advance';
+  }
+
+  @override
+  String nextTargetAdvanceOutput(Object advance, Object delta) {
+    return '$advance · 偏差 $delta';
+  }
+
+  @override
+  String targetDeltaOutput(Object delta) {
+    return '偏差 $delta';
+  }
+
+  @override
   String get typeFighting => '格斗';
 
   @override
@@ -668,6 +740,78 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get hiddenPower => '觉醒力量';
+
+  @override
+  String get sendToCalibration => '发送到校准';
+
+  @override
+  String get saveTarget => '保存目标';
+
+  @override
+  String get targetSaved => '目标已保存';
+
+  @override
+  String get savedTargets => '目标记录';
+
+  @override
+  String get noSavedTargets => '在结果页长按或右键某个野生结果，可以保存目标。';
+
+  @override
+  String get deleteTarget => '删除目标';
+
+  @override
+  String get calibrationTarget => '校准目标';
+
+  @override
+  String get noCalibrationTarget => '在结果页长按或右键某个野生结果，然后发送到校准。';
+
+  @override
+  String get currentTargetAdvance => '本次目标 Adv';
+
+  @override
+  String get actualAdvance => '实际 Adv';
+
+  @override
+  String get calibrationOutput => '输出';
+
+  @override
+  String get targetDelta => '总偏差值';
+
+  @override
+  String get calculateNextPress => '计算下一次目标 Adv';
+
+  @override
+  String get observedPokemon => '实际宝可梦';
+
+  @override
+  String get observedStats => '能力值';
+
+  @override
+  String get reverseHitAdvance => '反查实际帧';
+
+  @override
+  String get reverseResults => '反查结果';
+
+  @override
+  String get calibrationFrameInputError => '请检查此次目标 Adv 和实际 Adv。';
+
+  @override
+  String get runHuntAndEnterObservedStatsError => '请先从结果页发送目标，并输入实际能力值。';
+
+  @override
+  String actualAdvanceOutput(Object advance) {
+    return '实际 Adv $advance';
+  }
+
+  @override
+  String nextTargetAdvanceOutput(Object advance, Object delta) {
+    return '$advance · 偏差 $delta';
+  }
+
+  @override
+  String targetDeltaOutput(Object delta) {
+    return '偏差 $delta';
+  }
 
   @override
   String get typeFighting => '格斗';

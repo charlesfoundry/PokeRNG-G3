@@ -142,6 +142,44 @@
   "resultPress": "押下",
   "levelShort": "Lv",
   "hiddenPower": "めざパ",
+  "sendToCalibration": "調整へ送る",
+  "saveTarget": "目標を保存",
+  "targetSaved": "目標を保存しました",
+  "savedTargets": "保存した目標",
+  "noSavedTargets": "野生結果を長押し、または右クリックして目標を保存できます。",
+  "deleteTarget": "目標を削除",
+  "calibrationTarget": "調整目標",
+  "noCalibrationTarget": "野生結果を長押し、または右クリックして調整へ送ってください。",
+  "currentTargetAdvance": "今回の目標 Adv",
+  "actualAdvance": "実際の Adv",
+  "calibrationOutput": "出力",
+  "targetDelta": "合計ずれ",
+  "calculateNextPress": "次の目標 Adv を計算",
+  "observedPokemon": "実際のポケモン",
+  "observedStats": "能力値",
+  "reverseHitAdvance": "実際のフレームを逆算",
+  "reverseResults": "逆算結果",
+  "calibrationFrameInputError": "今回の目標 Adv と実際の Adv を確認してください。",
+  "runHuntAndEnterObservedStatsError": "結果から目標を送り、実際の能力値を入力してください。",
+  "actualAdvanceOutput": "実際 Adv {advance}",
+  "@actualAdvanceOutput": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "nextTargetAdvanceOutput": "{advance} · ずれ {delta}",
+  "@nextTargetAdvanceOutput": {
+    "placeholders": {
+      "advance": {},
+      "delta": {}
+    }
+  },
+  "targetDeltaOutput": "ずれ {delta}",
+  "@targetDeltaOutput": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
   "typeFighting": "かくとう",
   "typeFlying": "ひこう",
   "typePoison": "どく",

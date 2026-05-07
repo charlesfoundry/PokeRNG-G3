@@ -142,6 +142,44 @@
   "resultPress": "Press",
   "levelShort": "Lv",
   "hiddenPower": "HPower",
+  "sendToCalibration": "Send to calibration",
+  "saveTarget": "Save target",
+  "targetSaved": "Target saved",
+  "savedTargets": "Saved targets",
+  "noSavedTargets": "Long-press or right-click a wild result to save a target.",
+  "deleteTarget": "Delete target",
+  "calibrationTarget": "Calibration target",
+  "noCalibrationTarget": "Long-press or right-click a wild result, then send it to calibration.",
+  "currentTargetAdvance": "Current target Adv",
+  "actualAdvance": "Actual Adv",
+  "calibrationOutput": "Output",
+  "targetDelta": "Total deviation",
+  "calculateNextPress": "Calculate next target Adv",
+  "observedPokemon": "Observed Pokemon",
+  "observedStats": "Stats",
+  "reverseHitAdvance": "Reverse hit frame",
+  "reverseResults": "Reverse results",
+  "calibrationFrameInputError": "Check target Adv and actual Adv.",
+  "runHuntAndEnterObservedStatsError": "Send a target from results and enter observed stats.",
+  "actualAdvanceOutput": "Actual Adv {advance}",
+  "@actualAdvanceOutput": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "nextTargetAdvanceOutput": "{advance} · Delta {delta}",
+  "@nextTargetAdvanceOutput": {
+    "placeholders": {
+      "advance": {},
+      "delta": {}
+    }
+  },
+  "targetDeltaOutput": "Delta {delta}",
+  "@targetDeltaOutput": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
   "typeFighting": "fighting",
   "typeFlying": "flying",
   "typePoison": "poison",

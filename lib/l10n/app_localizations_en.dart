@@ -316,6 +316,81 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hiddenPower => 'HPower';
 
   @override
+  String get sendToCalibration => 'Send to calibration';
+
+  @override
+  String get saveTarget => 'Save target';
+
+  @override
+  String get targetSaved => 'Target saved';
+
+  @override
+  String get savedTargets => 'Saved targets';
+
+  @override
+  String get noSavedTargets =>
+      'Long-press or right-click a wild result to save a target.';
+
+  @override
+  String get deleteTarget => 'Delete target';
+
+  @override
+  String get calibrationTarget => 'Calibration target';
+
+  @override
+  String get noCalibrationTarget =>
+      'Long-press or right-click a wild result, then send it to calibration.';
+
+  @override
+  String get currentTargetAdvance => 'Current target Adv';
+
+  @override
+  String get actualAdvance => 'Actual Adv';
+
+  @override
+  String get calibrationOutput => 'Output';
+
+  @override
+  String get targetDelta => 'Total deviation';
+
+  @override
+  String get calculateNextPress => 'Calculate next target Adv';
+
+  @override
+  String get observedPokemon => 'Observed Pokemon';
+
+  @override
+  String get observedStats => 'Stats';
+
+  @override
+  String get reverseHitAdvance => 'Reverse hit frame';
+
+  @override
+  String get reverseResults => 'Reverse results';
+
+  @override
+  String get calibrationFrameInputError => 'Check target Adv and actual Adv.';
+
+  @override
+  String get runHuntAndEnterObservedStatsError =>
+      'Send a target from results and enter observed stats.';
+
+  @override
+  String actualAdvanceOutput(Object advance) {
+    return 'Actual Adv $advance';
+  }
+
+  @override
+  String nextTargetAdvanceOutput(Object advance, Object delta) {
+    return '$advance · Delta $delta';
+  }
+
+  @override
+  String targetDeltaOutput(Object delta) {
+    return 'Delta $delta';
+  }
+
+  @override
   String get typeFighting => 'fighting';
 
   @override

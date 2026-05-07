@@ -1,6 +1,7 @@
 import 'dart:isolate';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'app/profile.dart';
 import 'core/gen3/gen3.dart';
@@ -326,6 +327,8 @@ class _AppShellState extends State<AppShell> {
   final _huntKey = GlobalKey<_HuntPageState>();
   int _selectedIndex = 0;
   _HuntSearchSnapshot? _huntSearch;
+  _CalibrationTarget? _calibrationTarget;
+  final List<_SavedCalibrationTarget> _savedTargets = [];
   _HuntResultsSnapshot _huntResults = const _HuntResultsSnapshot();
 
   @override
@@ -333,6 +336,7 @@ class _AppShellState extends State<AppShell> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.profile.game != widget.profile.game) {
       _huntSearch = null;
+      _calibrationTarget = null;
       _huntResults = const _HuntResultsSnapshot();
     }
   }
@@ -358,9 +362,49 @@ class _AppShellState extends State<AppShell> {
       _ResultsPage(
         snapshot: _huntResults,
         onCancelSearch: () => _huntKey.currentState?._cancelSearch(),
+        onSendToCalibration: (target) {
+          setState(() {
+            _huntSearch = target.search;
+            _calibrationTarget = target;
+            _selectedIndex = 2;
+          });
+        },
+        onSaveTarget: (target) {
+          setState(() {
+            _savedTargets.insert(
+              0,
+              _SavedCalibrationTarget(
+                id: DateTime.now().microsecondsSinceEpoch,
+                target: target,
+                savedAt: DateTime.now(),
+              ),
+            );
+          });
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(l10n.targetSaved)));
+        },
       ),
-      _CalibratePage(profile: widget.profile, search: _huntSearch),
-      const ToolsPage(),
+      _CalibratePage(
+        profile: widget.profile,
+        search: _huntSearch,
+        target: _calibrationTarget,
+      ),
+      _ToolsPage(
+        savedTargets: _savedTargets,
+        onUseTarget: (saved) {
+          setState(() {
+            _huntSearch = saved.target.search;
+            _calibrationTarget = saved.target;
+            _selectedIndex = 2;
+          });
+        },
+        onDeleteTarget: (saved) {
+          setState(() {
+            _savedTargets.removeWhere((target) => target.id == saved.id);
+          });
+        },
+      ),
       SettingsPage(
         profile: widget.profile,
         onProfileChanged: widget.onProfileChanged,
@@ -1856,6 +1900,8 @@ class _HuntResults extends StatelessWidget {
     required this.searching,
     required this.searchProgress,
     required this.onCancelSearch,
+    required this.onSendToCalibration,
+    required this.onSaveTarget,
   });
 
   final String? error;
@@ -1867,6 +1913,8 @@ class _HuntResults extends StatelessWidget {
   final bool searching;
   final double? searchProgress;
   final VoidCallback onCancelSearch;
+  final ValueChanged<_CalibrationTarget> onSendToCalibration;
+  final ValueChanged<_CalibrationTarget> onSaveTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -1945,10 +1993,31 @@ class _HuntResults extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final result = results[index];
                     return switch (result) {
-                      _WildHuntResult(:final state) => _WildResultTile(
-                        state: state,
-                        triggerAdvance: state.advance - delay,
-                        natureName: names.natureName(state.nature),
+                      _WildHuntResult(:final state) => _ResultContextMenu(
+                        enabled: search != null,
+                        onSendToCalibration: search == null
+                            ? null
+                            : () => onSendToCalibration(
+                                _CalibrationTarget(
+                                  search: search!,
+                                  state: state,
+                                  names: names,
+                                ),
+                              ),
+                        onSaveTarget: search == null
+                            ? null
+                            : () => onSaveTarget(
+                                _CalibrationTarget(
+                                  search: search!,
+                                  state: state,
+                                  names: names,
+                                ),
+                              ),
+                        child: _WildResultTile(
+                          state: state,
+                          triggerAdvance: state.advance - delay,
+                          natureName: names.natureName(state.nature),
+                        ),
                       ),
                       _StaticHuntResult(:final hit) => _StaticResultTile(
                         hit: hit,
@@ -1965,10 +2034,17 @@ class _HuntResults extends StatelessWidget {
 }
 
 class _ResultsPage extends StatelessWidget {
-  const _ResultsPage({required this.snapshot, required this.onCancelSearch});
+  const _ResultsPage({
+    required this.snapshot,
+    required this.onCancelSearch,
+    required this.onSendToCalibration,
+    required this.onSaveTarget,
+  });
 
   final _HuntResultsSnapshot snapshot;
   final VoidCallback onCancelSearch;
+  final ValueChanged<_CalibrationTarget> onSendToCalibration;
+  final ValueChanged<_CalibrationTarget> onSaveTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -1986,6 +2062,8 @@ class _ResultsPage extends StatelessWidget {
       searching: snapshot.searching,
       searchProgress: snapshot.searchProgress,
       onCancelSearch: onCancelSearch,
+      onSendToCalibration: onSendToCalibration,
+      onSaveTarget: onSaveTarget,
     );
   }
 }
@@ -2206,6 +2284,74 @@ class _HoverSurfaceState extends State<_HoverSurface> {
         ),
         child: widget.child,
       ),
+    );
+  }
+}
+
+class _ResultContextMenu extends StatelessWidget {
+  const _ResultContextMenu({
+    required this.enabled,
+    required this.onSendToCalibration,
+    required this.onSaveTarget,
+    required this.child,
+  });
+
+  final bool enabled;
+  final VoidCallback? onSendToCalibration;
+  final VoidCallback? onSaveTarget;
+  final Widget child;
+
+  Future<void> _show(BuildContext context, Offset position) async {
+    if (!enabled || (onSendToCalibration == null && onSaveTarget == null)) {
+      return;
+    }
+    final overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+    final l10n = AppLocalizations.of(context)!;
+    final selected = await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromRect(
+        Rect.fromLTWH(position.dx, position.dy, 1, 1),
+        Offset.zero & overlay.size,
+      ),
+      items: [
+        PopupMenuItem<String>(
+          value: 'calibrate',
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.gps_fixed, size: 18),
+              const SizedBox(width: 8),
+              Text(l10n.sendToCalibration),
+            ],
+          ),
+        ),
+        PopupMenuItem<String>(
+          value: 'save',
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.bookmark_add, size: 18),
+              const SizedBox(width: 8),
+              Text(l10n.saveTarget),
+            ],
+          ),
+        ),
+      ],
+    );
+    if (selected == 'calibrate') {
+      onSendToCalibration?.call();
+    } else if (selected == 'save') {
+      onSaveTarget?.call();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onSecondaryTapDown: (details) => _show(context, details.globalPosition),
+      onLongPressStart: (details) => _show(context, details.globalPosition),
+      child: child,
     );
   }
 }
@@ -2474,39 +2620,119 @@ class _HiddenPowerIvsRow extends StatelessWidget {
 }
 
 class _CalibratePage extends StatefulWidget {
-  const _CalibratePage({required this.profile, required this.search});
+  const _CalibratePage({
+    required this.profile,
+    required this.search,
+    required this.target,
+  });
 
   final AppProfile profile;
   final _HuntSearchSnapshot? search;
+  final _CalibrationTarget? target;
 
   @override
   State<_CalibratePage> createState() => _CalibratePageState();
 }
 
 class _CalibratePageState extends State<_CalibratePage> {
-  final _ivsController = TextEditingController();
-  Nature? _nature;
-  WildCalibrationResult? _result;
+  final _targetAdvanceController = TextEditingController();
+  final _actualAdvanceController = TextEditingController();
+  final _outputController = TextEditingController();
+  final _targetDeltaController = TextEditingController();
+  final _statControllers = List<TextEditingController>.generate(
+    6,
+    (_) => TextEditingController(),
+  );
+  int? _observedSpeciesId;
+  Nature? _observedNature;
+  int? _observedAbilitySlot;
+  PokemonGender? _observedGender;
+  List<WildCalibrationHit> _hits = const [];
   String? _error;
 
   @override
+  void initState() {
+    super.initState();
+    _syncTarget(widget.target);
+  }
+
+  @override
+  void didUpdateWidget(covariant _CalibratePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.target != widget.target) {
+      _syncTarget(widget.target);
+    }
+  }
+
+  @override
   void dispose() {
-    _ivsController.dispose();
+    _targetAdvanceController.dispose();
+    _actualAdvanceController.dispose();
+    _outputController.dispose();
+    _targetDeltaController.dispose();
+    for (final controller in _statControllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
-  void _calibrate() {
-    final search = widget.search;
-    final observedIvs = _parseIvs(_ivsController.text);
+  void _syncTarget(_CalibrationTarget? target) {
+    if (target == null) {
+      return;
+    }
+    _targetAdvanceController.text =
+        '${target.state.advance - target.search.delay}';
+    _actualAdvanceController.clear();
+    _outputController.clear();
+    _targetDeltaController.clear();
+    _observedSpeciesId = target.state.species;
+    _observedNature = null;
+    _observedAbilitySlot = null;
+    _observedGender = null;
+    _hits = const [];
+    _error = null;
+  }
 
-    if (search == null || observedIvs == null) {
+  void _calculateNextPress() {
+    final currentPress = int.tryParse(_targetAdvanceController.text.trim());
+    final actualAdvance = int.tryParse(_actualAdvanceController.text.trim());
+    if (currentPress == null || actualAdvance == null) {
       setState(() {
-        _error = AppLocalizations.of(context)!.runHuntAndEnterObservedIvsError;
-        _result = null;
+        _error = AppLocalizations.of(context)!.calibrationFrameInputError;
       });
       return;
     }
 
+    final referenceAdvance = widget.target?.state.advance ?? currentPress;
+    final delta = actualAdvance - referenceAdvance;
+    final nextPress = currentPress - delta;
+    final l10n = AppLocalizations.of(context)!;
+    setState(() {
+      _error = null;
+      _targetAdvanceController.text = '$nextPress';
+      _actualAdvanceController.clear();
+      _outputController.text = l10n.nextTargetAdvanceOutput(nextPress, delta);
+      _targetDeltaController.text = l10n.targetDeltaOutput(
+        nextPress - referenceAdvance,
+      );
+    });
+  }
+
+  void _reverseHit() {
+    final search = widget.target?.search ?? widget.search;
+    final observedStats = _parseStats();
+
+    if (search == null || observedStats == null) {
+      setState(() {
+        _error = AppLocalizations.of(
+          context,
+        )!.runHuntAndEnterObservedStatsError;
+        _hits = const [];
+      });
+      return;
+    }
+
+    final observedSpeciesId = _observedSpeciesId ?? search.speciesId;
     final request = WildCalibrationRequest(
       seed: search.seed,
       initialAdvance: search.initialAdvance,
@@ -2516,12 +2742,11 @@ class _CalibratePageState extends State<_CalibratePage> {
       area: search.area,
       tid: widget.profile.tid,
       sid: widget.profile.sid,
-      speciesId: search.speciesId,
-      observedIvs: observedIvs,
-      observedNature: _nature,
-      abilitySlot: search.abilitySlot,
-      gender: search.gender,
-      encounterSlot: search.encounterSlot,
+      speciesId: observedSpeciesId,
+      observedStats: observedStats,
+      observedNature: _observedNature,
+      abilitySlot: _observedAbilitySlot,
+      gender: _observedGender,
       synchronizeNature: search.synchronizeNature,
       pressureLead: search.pressureLead,
       staticLead: search.staticLead,
@@ -2530,119 +2755,326 @@ class _CalibratePageState extends State<_CalibratePage> {
       feebasTile: search.feebasTile,
       personalData: search.personalData,
     );
-    final result = request.calibrate();
+    final hits = request.findMatches(limit: 50);
 
-    if (result == null) {
+    if (hits.isEmpty) {
       setState(() {
         _error = AppLocalizations.of(context)!.noMatchingAdvanceError;
-        _result = null;
+        _hits = const [];
       });
       return;
     }
 
     setState(() {
       _error = null;
-      _result = result;
+      _hits = hits;
     });
   }
 
-  Ivs? _parseIvs(String value) {
-    final parts = value
-        .split(RegExp(r'[/,\s]+'))
-        .where((part) => part.isNotEmpty)
-        .map(int.tryParse)
+  PokemonStats? _parseStats() {
+    final values = _statControllers
+        .map((controller) => int.tryParse(controller.text.trim()))
         .toList();
-
-    if (parts.length != 6 || parts.any((part) => part == null)) {
+    if (values.any((value) => value == null || value < 1)) {
       return null;
     }
-
-    final values = parts.cast<int>();
-    if (values.any((iv) => iv < 0 || iv > 31)) {
-      return null;
-    }
-
-    return Ivs(
-      hp: values[0],
-      attack: values[1],
-      defense: values[2],
-      specialAttack: values[3],
-      specialDefense: values[4],
-      speed: values[5],
+    final stats = values.cast<int>();
+    return PokemonStats(
+      hp: stats[0],
+      attack: stats[1],
+      defense: stats[2],
+      specialAttack: stats[3],
+      specialDefense: stats[4],
+      speed: stats[5],
     );
+  }
+
+  List<DropdownMenuItem<int?>> _abilityItems(
+    BuildContext context,
+    Gen3PersonalInfo? personal,
+    Gen3NamedResources? names,
+  ) {
+    final l10n = AppLocalizations.of(context)!;
+    return [
+      DropdownMenuItem<int?>(value: null, child: Text(l10n.any)),
+      if (personal != null)
+        ...List<DropdownMenuItem<int?>>.generate(2, (slot) {
+          final id = personal.abilityIds[slot];
+          return DropdownMenuItem<int?>(
+            value: slot,
+            child: Text(
+              _abilitySlotLabel(
+                context: context,
+                slot: slot,
+                name: names?.abilityName(id) ?? 'Ability $id',
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          );
+        }),
+    ];
+  }
+
+  List<DropdownMenuItem<int>> _speciesItems(
+    _HuntSearchSnapshot? search,
+    Gen3NamedResources? names,
+  ) {
+    if (search == null) {
+      return const [];
+    }
+    final speciesIds = <int>[];
+    for (final slot in search.area.slots) {
+      if (!speciesIds.contains(slot.species)) {
+        speciesIds.add(slot.species);
+      }
+    }
+    if (!speciesIds.contains(search.speciesId)) {
+      speciesIds.insert(0, search.speciesId);
+    }
+    return speciesIds
+        .map(
+          (speciesId) => DropdownMenuItem<int>(
+            value: speciesId,
+            child: Text(
+              '#$speciesId ${names?.speciesName(speciesId) ?? speciesId}',
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        )
+        .toList(growable: false);
+  }
+
+  List<Widget> _statFields(AppLocalizations l10n) {
+    final labels = [
+      'HP',
+      l10n.statAttack,
+      l10n.statDefense,
+      l10n.statSpecialAttack,
+      l10n.statSpecialDefense,
+      l10n.statSpeed,
+    ];
+    return List<Widget>.generate(labels.length, (index) {
+      return SizedBox(
+        width: 108,
+        child: TextField(
+          controller: _statControllers[index],
+          decoration: InputDecoration(
+            labelText: labels[index],
+            border: _controlBorder,
+          ),
+          keyboardType: TextInputType.number,
+        ),
+      );
+    }, growable: false);
+  }
+
+  void _selectHit(WildCalibrationHit hit) {
+    _actualAdvanceController.text = '${hit.state.advance}';
+    _outputController.text = AppLocalizations.of(
+      context,
+    )!.actualAdvanceOutput(hit.state.advance);
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final result = _result;
+    final target = widget.target;
+    final search = target?.search ?? widget.search;
+    final observedSpeciesId = _observedSpeciesId ?? search?.speciesId;
+    final personal = observedSpeciesId == null
+        ? null
+        : search?.personalData[observedSpeciesId];
+    final names = target?.names;
+    final theme = Theme.of(context);
+
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text(l10n.calibrate, style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: 16),
-        DropdownButtonFormField<Nature?>(
-          initialValue: _nature,
-          decoration: InputDecoration(
-            labelText: l10n.observedNature,
-            prefixIcon: const Icon(Icons.psychology),
-            border: _controlBorder,
-          ),
-          items: [
-            DropdownMenuItem<Nature?>(value: null, child: Text(l10n.any)),
-            ...Nature.values.map(
-              (value) => DropdownMenuItem<Nature?>(
-                value: value,
-                child: Text(value.name),
+        Text(l10n.calibrate, style: theme.textTheme.titleLarge),
+        const SizedBox(height: 12),
+        _CalibrationTargetCard(target: target),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _targetAdvanceController,
+                decoration: InputDecoration(
+                  labelText: l10n.currentTargetAdvance,
+                  border: _controlBorder,
+                ),
+                keyboardType: TextInputType.number,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: TextField(
+                controller: _actualAdvanceController,
+                decoration: InputDecoration(
+                  labelText: l10n.actualAdvance,
+                  border: _controlBorder,
+                ),
+                keyboardType: TextInputType.number,
               ),
             ),
           ],
-          onChanged: (value) => setState(() => _nature = value),
         ),
         const SizedBox(height: 12),
         TextField(
-          controller: _ivsController,
+          controller: _outputController,
+          readOnly: true,
           decoration: InputDecoration(
-            labelText: l10n.observedIvs,
-            prefixIcon: const Icon(Icons.stacked_bar_chart),
+            labelText: l10n.calibrationOutput,
             border: _controlBorder,
           ),
-          textInputAction: TextInputAction.done,
-          onSubmitted: (_) => _calibrate(),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
+        TextField(
+          controller: _targetDeltaController,
+          readOnly: true,
+          decoration: InputDecoration(
+            labelText: l10n.targetDelta,
+            border: _controlBorder,
+          ),
+        ),
+        const SizedBox(height: 8),
         SizedBox(
           width: double.infinity,
           child: FilledButton.icon(
-            onPressed: _calibrate,
-            icon: const Icon(Icons.tune),
-            label: Text(l10n.calibrate),
+            onPressed: _calculateNextPress,
+            icon: const Icon(Icons.calculate),
+            label: Text(l10n.calculateNextPress),
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(l10n.observedPokemon, style: theme.textTheme.titleMedium),
+        const SizedBox(height: 12),
+        DropdownButtonFormField<int>(
+          key: ValueKey('calibration-species-$observedSpeciesId'),
+          isExpanded: true,
+          initialValue: observedSpeciesId,
+          decoration: InputDecoration(
+            labelText: l10n.pokemon,
+            border: _controlBorder,
+          ),
+          items: _speciesItems(search, names),
+          onChanged: search == null
+              ? null
+              : (value) {
+                  setState(() {
+                    _observedSpeciesId = value;
+                    _observedAbilitySlot = null;
+                    _observedGender = null;
+                    _hits = const [];
+                    _error = null;
+                  });
+                },
+        ),
+        const SizedBox(height: 8),
+        DropdownButtonFormField<int?>(
+          key: ValueKey(
+            'calibration-ability-$observedSpeciesId-$_observedAbilitySlot',
+          ),
+          isExpanded: true,
+          initialValue: _observedAbilitySlot,
+          decoration: InputDecoration(
+            labelText: l10n.ability,
+            border: _controlBorder,
+          ),
+          items: _abilityItems(context, personal, names),
+          onChanged: personal == null
+              ? null
+              : (value) => setState(() => _observedAbilitySlot = value),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(
+              child: DropdownButtonFormField<Nature?>(
+                isExpanded: true,
+                initialValue: _observedNature,
+                decoration: InputDecoration(
+                  labelText: l10n.nature,
+                  border: _controlBorder,
+                ),
+                items: [
+                  DropdownMenuItem<Nature?>(value: null, child: Text(l10n.any)),
+                  ...Nature.values.map(
+                    (nature) => DropdownMenuItem<Nature?>(
+                      value: nature,
+                      child: Text(
+                        names?.natureName(nature) ?? nature.name,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+                onChanged: (value) => setState(() => _observedNature = value),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: DropdownButtonFormField<PokemonGender?>(
+                key: ValueKey(
+                  'calibration-gender-$observedSpeciesId-$_observedGender',
+                ),
+                isExpanded: true,
+                initialValue: _observedGender,
+                decoration: InputDecoration(
+                  labelText: l10n.gender,
+                  border: _controlBorder,
+                ),
+                items: [
+                  DropdownMenuItem<PokemonGender?>(
+                    value: null,
+                    child: Text(l10n.any),
+                  ),
+                  ..._legalGenders(personal).map(
+                    (gender) => DropdownMenuItem<PokemonGender?>(
+                      value: gender,
+                      child: Text(_genderLabel(gender)),
+                    ),
+                  ),
+                ],
+                onChanged: personal == null
+                    ? null
+                    : (value) => setState(() => _observedGender = value),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Text(l10n.observedStats, style: theme.textTheme.labelLarge),
+        const SizedBox(height: 8),
+        Wrap(spacing: 8, runSpacing: 8, children: _statFields(l10n)),
+        const SizedBox(height: 12),
+        SizedBox(
+          width: double.infinity,
+          child: FilledButton.icon(
+            onPressed: _reverseHit,
+            icon: const Icon(Icons.manage_search),
+            label: Text(l10n.reverseHitAdvance),
           ),
         ),
         if (_error != null) ...[
-          const SizedBox(height: 16),
-          Text(
-            _error!,
-            style: TextStyle(color: Theme.of(context).colorScheme.error),
-          ),
+          const SizedBox(height: 12),
+          Text(_error!, style: TextStyle(color: theme.colorScheme.error)),
         ],
-        if (result != null) ...[
-          const SizedBox(height: 20),
-          _InfoRow(
-            icon: Icons.flag,
-            label: l10n.targetAdvance(result.targetAdvance),
-          ),
-          _InfoRow(
-            icon: Icons.gps_fixed,
-            label: l10n.hitAdvance(result.hitAdvance),
-          ),
-          _InfoRow(
-            icon: Icons.compare_arrows,
-            label: l10n.deltaValue(result.delta),
-          ),
-          _InfoRow(
-            icon: Icons.timer,
-            label: l10n.delayValue(result.suggestedDelay),
+        if (_hits.isNotEmpty) ...[
+          const SizedBox(height: 16),
+          Text(l10n.reverseResults, style: theme.textTheme.titleSmall),
+          const SizedBox(height: 8),
+          ..._hits.map(
+            (hit) => _CalibrationHitTile(
+              hit: hit,
+              triggerAdvance: hit.state.advance - (search?.delay ?? 0),
+              speciesName:
+                  names?.speciesName(hit.state.species) ??
+                  '#${hit.state.species}',
+              natureName:
+                  names?.natureName(hit.state.nature) ?? hit.state.nature.name,
+              onTap: () => _selectHit(hit),
+            ),
           ),
         ],
       ],
@@ -2650,8 +3082,115 @@ class _CalibratePageState extends State<_CalibratePage> {
   }
 }
 
-class ToolsPage extends StatelessWidget {
-  const ToolsPage({super.key});
+class _CalibrationTargetCard extends StatelessWidget {
+  const _CalibrationTargetCard({required this.target});
+
+  final _CalibrationTarget? target;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final target = this.target;
+    if (target == null) {
+      return _HoverSurface(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Text(l10n.noCalibrationTarget),
+        ),
+      );
+    }
+
+    final state = target.state;
+    final species = target.names.speciesName(state.species);
+    return _HoverSurface(
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          spacing: 8,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              l10n.calibrationTarget,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            Row(
+              children: [
+                Expanded(child: Text('#${state.species} $species')),
+                Text('${l10n.resultAdvance} ${state.advance}'),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '${l10n.levelShort} ${state.level} · '
+                    '${_genderLabel(state.gender)} · '
+                    '${target.names.natureName(state.nature)}',
+                  ),
+                ),
+                Text('PID ${state.pid}'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CalibrationHitTile extends StatelessWidget {
+  const _CalibrationHitTile({
+    required this.hit,
+    required this.triggerAdvance,
+    required this.speciesName,
+    required this.natureName,
+    required this.onTap,
+  });
+
+  final WildCalibrationHit hit;
+  final int triggerAdvance;
+  final String speciesName;
+  final String natureName;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final state = hit.state;
+    final stats = hit.stats;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: _HoverSurface(
+        child: ListTile(
+          dense: true,
+          onTap: onTap,
+          title: Text(
+            '#${state.species} $speciesName · '
+            '${l10n.resultAdvance} ${state.advance} · '
+            '${l10n.resultPress} $triggerAdvance · '
+            '${l10n.levelShort} ${state.level}',
+          ),
+          subtitle: Text(
+            '$natureName · ${_genderLabel(state.gender)} · '
+            '${stats ?? state.ivs}',
+          ),
+          trailing: const Icon(Icons.chevron_right),
+        ),
+      ),
+    );
+  }
+}
+
+class _ToolsPage extends StatelessWidget {
+  const _ToolsPage({
+    required this.savedTargets,
+    required this.onUseTarget,
+    required this.onDeleteTarget,
+  });
+
+  final List<_SavedCalibrationTarget> savedTargets;
+  final ValueChanged<_SavedCalibrationTarget> onUseTarget;
+  final ValueChanged<_SavedCalibrationTarget> onDeleteTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -2659,11 +3198,85 @@ class ToolsPage extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                l10n.savedTargets,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            Text('${savedTargets.length}'),
+          ],
+        ),
+        const SizedBox(height: 12),
+        if (savedTargets.isEmpty)
+          _HoverSurface(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Text(l10n.noSavedTargets),
+            ),
+          )
+        else
+          ...savedTargets.map(
+            (saved) => Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: _SavedTargetTile(
+                saved: saved,
+                onUse: () => onUseTarget(saved),
+                onDelete: () => onDeleteTarget(saved),
+              ),
+            ),
+          ),
+        const SizedBox(height: 20),
+        Text(l10n.tools, style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 8),
         _ToolTile(icon: Icons.badge, title: l10n.idSid),
         _ToolTile(icon: Icons.science, title: l10n.ivsToPid),
         _ToolTile(icon: Icons.video_collection, title: l10n.battleVideo),
         _ToolTile(icon: Icons.image_search, title: l10n.painting),
       ],
+    );
+  }
+}
+
+class _SavedTargetTile extends StatelessWidget {
+  const _SavedTargetTile({
+    required this.saved,
+    required this.onUse,
+    required this.onDelete,
+  });
+
+  final _SavedCalibrationTarget saved;
+  final VoidCallback onUse;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final target = saved.target;
+    final state = target.state;
+    final hiddenPower = state.ivs.hiddenPower;
+    return _HoverSurface(
+      child: ListTile(
+        dense: true,
+        onTap: onUse,
+        title: Text(
+          '#${state.species} ${target.names.speciesName(state.species)} · '
+          '${l10n.resultAdvance} ${state.advance}',
+        ),
+        subtitle: Text(
+          '${l10n.levelShort} ${state.level} · '
+          '${_genderLabel(state.gender)} · '
+          '${target.names.natureName(state.nature)} · '
+          '${_hiddenPowerTypeLabel(context, hiddenPower.type)} ${hiddenPower.power}',
+        ),
+        trailing: IconButton(
+          tooltip: l10n.deleteTarget,
+          onPressed: onDelete,
+          icon: const Icon(Icons.delete_outline),
+        ),
+      ),
     );
   }
 }
@@ -2782,6 +3395,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   border: _controlBorder,
                 ),
                 keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
             ),
             const SizedBox(width: 12),
@@ -2794,6 +3409,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   border: _controlBorder,
                 ),
                 keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
             ),
           ],
@@ -2806,6 +3423,7 @@ class _SettingsPageState extends State<SettingsPage> {
             prefixIcon: const Icon(Icons.tag),
             border: _controlBorder,
           ),
+          textInputAction: TextInputAction.done,
         ),
         const SizedBox(height: 16),
         SizedBox(
@@ -2919,6 +3537,30 @@ class _HuntSearchSnapshot {
   final WildEncounterArea area;
   final WildMethod method;
   final Gen3PersonalData personalData;
+}
+
+class _CalibrationTarget {
+  const _CalibrationTarget({
+    required this.search,
+    required this.state,
+    required this.names,
+  });
+
+  final _HuntSearchSnapshot search;
+  final WildState state;
+  final Gen3NamedResources names;
+}
+
+class _SavedCalibrationTarget {
+  const _SavedCalibrationTarget({
+    required this.id,
+    required this.target,
+    required this.savedAt,
+  });
+
+  final int id;
+  final _CalibrationTarget target;
+  final DateTime savedAt;
 }
 
 sealed class _HuntResult {

@@ -142,6 +142,44 @@
   "resultPress": "按下",
   "levelShort": "Lv",
   "hiddenPower": "觉醒力量",
+  "sendToCalibration": "发送到校准",
+  "saveTarget": "保存目标",
+  "targetSaved": "目标已保存",
+  "savedTargets": "目标记录",
+  "noSavedTargets": "在结果页长按或右键某个野生结果，可以保存目标。",
+  "deleteTarget": "删除目标",
+  "calibrationTarget": "校准目标",
+  "noCalibrationTarget": "在结果页长按或右键某个野生结果，然后发送到校准。",
+  "currentTargetAdvance": "本次目标 Adv",
+  "actualAdvance": "实际 Adv",
+  "calibrationOutput": "输出",
+  "targetDelta": "总偏差值",
+  "calculateNextPress": "计算下一次目标 Adv",
+  "observedPokemon": "实际宝可梦",
+  "observedStats": "能力值",
+  "reverseHitAdvance": "反查实际帧",
+  "reverseResults": "反查结果",
+  "calibrationFrameInputError": "请检查此次目标 Adv 和实际 Adv。",
+  "runHuntAndEnterObservedStatsError": "请先从结果页发送目标，并输入实际能力值。",
+  "actualAdvanceOutput": "实际 Adv {advance}",
+  "@actualAdvanceOutput": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "nextTargetAdvanceOutput": "{advance} · 偏差 {delta}",
+  "@nextTargetAdvanceOutput": {
+    "placeholders": {
+      "advance": {},
+      "delta": {}
+    }
+  },
+  "targetDeltaOutput": "偏差 {delta}",
+  "@targetDeltaOutput": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
   "typeFighting": "格斗",
   "typeFlying": "飞行",
   "typePoison": "毒",

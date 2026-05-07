@@ -313,6 +313,78 @@ class AppLocalizationsJa extends AppLocalizations {
   String get hiddenPower => 'めざパ';
 
   @override
+  String get sendToCalibration => '調整へ送る';
+
+  @override
+  String get saveTarget => '目標を保存';
+
+  @override
+  String get targetSaved => '目標を保存しました';
+
+  @override
+  String get savedTargets => '保存した目標';
+
+  @override
+  String get noSavedTargets => '野生結果を長押し、または右クリックして目標を保存できます。';
+
+  @override
+  String get deleteTarget => '目標を削除';
+
+  @override
+  String get calibrationTarget => '調整目標';
+
+  @override
+  String get noCalibrationTarget => '野生結果を長押し、または右クリックして調整へ送ってください。';
+
+  @override
+  String get currentTargetAdvance => '今回の目標 Adv';
+
+  @override
+  String get actualAdvance => '実際の Adv';
+
+  @override
+  String get calibrationOutput => '出力';
+
+  @override
+  String get targetDelta => '合計ずれ';
+
+  @override
+  String get calculateNextPress => '次の目標 Adv を計算';
+
+  @override
+  String get observedPokemon => '実際のポケモン';
+
+  @override
+  String get observedStats => '能力値';
+
+  @override
+  String get reverseHitAdvance => '実際のフレームを逆算';
+
+  @override
+  String get reverseResults => '逆算結果';
+
+  @override
+  String get calibrationFrameInputError => '今回の目標 Adv と実際の Adv を確認してください。';
+
+  @override
+  String get runHuntAndEnterObservedStatsError => '結果から目標を送り、実際の能力値を入力してください。';
+
+  @override
+  String actualAdvanceOutput(Object advance) {
+    return '実際 Adv $advance';
+  }
+
+  @override
+  String nextTargetAdvanceOutput(Object advance, Object delta) {
+    return '$advance · ずれ $delta';
+  }
+
+  @override
+  String targetDeltaOutput(Object delta) {
+    return 'ずれ $delta';
+  }
+
+  @override
   String get typeFighting => 'かくとう';
 
   @override

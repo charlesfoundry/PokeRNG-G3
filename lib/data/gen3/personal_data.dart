@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
+import '../../core/gen3/pokemon_attributes.dart';
+
 class Gen3PersonalData {
   const Gen3PersonalData._(this._species);
 
@@ -30,6 +32,7 @@ class Gen3PersonalData {
 
 class Gen3PersonalInfo {
   const Gen3PersonalInfo({
+    required this.baseStats,
     required this.typeIds,
     required this.abilityIds,
     required this.genderRatio,
@@ -37,12 +40,14 @@ class Gen3PersonalInfo {
 
   factory Gen3PersonalInfo.fromJson(Map<String, dynamic> json) {
     return Gen3PersonalInfo(
+      baseStats: PokemonStats.fromJson(json['baseStats'] as List<dynamic>),
       typeIds: (json['typeIds'] as List<dynamic>).cast<int>(),
       abilityIds: (json['abilityIds'] as List<dynamic>).cast<int>(),
       genderRatio: json['genderRatio'] as int,
     );
   }
 
+  final PokemonStats baseStats;
   final List<int> typeIds;
   final List<int> abilityIds;
   final int genderRatio;

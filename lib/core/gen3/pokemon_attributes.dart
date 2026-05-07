@@ -47,6 +47,49 @@ enum HiddenPowerType {
 
 enum PokemonGender { male, female, genderless }
 
+class PokemonStats {
+  const PokemonStats({
+    required this.hp,
+    required this.attack,
+    required this.defense,
+    required this.specialAttack,
+    required this.specialDefense,
+    required this.speed,
+  });
+
+  factory PokemonStats.fromJson(List<dynamic> json) {
+    return PokemonStats(
+      hp: json[0] as int,
+      attack: json[1] as int,
+      defense: json[2] as int,
+      specialAttack: json[3] as int,
+      specialDefense: json[4] as int,
+      speed: json[5] as int,
+    );
+  }
+
+  final int hp;
+  final int attack;
+  final int defense;
+  final int specialAttack;
+  final int specialDefense;
+  final int speed;
+
+  List<int> get ordered => [
+    hp,
+    attack,
+    defense,
+    specialAttack,
+    specialDefense,
+    speed,
+  ];
+
+  @override
+  String toString() {
+    return '$hp/$attack/$defense/$specialAttack/$specialDefense/$speed';
+  }
+}
+
 class Ivs {
   const Ivs({
     required this.hp,

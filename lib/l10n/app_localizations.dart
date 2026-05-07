@@ -671,6 +671,138 @@ abstract class AppLocalizations {
   /// **'HPower'**
   String get hiddenPower;
 
+  /// No description provided for @sendToCalibration.
+  ///
+  /// In en, this message translates to:
+  /// **'Send to calibration'**
+  String get sendToCalibration;
+
+  /// No description provided for @saveTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Save target'**
+  String get saveTarget;
+
+  /// No description provided for @targetSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Target saved'**
+  String get targetSaved;
+
+  /// No description provided for @savedTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved targets'**
+  String get savedTargets;
+
+  /// No description provided for @noSavedTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'Long-press or right-click a wild result to save a target.'**
+  String get noSavedTargets;
+
+  /// No description provided for @deleteTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete target'**
+  String get deleteTarget;
+
+  /// No description provided for @calibrationTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Calibration target'**
+  String get calibrationTarget;
+
+  /// No description provided for @noCalibrationTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Long-press or right-click a wild result, then send it to calibration.'**
+  String get noCalibrationTarget;
+
+  /// No description provided for @currentTargetAdvance.
+  ///
+  /// In en, this message translates to:
+  /// **'Current target Adv'**
+  String get currentTargetAdvance;
+
+  /// No description provided for @actualAdvance.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual Adv'**
+  String get actualAdvance;
+
+  /// No description provided for @calibrationOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'Output'**
+  String get calibrationOutput;
+
+  /// No description provided for @targetDelta.
+  ///
+  /// In en, this message translates to:
+  /// **'Total deviation'**
+  String get targetDelta;
+
+  /// No description provided for @calculateNextPress.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculate next target Adv'**
+  String get calculateNextPress;
+
+  /// No description provided for @observedPokemon.
+  ///
+  /// In en, this message translates to:
+  /// **'Observed Pokemon'**
+  String get observedPokemon;
+
+  /// No description provided for @observedStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Stats'**
+  String get observedStats;
+
+  /// No description provided for @reverseHitAdvance.
+  ///
+  /// In en, this message translates to:
+  /// **'Reverse hit frame'**
+  String get reverseHitAdvance;
+
+  /// No description provided for @reverseResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Reverse results'**
+  String get reverseResults;
+
+  /// No description provided for @calibrationFrameInputError.
+  ///
+  /// In en, this message translates to:
+  /// **'Check target Adv and actual Adv.'**
+  String get calibrationFrameInputError;
+
+  /// No description provided for @runHuntAndEnterObservedStatsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a target from results and enter observed stats.'**
+  String get runHuntAndEnterObservedStatsError;
+
+  /// No description provided for @actualAdvanceOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual Adv {advance}'**
+  String actualAdvanceOutput(Object advance);
+
+  /// No description provided for @nextTargetAdvanceOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'{advance} · Delta {delta}'**
+  String nextTargetAdvanceOutput(Object advance, Object delta);
+
+  /// No description provided for @targetDeltaOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'Delta {delta}'**
+  String targetDeltaOutput(Object delta);
+
   /// No description provided for @typeFighting.
   ///
   /// In en, this message translates to:
