@@ -100,6 +100,53 @@ class AppLocalizationsJa extends AppLocalizations {
   String get breedingUnavailable => 'タマゴ乱数は未実装です。';
 
   @override
+  String get eggHeldStage => 'タマゴ生成';
+
+  @override
+  String get eggPickupStage => '受け取り';
+
+  @override
+  String get parentA => '親 1';
+
+  @override
+  String get parentB => '親 2';
+
+  @override
+  String get parentGender => '親の性別';
+
+  @override
+  String get parentItem => '持ち物';
+
+  @override
+  String get none => 'なし';
+
+  @override
+  String get everstone => 'かわらずのいし';
+
+  @override
+  String get ditto => 'メタモン';
+
+  @override
+  String get compatibility => '相性';
+
+  @override
+  String get calibration => 'キャリブレーション';
+
+  @override
+  String get minRedraws => '最小 Redraw';
+
+  @override
+  String get maxRedraws => '最大 Redraw';
+
+  @override
+  String get redraws => 'Redraw';
+
+  @override
+  String eggInputError(Object maxAdvanceDelta) {
+    return 'ポケモン、Seed、2段階のAdvance範囲、キャリブレーション、Redraw、親のIVを確認してください。各段階の最大 - 開始は $maxAdvanceDelta 以下です。';
+  }
+
+  @override
   String get method => '生成方式';
 
   @override

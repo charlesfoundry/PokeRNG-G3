@@ -18,8 +18,8 @@
   "nature": "性格",
   "minimumIv": "最低 IV",
   "seed": "Seed",
-  "initialAdvance": "起始 Advance",
-  "maxAdvance": "最大 Advance",
+  "initialAdvance": "起始帧",
+  "maxAdvance": "最大帧",
   "delay": "延迟",
   "results": "结果",
   "selectAResult": "选择一个结果",
@@ -30,6 +30,26 @@
   "observedIvs": "观测 IV",
   "locationEgg": "地点",
   "breedingUnavailable": "孵蛋乱数暂未实现。",
+  "eggHeldStage": "蛋生成帧",
+  "eggPickupStage": "蛋领取帧",
+  "parentA": "父母 1",
+  "parentB": "父母 2",
+  "parentGender": "父母性别",
+  "parentItem": "携带道具",
+  "none": "无",
+  "everstone": "不变之石",
+  "ditto": "百变怪",
+  "compatibility": "相性",
+  "calibration": "校准",
+  "minRedraws": "最小查看图鉴",
+  "maxRedraws": "最大查看图鉴",
+  "redraws": "查看图鉴",
+  "eggInputError": "请检查宝可梦、Seed、两段帧范围、校准、查看图鉴次数和父母 IV。每段最大 - 起始必须 <= {maxAdvanceDelta}。",
+  "@eggInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
   "method": "生成方式",
   "wildMethod1": "野生 1",
   "wildMethod2": "野生 2",
@@ -74,16 +94,16 @@
   },
   "runHuntAndEnterObservedIvsError": "请先运行狩猎搜索，并输入观测 IV。",
   "noMatchingAdvanceError": "当前搜索范围内没有匹配的帧。",
-  "noResults": "未找到结果。请放宽条件或提高最大 Advance。",
+  "noResults": "未找到结果。请放宽条件或提高最大帧。",
   "searchCancelled": "搜索已取消。",
   "settingsInputError": "请检查 TID、SID 和 Seed。",
-  "targetAdvance": "目标 {advance}",
+  "targetAdvance": "目标帧 {advance}",
   "@targetAdvance": {
     "placeholders": {
       "advance": {}
     }
   },
-  "hitAdvance": "命中 {advance}",
+  "hitAdvance": "命中帧 {advance}",
   "@hitAdvance": {
     "placeholders": {
       "advance": {}
@@ -134,7 +154,7 @@
       "error": {}
     }
   },
-  "resultAdvance": "Adv",
+  "resultAdvance": "帧",
   "resultPress": "按下",
   "levelShort": "Lv",
   "hiddenPower": "觉醒力量",
@@ -153,18 +173,18 @@
   "deleteTarget": "删除目标",
   "calibrationTarget": "校准目标",
   "noCalibrationTarget": "在结果页长按或右键某个野生结果，然后发送到校准。",
-  "currentTargetAdvance": "本次目标 Adv",
-  "actualAdvance": "实际 Adv",
+  "currentTargetAdvance": "本次目标帧",
+  "actualAdvance": "实际帧",
   "calibrationOutput": "输出",
   "targetDelta": "总偏差值",
-  "calculateNextPress": "计算下一次目标 Adv",
+  "calculateNextPress": "计算下一次目标帧",
   "observedPokemon": "实际宝可梦",
   "observedStats": "能力值",
   "reverseHitAdvance": "反查实际帧",
   "reverseResults": "反查结果",
-  "calibrationFrameInputError": "请检查此次目标 Adv 和实际 Adv。",
+  "calibrationFrameInputError": "请检查此次目标帧和实际帧。",
   "runHuntAndEnterObservedStatsError": "请先从结果页发送目标，并输入实际能力值。",
-  "actualAdvanceOutput": "实际 Adv {advance}",
+  "actualAdvanceOutput": "实际帧 {advance}",
   "@actualAdvanceOutput": {
     "placeholders": {
       "advance": {}

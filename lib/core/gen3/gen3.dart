@@ -1,3 +1,5 @@
+export 'egg_generator.dart';
+export 'egg_search.dart';
 export 'poke_rng.dart';
 export 'pokemon_attributes.dart';
 export 'static_generator.dart';

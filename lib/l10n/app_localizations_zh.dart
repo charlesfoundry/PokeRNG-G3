@@ -64,10 +64,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get seed => 'Seed';
 
   @override
-  String get initialAdvance => '起始 Advance';
+  String get initialAdvance => '起始帧';
 
   @override
-  String get maxAdvance => '最大 Advance';
+  String get maxAdvance => '最大帧';
 
   @override
   String get delay => '延迟';
@@ -98,6 +98,53 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get breedingUnavailable => '孵蛋乱数暂未实现。';
+
+  @override
+  String get eggHeldStage => '蛋生成帧';
+
+  @override
+  String get eggPickupStage => '蛋领取帧';
+
+  @override
+  String get parentA => '父母 1';
+
+  @override
+  String get parentB => '父母 2';
+
+  @override
+  String get parentGender => '父母性别';
+
+  @override
+  String get parentItem => '携带道具';
+
+  @override
+  String get none => '无';
+
+  @override
+  String get everstone => '不变之石';
+
+  @override
+  String get ditto => '百变怪';
+
+  @override
+  String get compatibility => '相性';
+
+  @override
+  String get calibration => '校准';
+
+  @override
+  String get minRedraws => '最小查看图鉴';
+
+  @override
+  String get maxRedraws => '最大查看图鉴';
+
+  @override
+  String get redraws => '查看图鉴';
+
+  @override
+  String eggInputError(Object maxAdvanceDelta) {
+    return '请检查宝可梦、Seed、两段帧范围、校准、查看图鉴次数和父母 IV。每段最大 - 起始必须 <= $maxAdvanceDelta。';
+  }
 
   @override
   String get method => '生成方式';
@@ -190,7 +237,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noMatchingAdvanceError => '当前搜索范围内没有匹配的帧。';
 
   @override
-  String get noResults => '未找到结果。请放宽条件或提高最大 Advance。';
+  String get noResults => '未找到结果。请放宽条件或提高最大帧。';
 
   @override
   String get searchCancelled => '搜索已取消。';
@@ -200,12 +247,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String targetAdvance(Object advance) {
-    return '目标 $advance';
+    return '目标帧 $advance';
   }
 
   @override
   String hitAdvance(Object advance) {
-    return '命中 $advance';
+    return '命中帧 $advance';
   }
 
   @override
@@ -289,7 +336,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get resultAdvance => 'Adv';
+  String get resultAdvance => '帧';
 
   @override
   String get resultPress => '按下';
@@ -346,10 +393,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noCalibrationTarget => '在结果页长按或右键某个野生结果，然后发送到校准。';
 
   @override
-  String get currentTargetAdvance => '本次目标 Adv';
+  String get currentTargetAdvance => '本次目标帧';
 
   @override
-  String get actualAdvance => '实际 Adv';
+  String get actualAdvance => '实际帧';
 
   @override
   String get calibrationOutput => '输出';
@@ -358,7 +405,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get targetDelta => '总偏差值';
 
   @override
-  String get calculateNextPress => '计算下一次目标 Adv';
+  String get calculateNextPress => '计算下一次目标帧';
 
   @override
   String get observedPokemon => '实际宝可梦';
@@ -373,14 +420,14 @@ class AppLocalizationsZh extends AppLocalizations {
   String get reverseResults => '反查结果';
 
   @override
-  String get calibrationFrameInputError => '请检查此次目标 Adv 和实际 Adv。';
+  String get calibrationFrameInputError => '请检查此次目标帧和实际帧。';
 
   @override
   String get runHuntAndEnterObservedStatsError => '请先从结果页发送目标，并输入实际能力值。';
 
   @override
   String actualAdvanceOutput(Object advance) {
-    return '实际 Adv $advance';
+    return '实际帧 $advance';
   }
 
   @override
@@ -502,10 +549,10 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get seed => 'Seed';
 
   @override
-  String get initialAdvance => '起始 Advance';
+  String get initialAdvance => '起始帧';
 
   @override
-  String get maxAdvance => '最大 Advance';
+  String get maxAdvance => '最大帧';
 
   @override
   String get delay => '延迟';
@@ -536,6 +583,53 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get breedingUnavailable => '孵蛋乱数暂未实现。';
+
+  @override
+  String get eggHeldStage => '蛋生成帧';
+
+  @override
+  String get eggPickupStage => '蛋领取帧';
+
+  @override
+  String get parentA => '父母 1';
+
+  @override
+  String get parentB => '父母 2';
+
+  @override
+  String get parentGender => '父母性别';
+
+  @override
+  String get parentItem => '携带道具';
+
+  @override
+  String get none => '无';
+
+  @override
+  String get everstone => '不变之石';
+
+  @override
+  String get ditto => '百变怪';
+
+  @override
+  String get compatibility => '相性';
+
+  @override
+  String get calibration => '校准';
+
+  @override
+  String get minRedraws => '最小查看图鉴';
+
+  @override
+  String get maxRedraws => '最大查看图鉴';
+
+  @override
+  String get redraws => '查看图鉴';
+
+  @override
+  String eggInputError(Object maxAdvanceDelta) {
+    return '请检查宝可梦、Seed、两段帧范围、校准、查看图鉴次数和父母 IV。每段最大 - 起始必须 <= $maxAdvanceDelta。';
+  }
 
   @override
   String get method => '生成方式';
@@ -628,7 +722,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get noMatchingAdvanceError => '当前搜索范围内没有匹配的帧。';
 
   @override
-  String get noResults => '未找到结果。请放宽条件或提高最大 Advance。';
+  String get noResults => '未找到结果。请放宽条件或提高最大帧。';
 
   @override
   String get searchCancelled => '搜索已取消。';
@@ -638,12 +732,12 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String targetAdvance(Object advance) {
-    return '目标 $advance';
+    return '目标帧 $advance';
   }
 
   @override
   String hitAdvance(Object advance) {
-    return '命中 $advance';
+    return '命中帧 $advance';
   }
 
   @override
@@ -727,7 +821,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   }
 
   @override
-  String get resultAdvance => 'Adv';
+  String get resultAdvance => '帧';
 
   @override
   String get resultPress => '按下';
@@ -784,10 +878,10 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get noCalibrationTarget => '在结果页长按或右键某个野生结果，然后发送到校准。';
 
   @override
-  String get currentTargetAdvance => '本次目标 Adv';
+  String get currentTargetAdvance => '本次目标帧';
 
   @override
-  String get actualAdvance => '实际 Adv';
+  String get actualAdvance => '实际帧';
 
   @override
   String get calibrationOutput => '输出';
@@ -796,7 +890,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get targetDelta => '总偏差值';
 
   @override
-  String get calculateNextPress => '计算下一次目标 Adv';
+  String get calculateNextPress => '计算下一次目标帧';
 
   @override
   String get observedPokemon => '实际宝可梦';
@@ -811,14 +905,14 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get reverseResults => '反查结果';
 
   @override
-  String get calibrationFrameInputError => '请检查此次目标 Adv 和实际 Adv。';
+  String get calibrationFrameInputError => '请检查此次目标帧和实际帧。';
 
   @override
   String get runHuntAndEnterObservedStatsError => '请先从结果页发送目标，并输入实际能力值。';
 
   @override
   String actualAdvanceOutput(Object advance) {
-    return '实际 Adv $advance';
+    return '实际帧 $advance';
   }
 
   @override

@@ -30,6 +30,26 @@
   "observedIvs": "Observed IVs",
   "locationEgg": "Location",
   "breedingUnavailable": "Egg RNG is not implemented yet.",
+  "eggHeldStage": "Held egg",
+  "eggPickupStage": "Pickup",
+  "parentA": "Parent 1",
+  "parentB": "Parent 2",
+  "parentGender": "Parent gender",
+  "parentItem": "Held item",
+  "none": "None",
+  "everstone": "Everstone",
+  "ditto": "Ditto",
+  "compatibility": "Compatibility",
+  "calibration": "Calibration",
+  "minRedraws": "Min redraws",
+  "maxRedraws": "Max redraws",
+  "redraws": "Redraws",
+  "eggInputError": "Check Pokemon, seed, both advance ranges, calibration, redraws, and parent IVs. Max - Initial must be <= {maxAdvanceDelta} for each stage.",
+  "@eggInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
   "method": "Method",
   "wildMethod1": "Wild 1",
   "wildMethod2": "Wild 2",

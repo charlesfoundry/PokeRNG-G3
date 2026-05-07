@@ -281,6 +281,96 @@ abstract class AppLocalizations {
   /// **'Egg RNG is not implemented yet.'**
   String get breedingUnavailable;
 
+  /// No description provided for @eggHeldStage.
+  ///
+  /// In en, this message translates to:
+  /// **'Held egg'**
+  String get eggHeldStage;
+
+  /// No description provided for @eggPickupStage.
+  ///
+  /// In en, this message translates to:
+  /// **'Pickup'**
+  String get eggPickupStage;
+
+  /// No description provided for @parentA.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent 1'**
+  String get parentA;
+
+  /// No description provided for @parentB.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent 2'**
+  String get parentB;
+
+  /// No description provided for @parentGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent gender'**
+  String get parentGender;
+
+  /// No description provided for @parentItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Held item'**
+  String get parentItem;
+
+  /// No description provided for @none.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get none;
+
+  /// No description provided for @everstone.
+  ///
+  /// In en, this message translates to:
+  /// **'Everstone'**
+  String get everstone;
+
+  /// No description provided for @ditto.
+  ///
+  /// In en, this message translates to:
+  /// **'Ditto'**
+  String get ditto;
+
+  /// No description provided for @compatibility.
+  ///
+  /// In en, this message translates to:
+  /// **'Compatibility'**
+  String get compatibility;
+
+  /// No description provided for @calibration.
+  ///
+  /// In en, this message translates to:
+  /// **'Calibration'**
+  String get calibration;
+
+  /// No description provided for @minRedraws.
+  ///
+  /// In en, this message translates to:
+  /// **'Min redraws'**
+  String get minRedraws;
+
+  /// No description provided for @maxRedraws.
+  ///
+  /// In en, this message translates to:
+  /// **'Max redraws'**
+  String get maxRedraws;
+
+  /// No description provided for @redraws.
+  ///
+  /// In en, this message translates to:
+  /// **'Redraws'**
+  String get redraws;
+
+  /// No description provided for @eggInputError.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Pokemon, seed, both advance ranges, calibration, redraws, and parent IVs. Max - Initial must be <= {maxAdvanceDelta} for each stage.'**
+  String eggInputError(Object maxAdvanceDelta);
+
   /// No description provided for @method.
   ///
   /// In en, this message translates to:

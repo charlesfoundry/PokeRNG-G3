@@ -100,6 +100,53 @@ class AppLocalizationsEn extends AppLocalizations {
   String get breedingUnavailable => 'Egg RNG is not implemented yet.';
 
   @override
+  String get eggHeldStage => 'Held egg';
+
+  @override
+  String get eggPickupStage => 'Pickup';
+
+  @override
+  String get parentA => 'Parent 1';
+
+  @override
+  String get parentB => 'Parent 2';
+
+  @override
+  String get parentGender => 'Parent gender';
+
+  @override
+  String get parentItem => 'Held item';
+
+  @override
+  String get none => 'None';
+
+  @override
+  String get everstone => 'Everstone';
+
+  @override
+  String get ditto => 'Ditto';
+
+  @override
+  String get compatibility => 'Compatibility';
+
+  @override
+  String get calibration => 'Calibration';
+
+  @override
+  String get minRedraws => 'Min redraws';
+
+  @override
+  String get maxRedraws => 'Max redraws';
+
+  @override
+  String get redraws => 'Redraws';
+
+  @override
+  String eggInputError(Object maxAdvanceDelta) {
+    return 'Check Pokemon, seed, both advance ranges, calibration, redraws, and parent IVs. Max - Initial must be <= $maxAdvanceDelta for each stage.';
+  }
+
+  @override
   String get method => 'Method';
 
   @override

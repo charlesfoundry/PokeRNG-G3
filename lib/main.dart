@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
 
@@ -514,7 +515,7 @@ class _AppShellState extends State<_AppShell> {
         search: _huntSearch,
         target: _calibrationTarget,
       ),
-      const _BreedingPage(),
+      _BreedingPage(profile: widget.profile, storage: widget.storage),
       _ToolsPage(
         savedTargets: _savedTargets,
         onUseTarget: (saved) {
@@ -3598,32 +3599,1004 @@ class _CalibrationHitTile extends StatelessWidget {
   }
 }
 
-class _BreedingPage extends StatelessWidget {
-  const _BreedingPage();
+class _BreedingPage extends StatefulWidget {
+  const _BreedingPage({required this.profile, required this.storage});
+
+  final AppProfile profile;
+  final _AppStorage storage;
+
+  @override
+  State<_BreedingPage> createState() => _BreedingPageState();
+}
+
+class _BreedingPageState extends State<_BreedingPage> {
+  final _pokemonController = TextEditingController();
+  final _pokemonFocusNode = FocusNode();
+  final _heldSeedController = TextEditingController(text: '00000000');
+  final _pickupSeedController = TextEditingController(text: '00000000');
+  final _heldInitialController = TextEditingController(text: '1000');
+  final _heldMaxController = TextEditingController(text: '5000');
+  final _heldOffsetController = TextEditingController(text: '0');
+  final _pickupInitialController = TextEditingController(text: '1000');
+  final _pickupMaxController = TextEditingController(text: '5000');
+  final _pickupOffsetController = TextEditingController(text: '0');
+  final _calibrationController = TextEditingController(text: '18');
+  final _minRedrawController = TextEditingController(text: '0');
+  final _maxRedrawController = TextEditingController(text: '5');
+  final _ivControllers = List<TextEditingController>.generate(
+    6,
+    (_) => TextEditingController(text: '-1'),
+  );
+  final _parentIvControllers = List<List<TextEditingController>>.generate(
+    2,
+    (_) => List<TextEditingController>.generate(
+      6,
+      (_) => TextEditingController(text: '31'),
+    ),
+  );
+  final _ivComparisons = List<IvComparison>.filled(
+    6,
+    IvComparison.greaterOrEqual,
+  );
+
+  int? _speciesId;
+  EggMethod3 _method = EggMethod3.emeraldBred;
+  int _compatibility = 70;
+  bool _shinyOnly = false;
+  Nature? _nature;
+  HiddenPowerType? _hiddenPowerType;
+  int? _abilitySlot;
+  PokemonGender? _gender;
+  final _parentGenders = <DaycareParentGender>[
+    DaycareParentGender.male,
+    DaycareParentGender.female,
+  ];
+  final _parentNatures = <Nature>[Nature.hardy, Nature.hardy];
+  final _parentItems = <int>[0, 0];
+  EggSearchResult? _result;
+  String? _error;
+  bool _searching = false;
+  bool _settingsLoaded = false;
+  bool _suppressSettingsSave = false;
+  Timer? _settingsSaveTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _method = _defaultEggMethod(widget.profile.game);
+    _addSettingsListeners();
+    _loadEggSettings(widget.profile.game);
+  }
+
+  @override
+  void didUpdateWidget(covariant _BreedingPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.profile.game != widget.profile.game) {
+      final methods = _eggMethodsForGame(widget.profile.game);
+      _settingsLoaded = false;
+      _applyEggSettings(_EggSettingsRecord.defaultsFor(widget.profile.game));
+      _result = null;
+      _error = null;
+      if (!methods.contains(_method)) {
+        _method = methods.first;
+      }
+      _loadEggSettings(widget.profile.game);
+    }
+  }
+
+  @override
+  void dispose() {
+    _saveEggSettingsNow();
+    _settingsSaveTimer?.cancel();
+    _pokemonController.dispose();
+    _pokemonFocusNode.dispose();
+    _heldSeedController.dispose();
+    _pickupSeedController.dispose();
+    _heldInitialController.dispose();
+    _heldMaxController.dispose();
+    _heldOffsetController.dispose();
+    _pickupInitialController.dispose();
+    _pickupMaxController.dispose();
+    _pickupOffsetController.dispose();
+    _calibrationController.dispose();
+    _minRedrawController.dispose();
+    _maxRedrawController.dispose();
+    for (final controller in _ivControllers) {
+      controller.dispose();
+    }
+    for (final parent in _parentIvControllers) {
+      for (final controller in parent) {
+        controller.dispose();
+      }
+    }
+    super.dispose();
+  }
+
+  void _addSettingsListeners() {
+    final controllers = <TextEditingController>[
+      _pokemonController,
+      _heldSeedController,
+      _pickupSeedController,
+      _heldInitialController,
+      _heldMaxController,
+      _heldOffsetController,
+      _pickupInitialController,
+      _pickupMaxController,
+      _pickupOffsetController,
+      _calibrationController,
+      _minRedrawController,
+      _maxRedrawController,
+      ..._ivControllers,
+      for (final parent in _parentIvControllers) ...parent,
+    ];
+    for (final controller in controllers) {
+      controller.addListener(_scheduleSaveEggSettings);
+    }
+  }
+
+  Future<void> _loadEggSettings(GameVersion game) async {
+    final settings = await widget.storage.loadEggSettings(game);
+    if (!mounted || widget.profile.game != game) {
+      return;
+    }
+    setState(() {
+      _applyEggSettings(settings);
+      _settingsLoaded = true;
+    });
+  }
+
+  void _applyEggSettings(_EggSettingsRecord settings) {
+    _suppressSettingsSave = true;
+    _speciesId = settings.speciesId;
+    _pokemonController.clear();
+    final methods = _eggMethodsForGame(widget.profile.game);
+    _method = methods.contains(settings.method)
+        ? settings.method
+        : methods.first;
+    _compatibility = settings.compatibility;
+    _shinyOnly = settings.shinyOnly;
+    _nature = settings.nature;
+    _hiddenPowerType = settings.hiddenPowerType;
+    _abilitySlot = settings.abilitySlot;
+    _gender = settings.gender;
+    _heldSeedController.text = settings.heldSeed;
+    _pickupSeedController.text = settings.pickupSeed;
+    _heldInitialController.text = settings.heldInitial;
+    _heldMaxController.text = settings.heldMax;
+    _heldOffsetController.text = settings.heldOffset;
+    _pickupInitialController.text = settings.pickupInitial;
+    _pickupMaxController.text = settings.pickupMax;
+    _pickupOffsetController.text = settings.pickupOffset;
+    _calibrationController.text = settings.calibration;
+    _minRedrawController.text = settings.minRedraws;
+    _maxRedrawController.text = settings.maxRedraws;
+    for (var i = 0; i < 6; i += 1) {
+      _ivControllers[i].text = '${settings.ivRules[i].value}';
+      _ivComparisons[i] = settings.ivRules[i].comparison;
+    }
+    for (var parent = 0; parent < 2; parent += 1) {
+      _parentGenders[parent] = settings.parentGenders[parent];
+      _parentNatures[parent] = settings.parentNatures[parent];
+      _parentItems[parent] = settings.parentItems[parent];
+      final ivs = settings.parentIvs[parent].ordered;
+      for (var stat = 0; stat < 6; stat += 1) {
+        _parentIvControllers[parent][stat].text = '${ivs[stat]}';
+      }
+    }
+    _suppressSettingsSave = false;
+  }
+
+  void _scheduleSaveEggSettings() {
+    if (!_settingsLoaded || _suppressSettingsSave) {
+      return;
+    }
+    _settingsSaveTimer?.cancel();
+    _settingsSaveTimer = Timer(
+      const Duration(milliseconds: 350),
+      _saveEggSettingsNow,
+    );
+  }
+
+  void _saveEggSettingsNow() {
+    if (!_settingsLoaded || _suppressSettingsSave) {
+      return;
+    }
+    unawaited(
+      widget.storage.saveEggSettings(
+        widget.profile.game,
+        _EggSettingsRecord.fromPage(this),
+      ),
+    );
+  }
+
+  void _updateEggSettings(VoidCallback update) {
+    setState(update);
+    _scheduleSaveEggSettings();
+  }
+
+  Future<void> _search(_HuntData data) async {
+    final request = _buildRequest(data);
+    if (request == null) {
+      return;
+    }
+    setState(() {
+      _searching = true;
+      _error = null;
+      _result = null;
+    });
+    try {
+      final result = await Isolate.run(request.search);
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _result = result;
+        _searching = false;
+      });
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _error = error.toString();
+        _searching = false;
+      });
+    }
+  }
+
+  EggSearchRequest? _buildRequest(_HuntData data) {
+    final heldSeed = _parseHexInput(_heldSeedController.text);
+    final pickupSeed = _parseHexInput(_pickupSeedController.text);
+    final heldInitial = int.tryParse(_heldInitialController.text.trim());
+    final heldMax = int.tryParse(_heldMaxController.text.trim());
+    final heldOffset = int.tryParse(_heldOffsetController.text.trim());
+    final pickupInitial = int.tryParse(_pickupInitialController.text.trim());
+    final pickupMax = int.tryParse(_pickupMaxController.text.trim());
+    final pickupOffset = int.tryParse(_pickupOffsetController.text.trim());
+    final calibration = int.tryParse(_calibrationController.text.trim());
+    final minRedraw = int.tryParse(_minRedrawController.text.trim());
+    final maxRedraw = int.tryParse(_maxRedrawController.text.trim());
+    final ivFilter = _parseEggIvFilter();
+    final parentIvs = _parseParentIvs();
+    const maxEggAdvanceDelta = 10000;
+
+    if (_speciesId == null ||
+        heldSeed == null ||
+        pickupSeed == null ||
+        heldInitial == null ||
+        heldMax == null ||
+        heldOffset == null ||
+        pickupInitial == null ||
+        pickupMax == null ||
+        pickupOffset == null ||
+        calibration == null ||
+        minRedraw == null ||
+        maxRedraw == null ||
+        ivFilter == null ||
+        parentIvs == null ||
+        heldInitial < 0 ||
+        pickupInitial < 0 ||
+        heldMax < heldInitial ||
+        pickupMax < pickupInitial ||
+        heldMax - heldInitial > maxEggAdvanceDelta ||
+        pickupMax - pickupInitial > maxEggAdvanceDelta ||
+        minRedraw < 0 ||
+        maxRedraw < minRedraw) {
+      setState(() {
+        _error = AppLocalizations.of(
+          context,
+        )!.eggInputError(maxEggAdvanceDelta);
+      });
+      return null;
+    }
+
+    return EggSearchRequest(
+      initialAdvances: heldInitial,
+      maxAdvances: heldMax - heldInitial,
+      offset: heldOffset,
+      initialPickupAdvances: pickupInitial,
+      maxPickupAdvances: pickupMax - pickupInitial,
+      pickupOffset: pickupOffset,
+      calibration: calibration,
+      minRedraws: minRedraw,
+      maxRedraws: maxRedraw,
+      method: _method,
+      compatibility: _compatibility,
+      daycare: Daycare3(
+        parentA: _parent(0, parentIvs[0]),
+        parentB: _parent(1, parentIvs[1]),
+        eggSpecies: _speciesId!,
+      ),
+      personalData: data.personal,
+      tid: widget.profile.tid,
+      sid: widget.profile.sid,
+      ivFilter: ivFilter,
+      heldSeed: heldSeed,
+      pickupSeed: pickupSeed,
+      resultLimit: _maxDisplayedResults,
+      shinyOnly: _shinyOnly,
+      speciesId: _speciesId,
+      nature: _nature,
+      hiddenPowerType: _hiddenPowerType,
+      abilitySlot: _abilitySlot,
+      gender: _gender,
+    );
+  }
+
+  DaycareParent3 _parent(int index, Ivs ivs) {
+    return DaycareParent3(
+      ivs: ivs,
+      gender: _parentGenders[index],
+      nature: _parentNatures[index],
+      item: _parentItems[index],
+    );
+  }
+
+  IvFilter? _parseEggIvFilter() {
+    final values = _ivControllers
+        .map((controller) => int.tryParse(controller.text.trim()))
+        .toList();
+    if (values.any((value) => value == null || value < -1 || value > 31)) {
+      return null;
+    }
+    return IvFilter(
+      rules: [
+        for (var i = 0; i < values.length; i += 1)
+          IvRule(value: values[i]!, comparison: _ivComparisons[i]),
+      ],
+    );
+  }
+
+  List<Ivs>? _parseParentIvs() {
+    final result = <Ivs>[];
+    for (final parent in _parentIvControllers) {
+      final values = parent
+          .map((controller) => int.tryParse(controller.text.trim()))
+          .toList();
+      if (values.any((value) => value == null || value < 0 || value > 31)) {
+        return null;
+      }
+      final ivs = values.cast<int>();
+      result.add(
+        Ivs(
+          hp: ivs[0],
+          attack: ivs[1],
+          defense: ivs[2],
+          specialAttack: ivs[3],
+          specialDefense: ivs[4],
+          speed: ivs[5],
+        ),
+      );
+    }
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        Text(l10n.breeding, style: theme.textTheme.titleLarge),
-        const SizedBox(height: 12),
-        _HoverSurface(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
+    final localeName = Localizations.localeOf(context).toString();
+    return FutureBuilder<_HuntData>(
+      future: _HuntData.load(localeName),
+      builder: (context, snapshot) {
+        final data = snapshot.data;
+        return ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Row(
               children: [
-                Icon(
-                  Icons.egg_alt_outlined,
-                  color: theme.colorScheme.onSurfaceVariant,
+                Expanded(
+                  child: Text(
+                    l10n.breeding,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(child: Text(l10n.breedingUnavailable)),
+                Text('${_result?.results.length ?? 0}'),
               ],
             ),
+            const SizedBox(height: 12),
+            if (data == null)
+              const LinearProgressIndicator()
+            else ...[
+              Builder(
+                builder: (context) {
+                  _syncEggSpeciesController(data);
+                  return const SizedBox.shrink();
+                },
+              ),
+              _HoverSurface(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    spacing: 10,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _speciesAutocomplete(data, l10n),
+                      _twoColumnFields([
+                        _eggMethodDropdown(l10n),
+                        _compatibilityDropdown(l10n),
+                      ]),
+                      if (widget.profile.game == GameVersion.emerald)
+                        _twoColumnFields([
+                          _numberField(
+                            controller: _calibrationController,
+                            label: l10n.calibration,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _numberField(
+                                  controller: _minRedrawController,
+                                  label: l10n.minRedraws,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: _numberField(
+                                  controller: _maxRedrawController,
+                                  label: l10n.maxRedraws,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ]),
+                      _stageFields(
+                        title: l10n.eggHeldStage,
+                        seedController: _heldSeedController,
+                        initialController: _heldInitialController,
+                        maxController: _heldMaxController,
+                        offsetController: _heldOffsetController,
+                        showSeed: widget.profile.game != GameVersion.emerald,
+                      ),
+                      _stageFields(
+                        title: l10n.eggPickupStage,
+                        seedController: _pickupSeedController,
+                        initialController: _pickupInitialController,
+                        maxController: _pickupMaxController,
+                        offsetController: _pickupOffsetController,
+                        showSeed: widget.profile.game != GameVersion.emerald,
+                      ),
+                      const Divider(height: 18),
+                      _parentEditor(data, l10n, 0),
+                      _parentEditor(data, l10n, 1),
+                      const Divider(height: 18),
+                      _filters(data, l10n),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton.icon(
+                          onPressed: _searching ? null : () => _search(data),
+                          icon: Icon(
+                            _searching ? Icons.hourglass_empty : Icons.search,
+                          ),
+                          label: Text(
+                            _searching ? l10n.searching : l10n.search,
+                          ),
+                        ),
+                      ),
+                      if (_error != null)
+                        Text(
+                          _error!,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              _eggResults(data, l10n),
+            ],
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _speciesAutocomplete(_HuntData data, AppLocalizations l10n) {
+    return RawAutocomplete<_SpeciesOption>(
+      textEditingController: _pokemonController,
+      focusNode: _pokemonFocusNode,
+      displayStringForOption: (option) => option.displayName,
+      optionsBuilder: (textEditingValue) {
+        final query = textEditingValue.text.trim().toLowerCase();
+        if (query.isEmpty) {
+          return data.speciesOptions.take(_maxSpeciesSuggestions);
+        }
+        final numericStart = _numericSpeciesStart(query);
+        if (numericStart != null) {
+          if (numericStart > data.speciesOptions.length) {
+            return const Iterable<_SpeciesOption>.empty();
+          }
+          return data.speciesOptions
+              .skip(numericStart - 1)
+              .take(_maxSpeciesSuggestions);
+        }
+        return data.speciesOptions
+            .where((option) => option.searchText.contains(query))
+            .take(_maxSpeciesSuggestions);
+      },
+      onSelected: (option) {
+        _updateEggSettings(() {
+          _speciesId = option.speciesId;
+          _pokemonController.text = option.displayName;
+          _abilitySlot = null;
+          _gender = null;
+        });
+      },
+      fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+        return TextField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: InputDecoration(
+            labelText: l10n.pokemon,
+            border: _controlBorder,
           ),
+        );
+      },
+      optionsViewBuilder: (context, onSelected, options) {
+        return Align(
+          alignment: Alignment.topLeft,
+          child: Material(
+            elevation: 4,
+            borderRadius: BorderRadius.circular(_controlRadius),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 360, maxHeight: 240),
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                itemCount: options.length,
+                itemBuilder: (context, index) {
+                  final option = options.elementAt(index);
+                  return InkWell(
+                    onTap: () => onSelected(option),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      child: Text(option.displayName),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _syncEggSpeciesController(_HuntData data) {
+    final speciesId = _speciesId;
+    if (speciesId == null || _pokemonFocusNode.hasFocus) {
+      return;
+    }
+    final displayName = data.speciesDisplayName(speciesId);
+    if (_pokemonController.text != displayName) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted || _speciesId != speciesId || _pokemonFocusNode.hasFocus) {
+          return;
+        }
+        _suppressSettingsSave = true;
+        _pokemonController.text = displayName;
+        _suppressSettingsSave = false;
+      });
+    }
+  }
+
+  Widget _eggMethodDropdown(AppLocalizations l10n) {
+    final methods = _eggMethodsForGame(widget.profile.game);
+    return DropdownButtonFormField<EggMethod3>(
+      isExpanded: true,
+      initialValue: methods.contains(_method) ? _method : methods.first,
+      decoration: InputDecoration(
+        labelText: l10n.method,
+        border: _controlBorder,
+      ),
+      items: methods
+          .map(
+            (method) => DropdownMenuItem<EggMethod3>(
+              value: method,
+              child: Text(_eggMethodLabel(method)),
+            ),
+          )
+          .toList(growable: false),
+      onChanged: (value) {
+        if (value != null) {
+          _updateEggSettings(() => _method = value);
+        }
+      },
+    );
+  }
+
+  Widget _compatibilityDropdown(AppLocalizations l10n) {
+    return DropdownButtonFormField<int>(
+      isExpanded: true,
+      initialValue: _compatibility,
+      decoration: InputDecoration(
+        labelText: l10n.compatibility,
+        border: _controlBorder,
+      ),
+      items: const [20, 50, 70]
+          .map(
+            (value) =>
+                DropdownMenuItem<int>(value: value, child: Text('$value')),
+          )
+          .toList(growable: false),
+      onChanged: (value) {
+        if (value != null) {
+          _updateEggSettings(() => _compatibility = value);
+        }
+      },
+    );
+  }
+
+  Widget _stageFields({
+    required String title,
+    required TextEditingController seedController,
+    required TextEditingController initialController,
+    required TextEditingController maxController,
+    required TextEditingController offsetController,
+    required bool showSeed,
+  }) {
+    final l10n = AppLocalizations.of(context)!;
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(title, style: Theme.of(context).textTheme.labelLarge),
+        if (showSeed)
+          TextField(
+            controller: seedController,
+            decoration: InputDecoration(labelText: l10n.seed),
+          ),
+        _twoColumnFields([
+          _numberField(
+            controller: initialController,
+            label: l10n.initialAdvance,
+          ),
+          _numberField(controller: maxController, label: l10n.maxAdvance),
+        ]),
+        _numberField(controller: offsetController, label: 'Offset'),
+      ],
+    );
+  }
+
+  Widget _parentEditor(_HuntData data, AppLocalizations l10n, int index) {
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          index == 0 ? l10n.parentA : l10n.parentB,
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+        _twoColumnFields([
+          DropdownButtonFormField<DaycareParentGender>(
+            isExpanded: true,
+            initialValue: _parentGenders[index],
+            decoration: InputDecoration(
+              labelText: l10n.parentGender,
+              border: _controlBorder,
+            ),
+            items: DaycareParentGender.values
+                .map(
+                  (gender) => DropdownMenuItem<DaycareParentGender>(
+                    value: gender,
+                    child: Text(_parentGenderLabel(context, gender)),
+                  ),
+                )
+                .toList(growable: false),
+            onChanged: (value) {
+              if (value != null) {
+                _updateEggSettings(() => _parentGenders[index] = value);
+              }
+            },
+          ),
+          DropdownButtonFormField<int>(
+            isExpanded: true,
+            initialValue: _parentItems[index],
+            decoration: InputDecoration(
+              labelText: l10n.parentItem,
+              border: _controlBorder,
+            ),
+            items: [
+              DropdownMenuItem<int>(value: 0, child: Text(l10n.none)),
+              DropdownMenuItem<int>(value: 1, child: Text(l10n.everstone)),
+            ],
+            onChanged: (value) {
+              if (value != null) {
+                _updateEggSettings(() => _parentItems[index] = value);
+              }
+            },
+          ),
+        ]),
+        DropdownButtonFormField<Nature>(
+          isExpanded: true,
+          initialValue: _parentNatures[index],
+          decoration: InputDecoration(labelText: l10n.nature),
+          items: Nature.values
+              .map(
+                (nature) => DropdownMenuItem<Nature>(
+                  value: nature,
+                  child: Text(
+                    data.natureLabel(context, nature),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              )
+              .toList(growable: false),
+          onChanged: (value) {
+            if (value != null) {
+              _updateEggSettings(() => _parentNatures[index] = value);
+            }
+          },
+        ),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: List<Widget>.generate(6, (stat) {
+            return SizedBox(
+              width: 82,
+              child: TextField(
+                controller: _parentIvControllers[index][stat],
+                decoration: InputDecoration(labelText: _shortIvLabel(stat)),
+                keyboardType: TextInputType.number,
+              ),
+            );
+          }),
+        ),
+      ],
+    );
+  }
+
+  Widget _filters(_HuntData data, AppLocalizations l10n) {
+    final personal = _speciesId == null ? null : data.personal[_speciesId!];
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          value: _shinyOnly,
+          title: Text(l10n.shiny),
+          onChanged: (value) => _updateEggSettings(() => _shinyOnly = value),
+        ),
+        _twoColumnFields([
+          DropdownButtonFormField<Nature?>(
+            isExpanded: true,
+            initialValue: _nature,
+            decoration: InputDecoration(labelText: l10n.nature),
+            items: [
+              DropdownMenuItem<Nature?>(value: null, child: Text(l10n.any)),
+              ...Nature.values.map(
+                (nature) => DropdownMenuItem<Nature?>(
+                  value: nature,
+                  child: Text(
+                    data.natureLabel(context, nature),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ],
+            onChanged: (value) => _updateEggSettings(() => _nature = value),
+          ),
+          DropdownButtonFormField<HiddenPowerType?>(
+            isExpanded: true,
+            initialValue: _hiddenPowerType,
+            decoration: InputDecoration(labelText: l10n.hiddenPower),
+            items: [
+              DropdownMenuItem<HiddenPowerType?>(
+                value: null,
+                child: Text(l10n.any),
+              ),
+              ...HiddenPowerType.values.map(
+                (type) => DropdownMenuItem<HiddenPowerType?>(
+                  value: type,
+                  child: Text(_hiddenPowerTypeLabel(context, type)),
+                ),
+              ),
+            ],
+            onChanged: (value) =>
+                _updateEggSettings(() => _hiddenPowerType = value),
+          ),
+        ]),
+        _twoColumnFields([
+          DropdownButtonFormField<int?>(
+            isExpanded: true,
+            initialValue: _abilitySlot,
+            decoration: InputDecoration(labelText: l10n.ability),
+            items: [
+              DropdownMenuItem<int?>(value: null, child: Text(l10n.any)),
+              if (personal != null)
+                for (var slot = 0; slot < personal.abilityIds.length; slot += 1)
+                  DropdownMenuItem<int?>(
+                    value: slot,
+                    child: Text(
+                      _abilitySlotLabel(
+                        context: context,
+                        slot: slot,
+                        name: data.names.abilityName(personal.abilityIds[slot]),
+                      ),
+                    ),
+                  ),
+            ],
+            onChanged: (value) =>
+                _updateEggSettings(() => _abilitySlot = value),
+          ),
+          DropdownButtonFormField<PokemonGender?>(
+            isExpanded: true,
+            initialValue: _gender,
+            decoration: InputDecoration(labelText: l10n.gender),
+            items: [
+              DropdownMenuItem<PokemonGender?>(
+                value: null,
+                child: Text(l10n.any),
+              ),
+              for (final gender in _legalGenders(personal))
+                DropdownMenuItem<PokemonGender?>(
+                  value: gender,
+                  child: Text(_genderLabel(gender)),
+                ),
+            ],
+            onChanged: (value) => _updateEggSettings(() => _gender = value),
+          ),
+        ]),
+        Text(l10n.ivs, style: Theme.of(context).textTheme.labelLarge),
+        _IvInputGrid(
+          controllers: _ivControllers,
+          comparisons: _ivComparisons,
+          onComparisonChanged: (index, value) {
+            _updateEggSettings(() => _ivComparisons[index] = value);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _eggResults(_HuntData data, AppLocalizations l10n) {
+    final result = _result;
+    if (result == null) {
+      return const SizedBox.shrink();
+    }
+    if (result.results.isEmpty) {
+      return _HoverSurface(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Text(l10n.noResults),
+        ),
+      );
+    }
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (result.resultLimitReached)
+          Text(l10n.resultLimitNote(_maxDisplayedResults)),
+        for (final state in result.results)
+          _HoverSurface(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: _EggResultTile(state: state, data: data),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _twoColumnFields(List<Widget> children) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 420 || children.length == 1) {
+          return Column(spacing: 8, children: children);
+        }
+        return Row(
+          children: [
+            for (var i = 0; i < children.length; i += 1) ...[
+              if (i > 0) const SizedBox(width: 8),
+              Expanded(child: children[i]),
+            ],
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _numberField({
+    required TextEditingController controller,
+    required String label,
+  }) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(labelText: label),
+      keyboardType: TextInputType.number,
+    );
+  }
+}
+
+class _EggResultTile extends StatelessWidget {
+  const _EggResultTile({required this.state, required this.data});
+
+  final EggState3 state;
+  final _HuntData data;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final hiddenPower = state.ivs.hiddenPower;
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: _ResultField(
+                label: l10n.eggHeldStage,
+                value: '${state.advances}',
+              ),
+            ),
+            Expanded(
+              child: _ResultField(
+                label: l10n.eggPickupStage,
+                value: '${state.pickupAdvances}',
+              ),
+            ),
+            Expanded(
+              child: _ResultField(
+                label: l10n.redraws,
+                value: '${state.redraws}',
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: _ResultField(
+                label: l10n.pokemon,
+                value: data.names.speciesName(state.species),
+              ),
+            ),
+            Expanded(
+              child: _ResultField(
+                label: l10n.gender,
+                value: _genderLabel(state.gender),
+              ),
+            ),
+            Expanded(
+              child: _ResultField(
+                label: l10n.nature,
+                value: data.names.natureName(state.nature),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: _ResultField(
+                label: l10n.hiddenPower,
+                value:
+                    '${_hiddenPowerTypeLabel(context, hiddenPower.type)} ${hiddenPower.power}',
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: _ResultField(label: l10n.ivs, value: '${state.ivs}'),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: _ResultField(label: 'PID', value: '${state.pid}'),
+            ),
+            Expanded(
+              flex: 2,
+              child: _ResultField(label: l10n.stats, value: '${state.stats}'),
+            ),
+          ],
         ),
       ],
     );
@@ -4995,6 +5968,267 @@ GameVersion _gameFromJson(String value) {
   return GameVersion.values.firstWhere((game) => game.jsonName == value);
 }
 
+class _EggSettingsRecord {
+  const _EggSettingsRecord({
+    required this.speciesId,
+    required this.method,
+    required this.compatibility,
+    required this.heldSeed,
+    required this.pickupSeed,
+    required this.heldInitial,
+    required this.heldMax,
+    required this.heldOffset,
+    required this.pickupInitial,
+    required this.pickupMax,
+    required this.pickupOffset,
+    required this.calibration,
+    required this.minRedraws,
+    required this.maxRedraws,
+    required this.ivRules,
+    required this.parentIvs,
+    required this.parentGenders,
+    required this.parentNatures,
+    required this.parentItems,
+    required this.shinyOnly,
+    required this.nature,
+    required this.hiddenPowerType,
+    required this.abilitySlot,
+    required this.gender,
+  });
+
+  factory _EggSettingsRecord.defaultsFor(GameVersion game) {
+    final method = _defaultEggMethod(game);
+    return _EggSettingsRecord(
+      speciesId: null,
+      method: method,
+      compatibility: 70,
+      heldSeed: '00000000',
+      pickupSeed: '00000000',
+      heldInitial: '1000',
+      heldMax: '5000',
+      heldOffset: '0',
+      pickupInitial: '1000',
+      pickupMax: '5000',
+      pickupOffset: '0',
+      calibration: '18',
+      minRedraws: '0',
+      maxRedraws: '5',
+      ivRules: List<IvRule>.filled(
+        6,
+        const IvRule(value: -1, comparison: IvComparison.greaterOrEqual),
+      ),
+      parentIvs: List<Ivs>.filled(
+        2,
+        const Ivs(
+          hp: 31,
+          attack: 31,
+          defense: 31,
+          specialAttack: 31,
+          specialDefense: 31,
+          speed: 31,
+        ),
+      ),
+      parentGenders: const [
+        DaycareParentGender.male,
+        DaycareParentGender.female,
+      ],
+      parentNatures: const [Nature.hardy, Nature.hardy],
+      parentItems: const [0, 0],
+      shinyOnly: false,
+      nature: null,
+      hiddenPowerType: null,
+      abilitySlot: null,
+      gender: null,
+    );
+  }
+
+  factory _EggSettingsRecord.fromPage(_BreedingPageState page) {
+    return _EggSettingsRecord(
+      speciesId: page._speciesId,
+      method: page._method,
+      compatibility: page._compatibility,
+      heldSeed: page._heldSeedController.text.trim(),
+      pickupSeed: page._pickupSeedController.text.trim(),
+      heldInitial: page._heldInitialController.text.trim(),
+      heldMax: page._heldMaxController.text.trim(),
+      heldOffset: page._heldOffsetController.text.trim(),
+      pickupInitial: page._pickupInitialController.text.trim(),
+      pickupMax: page._pickupMaxController.text.trim(),
+      pickupOffset: page._pickupOffsetController.text.trim(),
+      calibration: page._calibrationController.text.trim(),
+      minRedraws: page._minRedrawController.text.trim(),
+      maxRedraws: page._maxRedrawController.text.trim(),
+      ivRules: [
+        for (var i = 0; i < 6; i += 1)
+          IvRule(
+            value: int.tryParse(page._ivControllers[i].text.trim()) ?? -1,
+            comparison: page._ivComparisons[i],
+          ),
+      ],
+      parentIvs:
+          page._parseParentIvs() ??
+          _EggSettingsRecord.defaultsFor(page.widget.profile.game).parentIvs,
+      parentGenders: List<DaycareParentGender>.unmodifiable(
+        page._parentGenders,
+      ),
+      parentNatures: List<Nature>.unmodifiable(page._parentNatures),
+      parentItems: List<int>.unmodifiable(page._parentItems),
+      shinyOnly: page._shinyOnly,
+      nature: page._nature,
+      hiddenPowerType: page._hiddenPowerType,
+      abilitySlot: page._abilitySlot,
+      gender: page._gender,
+    );
+  }
+
+  factory _EggSettingsRecord.fromJson(
+    Map<String, dynamic> json,
+    GameVersion game,
+  ) {
+    final defaults = _EggSettingsRecord.defaultsFor(game);
+    try {
+      final ivRules = (json['ivRules'] as List<dynamic>? ?? const [])
+          .cast<Map<String, dynamic>>()
+          .map(
+            (rule) => IvRule(
+              value: rule['value'] as int,
+              comparison: IvComparison.values[rule['comparison'] as int],
+            ),
+          )
+          .toList(growable: false);
+      final parentIvs = (json['parentIvs'] as List<dynamic>? ?? const [])
+          .cast<List<dynamic>>()
+          .map(_ivsFromJsonList)
+          .toList(growable: false);
+      final parentGenders =
+          (json['parentGenders'] as List<dynamic>? ?? const [])
+              .cast<int>()
+              .map((index) => DaycareParentGender.values[index])
+              .toList(growable: false);
+      final parentNatures =
+          (json['parentNatures'] as List<dynamic>? ?? const [])
+              .cast<int>()
+              .map((index) => Nature.values[index])
+              .toList(growable: false);
+      final parentItems = (json['parentItems'] as List<dynamic>? ?? const [])
+          .cast<int>()
+          .toList(growable: false);
+      final method =
+          _enumOrNull(EggMethod3.values, json['method']) ?? defaults.method;
+
+      return _EggSettingsRecord(
+        speciesId: json['speciesId'] as int?,
+        method: _eggMethodsForGame(game).contains(method)
+            ? method
+            : defaults.method,
+        compatibility: json['compatibility'] as int? ?? defaults.compatibility,
+        heldSeed: json['heldSeed'] as String? ?? defaults.heldSeed,
+        pickupSeed: json['pickupSeed'] as String? ?? defaults.pickupSeed,
+        heldInitial: json['heldInitial'] as String? ?? defaults.heldInitial,
+        heldMax: json['heldMax'] as String? ?? defaults.heldMax,
+        heldOffset: json['heldOffset'] as String? ?? defaults.heldOffset,
+        pickupInitial:
+            json['pickupInitial'] as String? ?? defaults.pickupInitial,
+        pickupMax: json['pickupMax'] as String? ?? defaults.pickupMax,
+        pickupOffset: json['pickupOffset'] as String? ?? defaults.pickupOffset,
+        calibration: json['calibration'] as String? ?? defaults.calibration,
+        minRedraws: json['minRedraws'] as String? ?? defaults.minRedraws,
+        maxRedraws: json['maxRedraws'] as String? ?? defaults.maxRedraws,
+        ivRules: ivRules.length == 6 ? ivRules : defaults.ivRules,
+        parentIvs: parentIvs.length == 2 ? parentIvs : defaults.parentIvs,
+        parentGenders: parentGenders.length == 2
+            ? parentGenders
+            : defaults.parentGenders,
+        parentNatures: parentNatures.length == 2
+            ? parentNatures
+            : defaults.parentNatures,
+        parentItems: parentItems.length == 2
+            ? parentItems
+            : defaults.parentItems,
+        shinyOnly: json['shinyOnly'] as bool? ?? defaults.shinyOnly,
+        nature: _enumOrNull(Nature.values, json['nature']),
+        hiddenPowerType: _enumOrNull(
+          HiddenPowerType.values,
+          json['hiddenPowerType'],
+        ),
+        abilitySlot: json['abilitySlot'] as int?,
+        gender: _enumOrNull(PokemonGender.values, json['gender']),
+      );
+    } catch (_) {
+      return defaults;
+    }
+  }
+
+  final int? speciesId;
+  final EggMethod3 method;
+  final int compatibility;
+  final String heldSeed;
+  final String pickupSeed;
+  final String heldInitial;
+  final String heldMax;
+  final String heldOffset;
+  final String pickupInitial;
+  final String pickupMax;
+  final String pickupOffset;
+  final String calibration;
+  final String minRedraws;
+  final String maxRedraws;
+  final List<IvRule> ivRules;
+  final List<Ivs> parentIvs;
+  final List<DaycareParentGender> parentGenders;
+  final List<Nature> parentNatures;
+  final List<int> parentItems;
+  final bool shinyOnly;
+  final Nature? nature;
+  final HiddenPowerType? hiddenPowerType;
+  final int? abilitySlot;
+  final PokemonGender? gender;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'speciesId': speciesId,
+      'method': method.index,
+      'compatibility': compatibility,
+      'heldSeed': heldSeed,
+      'pickupSeed': pickupSeed,
+      'heldInitial': heldInitial,
+      'heldMax': heldMax,
+      'heldOffset': heldOffset,
+      'pickupInitial': pickupInitial,
+      'pickupMax': pickupMax,
+      'pickupOffset': pickupOffset,
+      'calibration': calibration,
+      'minRedraws': minRedraws,
+      'maxRedraws': maxRedraws,
+      'ivRules': [
+        for (final rule in ivRules)
+          {'value': rule.value, 'comparison': rule.comparison.index},
+      ],
+      'parentIvs': [for (final ivs in parentIvs) ivs.ordered],
+      'parentGenders': [for (final gender in parentGenders) gender.index],
+      'parentNatures': [for (final nature in parentNatures) nature.index],
+      'parentItems': parentItems,
+      'shinyOnly': shinyOnly,
+      'nature': nature?.index,
+      'hiddenPowerType': hiddenPowerType?.index,
+      'abilitySlot': abilitySlot,
+      'gender': gender?.index,
+    };
+  }
+
+  static Ivs _ivsFromJsonList(List<dynamic> values) {
+    final ivs = values.cast<int>();
+    return Ivs(
+      hp: ivs[0],
+      attack: ivs[1],
+      defense: ivs[2],
+      specialAttack: ivs[3],
+      specialDefense: ivs[4],
+      speed: ivs[5],
+    );
+  }
+}
+
 class _AppStorage {
   _AppStorage({SharedPreferencesAsync? preferences})
     : _preferences = preferences ?? SharedPreferencesAsync();
@@ -5066,12 +6300,41 @@ class _AppStorage {
     await _preferences.setString(_targetsKey(game), jsonEncode(json));
   }
 
+  Future<_EggSettingsRecord> loadEggSettings(GameVersion game) async {
+    final raw = await _preferences.getString(_eggSettingsKey(game));
+    if (raw == null || raw.isEmpty) {
+      return _EggSettingsRecord.defaultsFor(game);
+    }
+    try {
+      return _EggSettingsRecord.fromJson(
+        jsonDecode(raw) as Map<String, dynamic>,
+        game,
+      );
+    } catch (_) {
+      return _EggSettingsRecord.defaultsFor(game);
+    }
+  }
+
+  Future<void> saveEggSettings(
+    GameVersion game,
+    _EggSettingsRecord settings,
+  ) async {
+    await _preferences.setString(
+      _eggSettingsKey(game),
+      jsonEncode(settings.toJson()),
+    );
+  }
+
   String _profileKey(GameVersion game, String field) {
     return 'profile.${game.jsonName}.$field';
   }
 
   String _targetsKey(GameVersion game) {
     return 'targets.${game.jsonName}';
+  }
+
+  String _eggSettingsKey(GameVersion game) {
+    return 'eggSettings.${game.jsonName}';
   }
 }
 
@@ -5320,6 +6583,59 @@ StaticMethod _staticMethodFor(WildMethod method) {
     WildMethod.method2 => StaticMethod.method2,
     WildMethod.method4 => StaticMethod.method4,
   };
+}
+
+List<EggMethod3> _eggMethodsForGame(GameVersion game) {
+  return switch (game) {
+    GameVersion.emerald => const [
+      EggMethod3.emeraldBred,
+      EggMethod3.emeraldBredSplit,
+      EggMethod3.emeraldBredAlternate,
+    ],
+    GameVersion.fireRed || GameVersion.leafGreen => const [
+      EggMethod3.rsFrLgBred,
+      EggMethod3.rsFrLgBredSplit,
+      EggMethod3.rsFrLgBredAlternate,
+      EggMethod3.rsFrLgBredMixed,
+    ],
+  };
+}
+
+EggMethod3 _defaultEggMethod(GameVersion game) =>
+    _eggMethodsForGame(game).first;
+
+String _eggMethodLabel(EggMethod3 method) {
+  return switch (method) {
+    EggMethod3.emeraldBred => 'EBred',
+    EggMethod3.emeraldBredSplit => 'EBred Split',
+    EggMethod3.emeraldBredAlternate => 'EBred Alternate',
+    EggMethod3.rsFrLgBred => 'RS/FRLG Bred',
+    EggMethod3.rsFrLgBredSplit => 'RS/FRLG Bred Split',
+    EggMethod3.rsFrLgBredAlternate => 'RS/FRLG Bred Alternate',
+    EggMethod3.rsFrLgBredMixed => 'RS/FRLG Bred Mixed',
+  };
+}
+
+String _parentGenderLabel(BuildContext context, DaycareParentGender gender) {
+  final l10n = AppLocalizations.of(context)!;
+  return switch (gender) {
+    DaycareParentGender.male => '♂',
+    DaycareParentGender.female => '♀',
+    DaycareParentGender.genderless => '-',
+    DaycareParentGender.ditto => l10n.ditto,
+  };
+}
+
+String _shortIvLabel(int index) {
+  return const ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'][index];
+}
+
+int? _parseHexInput(String value) {
+  final normalized = value.trim().replaceFirst(RegExp('^0x'), '');
+  if (normalized.isEmpty || normalized.length > 8) {
+    return null;
+  }
+  return int.tryParse(normalized, radix: 16);
 }
 
 String _abilitySlotLabel({

@@ -30,6 +30,26 @@
   "observedIvs": "観測 IV",
   "locationEgg": "場所",
   "breedingUnavailable": "タマゴ乱数は未実装です。",
+  "eggHeldStage": "タマゴ生成",
+  "eggPickupStage": "受け取り",
+  "parentA": "親 1",
+  "parentB": "親 2",
+  "parentGender": "親の性別",
+  "parentItem": "持ち物",
+  "none": "なし",
+  "everstone": "かわらずのいし",
+  "ditto": "メタモン",
+  "compatibility": "相性",
+  "calibration": "キャリブレーション",
+  "minRedraws": "最小 Redraw",
+  "maxRedraws": "最大 Redraw",
+  "redraws": "Redraw",
+  "eggInputError": "ポケモン、Seed、2段階のAdvance範囲、キャリブレーション、Redraw、親のIVを確認してください。各段階の最大 - 開始は {maxAdvanceDelta} 以下です。",
+  "@eggInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
   "method": "生成方式",
   "wildMethod1": "野生 1",
   "wildMethod2": "野生 2",
