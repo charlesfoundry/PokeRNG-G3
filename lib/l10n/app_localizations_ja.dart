@@ -103,7 +103,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get painting => '絵画';
 
   @override
-  String get locationEgg => '場所 / タマゴ';
+  String get locationEgg => '場所';
 
   @override
   String get egg => 'タマゴ';
@@ -311,6 +311,24 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get hiddenPower => 'めざパ';
+
+  @override
+  String get ivs => 'IV';
+
+  @override
+  String get stats => '能力値';
+
+  @override
+  String get statIvCalculator => '能力値 / IV 計算';
+
+  @override
+  String get calculateStats => '能力値を計算';
+
+  @override
+  String get calculateIvs => 'IV を計算';
+
+  @override
+  String get calculatorInputError => 'ポケモン、レベル、性格、入力値を確認してください。';
 
   @override
   String get sendToCalibration => '調整へ送る';

@@ -34,11 +34,15 @@ class AppProfile {
   });
 
   factory AppProfile.initial() {
-    return const AppProfile(
-      game: GameVersion.emerald,
+    return AppProfile.defaultsFor(GameVersion.emerald);
+  }
+
+  factory AppProfile.defaultsFor(GameVersion game) {
+    return AppProfile(
+      game: game,
       tid: 0,
       sid: 0,
-      defaultSeed: '00000000',
+      defaultSeed: game.defaultSeed,
     );
   }
 

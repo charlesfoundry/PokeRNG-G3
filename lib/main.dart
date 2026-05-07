@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/profile.dart';
 import 'core/gen3/gen3.dart';
@@ -14,7 +16,6 @@ import 'data/gen3/wild_encounter_repository.dart';
 import 'data/gen3/wild_encounters.dart';
 import 'l10n/app_localizations.dart';
 
-const _eggEncounterKey = 'egg';
 const _maxSearchAdvanceDelta = 10000000;
 const _maxDisplayedResults = 500;
 const _maxSpeciesSuggestions = 50;
@@ -173,10 +174,39 @@ class PokeRngG3App extends StatefulWidget {
 }
 
 class _PokeRngG3AppState extends State<PokeRngG3App> {
+  final _storage = _AppStorage();
+  final Map<GameVersion, AppProfile> _profiles = {};
   AppProfile _profile = AppProfile.initial();
+  bool _loaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppState();
+  }
+
+  Future<void> _loadAppState() async {
+    final profiles = await _storage.loadProfiles();
+    final currentGame = await _storage.loadCurrentGame();
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _profiles
+        ..clear()
+        ..addAll(profiles);
+      _profile = profiles[currentGame] ?? profiles[GameVersion.emerald]!;
+      _loaded = true;
+    });
+  }
 
   void _setProfile(AppProfile profile) {
-    setState(() => _profile = profile);
+    setState(() {
+      _profile = profile;
+      _profiles[profile.game] = profile;
+    });
+    _storage.saveCurrentGame(profile.game);
+    _storage.saveProfile(profile);
   }
 
   @override
@@ -304,41 +334,100 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
           minLeadingWidth: 28,
         ),
       ),
-      home: AppShell(profile: _profile, onProfileChanged: _setProfile),
+      home: _loaded
+          ? _AppShell(
+              profile: _profile,
+              profiles: Map.unmodifiable(_profiles),
+              storage: _storage,
+              onProfileChanged: _setProfile,
+            )
+          : const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
   }
 }
 
-class AppShell extends StatefulWidget {
-  const AppShell({
-    super.key,
+class _AppShell extends StatefulWidget {
+  const _AppShell({
     required this.profile,
+    required this.profiles,
+    required this.storage,
     required this.onProfileChanged,
   });
 
   final AppProfile profile;
+  final Map<GameVersion, AppProfile> profiles;
+  final _AppStorage storage;
   final ValueChanged<AppProfile> onProfileChanged;
 
   @override
-  State<AppShell> createState() => _AppShellState();
+  State<_AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends State<AppShell> {
+class _AppShellState extends State<_AppShell> {
   final _huntKey = GlobalKey<_HuntPageState>();
   int _selectedIndex = 0;
   _HuntSearchSnapshot? _huntSearch;
   _CalibrationTarget? _calibrationTarget;
   final List<_SavedCalibrationTarget> _savedTargets = [];
   _HuntResultsSnapshot _huntResults = const _HuntResultsSnapshot();
+  GameVersion? _loadedTargetsGame;
+  String? _loadedTargetsLocale;
+  int _targetLoadEpoch = 0;
 
   @override
-  void didUpdateWidget(covariant AppShell oldWidget) {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadSavedTargetsIfNeeded();
+  }
+
+  @override
+  void didUpdateWidget(covariant _AppShell oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.profile.game != widget.profile.game) {
       _huntSearch = null;
       _calibrationTarget = null;
       _huntResults = const _HuntResultsSnapshot();
+      _savedTargets.clear();
     }
+    _loadSavedTargetsIfNeeded(
+      force: oldWidget.profile.game != widget.profile.game,
+    );
+  }
+
+  void _loadSavedTargetsIfNeeded({bool force = false}) {
+    final localeName = Localizations.localeOf(context).toString();
+    final game = widget.profile.game;
+    if (!force &&
+        _loadedTargetsGame == game &&
+        _loadedTargetsLocale == localeName) {
+      return;
+    }
+    _loadedTargetsGame = game;
+    _loadedTargetsLocale = localeName;
+    final epoch = _targetLoadEpoch + 1;
+    _targetLoadEpoch = epoch;
+    _loadSavedTargets(epoch: epoch, game: game, localeName: localeName);
+  }
+
+  Future<void> _loadSavedTargets({
+    required int epoch,
+    required GameVersion game,
+    required String localeName,
+  }) async {
+    final data = await _HuntData.load(localeName);
+    final records = await widget.storage.loadTargets(game);
+    if (!mounted || epoch != _targetLoadEpoch) {
+      return;
+    }
+    setState(() {
+      _savedTargets
+        ..clear()
+        ..addAll(
+          records
+              .map((record) => record.toSavedTarget(data))
+              .whereType<_SavedCalibrationTarget>(),
+        );
+    });
   }
 
   @override
@@ -380,6 +469,7 @@ class _AppShellState extends State<AppShell> {
               ),
             );
           });
+          widget.storage.saveTargets(widget.profile.game, _savedTargets);
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(l10n.targetSaved)));
@@ -403,10 +493,12 @@ class _AppShellState extends State<AppShell> {
           setState(() {
             _savedTargets.removeWhere((target) => target.id == saved.id);
           });
+          widget.storage.saveTargets(widget.profile.game, _savedTargets);
         },
       ),
       SettingsPage(
         profile: widget.profile,
+        profiles: widget.profiles,
         onProfileChanged: widget.onProfileChanged,
       ),
     ];
@@ -1020,9 +1112,7 @@ class _HuntPageState extends State<_HuntPage> {
   WildEncounterArea? _selectedArea(_HuntData data) {
     final speciesId = _selectedSpeciesId;
     final locationKey = _locationKey;
-    if (speciesId == null ||
-        locationKey == null ||
-        locationKey == _eggEncounterKey) {
+    if (speciesId == null || locationKey == null) {
       return null;
     }
     for (final area in data.areasForSpecies(
@@ -1039,9 +1129,7 @@ class _HuntPageState extends State<_HuntPage> {
   StaticEncounterTemplate? _selectedStaticTemplate(_HuntData data) {
     final speciesId = _selectedSpeciesId;
     final locationKey = _locationKey;
-    if (speciesId == null ||
-        locationKey == null ||
-        locationKey == _eggEncounterKey) {
+    if (speciesId == null || locationKey == null) {
       return null;
     }
     for (final template in data.staticTemplatesForSpecies(
@@ -1342,9 +1430,7 @@ class _HuntControls extends StatelessWidget {
       for (final template in staticTemplates) _staticTemplateKey(template),
     };
     final selectedLocationKey =
-        locationKey == null ||
-            locationKey == _eggEncounterKey ||
-            !locationKeys.contains(locationKey)
+        locationKey == null || !locationKeys.contains(locationKey)
         ? null
         : locationKey;
     final selectedArea = selectedLocationKey == null
@@ -1482,16 +1568,6 @@ class _HuntControls extends StatelessWidget {
               border: _controlBorder,
             ),
             items: [
-              DropdownMenuItem<String?>(
-                value: _eggEncounterKey,
-                enabled: false,
-                child: Text(
-                  l10n.eggUnsupported,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ),
               ...locationAreas.map(
                 (area) => DropdownMenuItem<String?>(
                   value: _areaKey(area),
@@ -1516,11 +1592,6 @@ class _HuntControls extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSurface,
               );
               return [
-                Text(
-                  l10n.eggUnsupported,
-                  overflow: TextOverflow.ellipsis,
-                  style: style,
-                ),
                 ...locationAreas.map(
                   (area) => Text(
                     data.locationLabel(context, area),
@@ -3231,10 +3302,7 @@ class _ToolsPage extends StatelessWidget {
         const SizedBox(height: 20),
         Text(l10n.tools, style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
-        _ToolTile(icon: Icons.badge, title: l10n.idSid),
-        _ToolTile(icon: Icons.science, title: l10n.ivsToPid),
-        _ToolTile(icon: Icons.video_collection, title: l10n.battleVideo),
-        _ToolTile(icon: Icons.image_search, title: l10n.painting),
+        const _StatIvCalculator(),
       ],
     );
   }
@@ -3281,19 +3349,413 @@ class _SavedTargetTile extends StatelessWidget {
   }
 }
 
-class _ToolTile extends StatelessWidget {
-  const _ToolTile({required this.icon, required this.title});
+class _StatIvCalculator extends StatefulWidget {
+  const _StatIvCalculator();
 
-  final IconData icon;
-  final String title;
+  @override
+  State<_StatIvCalculator> createState() => _StatIvCalculatorState();
+}
+
+class _StatIvCalculatorState extends State<_StatIvCalculator> {
+  final _pokemonController = TextEditingController();
+  final _pokemonFocusNode = FocusNode();
+  final _levelController = TextEditingController(text: '50');
+  final _ivControllers = List<TextEditingController>.generate(
+    6,
+    (_) => TextEditingController(text: '31'),
+  );
+  final _statControllers = List<TextEditingController>.generate(
+    6,
+    (_) => TextEditingController(),
+  );
+  int? _speciesId;
+  Nature _nature = Nature.hardy;
+  PokemonStats? _calculatedStats;
+  List<String>? _calculatedIvRanges;
+  String? _error;
+
+  @override
+  void dispose() {
+    _pokemonController.dispose();
+    _pokemonFocusNode.dispose();
+    _levelController.dispose();
+    for (final controller in _ivControllers) {
+      controller.dispose();
+    }
+    for (final controller in _statControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  void _calculateStats(_HuntData data) {
+    final personal = _speciesId == null ? null : data.personal[_speciesId!];
+    final level = int.tryParse(_levelController.text.trim());
+    final ivs = _parseIvs(_ivControllers);
+    if (personal == null ||
+        level == null ||
+        level < 1 ||
+        level > 100 ||
+        ivs == null) {
+      setState(() {
+        _error = AppLocalizations.of(context)!.calculatorInputError;
+        _calculatedStats = null;
+      });
+      return;
+    }
+    setState(() {
+      _error = null;
+      _calculatedStats = calculateGen3Stats(
+        personalInfo: personal,
+        ivs: ivs,
+        nature: _nature,
+        level: level,
+      );
+    });
+  }
+
+  void _calculateIvs(_HuntData data) {
+    final personal = _speciesId == null ? null : data.personal[_speciesId!];
+    final level = int.tryParse(_levelController.text.trim());
+    final stats = _parseStats(_statControllers);
+    if (personal == null ||
+        level == null ||
+        level < 1 ||
+        level > 100 ||
+        stats == null) {
+      setState(() {
+        _error = AppLocalizations.of(context)!.calculatorInputError;
+        _calculatedIvRanges = null;
+      });
+      return;
+    }
+    final ranges = _possibleIvRanges(
+      personalInfo: personal,
+      stats: stats,
+      nature: _nature,
+      level: level,
+    );
+    setState(() {
+      _error = null;
+      _calculatedIvRanges = ranges;
+    });
+  }
+
+  Ivs? _parseIvs(List<TextEditingController> controllers) {
+    final values = controllers
+        .map((controller) => int.tryParse(controller.text.trim()))
+        .toList();
+    if (values.any((value) => value == null || value < 0 || value > 31)) {
+      return null;
+    }
+    final ivs = values.cast<int>();
+    return Ivs(
+      hp: ivs[0],
+      attack: ivs[1],
+      defense: ivs[2],
+      specialAttack: ivs[3],
+      specialDefense: ivs[4],
+      speed: ivs[5],
+    );
+  }
+
+  PokemonStats? _parseStats(List<TextEditingController> controllers) {
+    final values = controllers
+        .map((controller) => int.tryParse(controller.text.trim()))
+        .toList();
+    if (values.any((value) => value == null || value < 1)) {
+      return null;
+    }
+    final stats = values.cast<int>();
+    return PokemonStats(
+      hp: stats[0],
+      attack: stats[1],
+      defense: stats[2],
+      specialAttack: stats[3],
+      specialDefense: stats[4],
+      speed: stats[5],
+    );
+  }
+
+  List<String> _possibleIvRanges({
+    required Gen3PersonalInfo personalInfo,
+    required PokemonStats stats,
+    required Nature nature,
+    required int level,
+  }) {
+    final observed = stats.ordered;
+    final possible = List<List<int>>.generate(6, (_) => []);
+    for (var iv = 0; iv <= 31; iv += 1) {
+      final calculated = calculateGen3Stats(
+        personalInfo: personalInfo,
+        ivs: Ivs(
+          hp: iv,
+          attack: iv,
+          defense: iv,
+          specialAttack: iv,
+          specialDefense: iv,
+          speed: iv,
+        ),
+        nature: nature,
+        level: level,
+      ).ordered;
+      for (var index = 0; index < observed.length; index += 1) {
+        if (calculated[index] == observed[index]) {
+          possible[index].add(iv);
+        }
+      }
+    }
+    return possible.map(_rangeLabel).toList(growable: false);
+  }
+
+  String _rangeLabel(List<int> values) {
+    if (values.isEmpty) {
+      return '-';
+    }
+    final ranges = <String>[];
+    var start = values.first;
+    var previous = values.first;
+    for (final value in values.skip(1)) {
+      if (value == previous + 1) {
+        previous = value;
+        continue;
+      }
+      ranges.add(start == previous ? '$start' : '$start-$previous');
+      start = value;
+      previous = value;
+    }
+    ranges.add(start == previous ? '$start' : '$start-$previous');
+    return ranges.join(', ');
+  }
+
+  List<Widget> _numberFields({
+    required AppLocalizations l10n,
+    required List<TextEditingController> controllers,
+  }) {
+    final labels = _statLabels(l10n);
+    return List<Widget>.generate(labels.length, (index) {
+      return SizedBox(
+        width: 96,
+        child: TextField(
+          controller: controllers[index],
+          decoration: InputDecoration(
+            labelText: labels[index],
+            border: _controlBorder,
+          ),
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        ),
+      );
+    }, growable: false);
+  }
+
+  List<String> _statLabels(AppLocalizations l10n) {
+    return [
+      'HP',
+      l10n.statAttack,
+      l10n.statDefense,
+      l10n.statSpecialAttack,
+      l10n.statSpecialDefense,
+      l10n.statSpeed,
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      trailing: const Icon(Icons.chevron_right),
-      enabled: false,
+    final localeName = Localizations.localeOf(context).toString();
+    final l10n = AppLocalizations.of(context)!;
+    return FutureBuilder<_HuntData>(
+      future: _HuntData.load(localeName),
+      builder: (context, snapshot) {
+        final data = snapshot.data;
+        return _HoverSurface(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              spacing: 10,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  l10n.statIvCalculator,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                if (data == null)
+                  const LinearProgressIndicator()
+                else ...[
+                  RawAutocomplete<_SpeciesOption>(
+                    textEditingController: _pokemonController,
+                    focusNode: _pokemonFocusNode,
+                    displayStringForOption: (option) => option.displayName,
+                    optionsBuilder: (textEditingValue) {
+                      final query = textEditingValue.text.trim().toLowerCase();
+                      if (query.isEmpty) {
+                        return data.speciesOptions.take(_maxSpeciesSuggestions);
+                      }
+                      final numericStart = _numericSpeciesStart(query);
+                      if (numericStart != null) {
+                        if (numericStart > data.speciesOptions.length) {
+                          return const Iterable<_SpeciesOption>.empty();
+                        }
+                        return data.speciesOptions
+                            .skip(numericStart - 1)
+                            .take(_maxSpeciesSuggestions);
+                      }
+                      return data.speciesOptions
+                          .where((option) => option.searchText.contains(query))
+                          .take(_maxSpeciesSuggestions);
+                    },
+                    onSelected: (option) {
+                      setState(() {
+                        _speciesId = option.speciesId;
+                        _pokemonController.text = option.displayName;
+                      });
+                    },
+                    fieldViewBuilder:
+                        (context, controller, focusNode, onFieldSubmitted) {
+                          return TextField(
+                            controller: controller,
+                            focusNode: focusNode,
+                            decoration: InputDecoration(
+                              labelText: l10n.pokemon,
+                              border: _controlBorder,
+                            ),
+                          );
+                        },
+                    optionsViewBuilder: (context, onSelected, options) {
+                      return Align(
+                        alignment: Alignment.topLeft,
+                        child: Material(
+                          elevation: 4,
+                          borderRadius: BorderRadius.circular(_controlRadius),
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: 360,
+                              maxHeight: 240,
+                            ),
+                            child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              itemCount: options.length,
+                              itemBuilder: (context, index) {
+                                final option = options.elementAt(index);
+                                return InkWell(
+                                  onTap: () => onSelected(option),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 8,
+                                    ),
+                                    child: Text(option.displayName),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 96,
+                        child: TextField(
+                          controller: _levelController,
+                          decoration: InputDecoration(
+                            labelText: l10n.levelShort,
+                            border: _controlBorder,
+                          ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: DropdownButtonFormField<Nature>(
+                          isExpanded: true,
+                          initialValue: _nature,
+                          decoration: InputDecoration(
+                            labelText: l10n.nature,
+                            border: _controlBorder,
+                          ),
+                          items: Nature.values
+                              .map(
+                                (nature) => DropdownMenuItem<Nature>(
+                                  value: nature,
+                                  child: Text(
+                                    data.natureLabel(context, nature),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              )
+                              .toList(growable: false),
+                          onChanged: (value) {
+                            if (value != null) {
+                              setState(() => _nature = value);
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(l10n.ivs, style: Theme.of(context).textTheme.labelLarge),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: _numberFields(
+                      l10n: l10n,
+                      controllers: _ivControllers,
+                    ),
+                  ),
+                  FilledButton(
+                    onPressed: () => _calculateStats(data),
+                    child: Text(l10n.calculateStats),
+                  ),
+                  if (_calculatedStats != null)
+                    Text('${l10n.stats}: $_calculatedStats'),
+                  const Divider(height: 20),
+                  Text(
+                    l10n.stats,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: _numberFields(
+                      l10n: l10n,
+                      controllers: _statControllers,
+                    ),
+                  ),
+                  FilledButton(
+                    onPressed: () => _calculateIvs(data),
+                    child: Text(l10n.calculateIvs),
+                  ),
+                  if (_calculatedIvRanges != null)
+                    Text(
+                      _statLabels(l10n)
+                          .asMap()
+                          .entries
+                          .map(
+                            (entry) =>
+                                '${entry.value}: ${_calculatedIvRanges![entry.key]}',
+                          )
+                          .join(' / '),
+                    ),
+                  if (_error != null)
+                    Text(
+                      _error!,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -3302,10 +3764,12 @@ class SettingsPage extends StatefulWidget {
   const SettingsPage({
     super.key,
     required this.profile,
+    required this.profiles,
     required this.onProfileChanged,
   });
 
   final AppProfile profile;
+  final Map<GameVersion, AppProfile> profiles;
   final ValueChanged<AppProfile> onProfileChanged;
 
   @override
@@ -3334,6 +3798,21 @@ class _SettingsPageState extends State<SettingsPage> {
     _sidController.dispose();
     _seedController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant SettingsPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.profile != widget.profile) {
+      _game = widget.profile.game;
+      _applyProfile(widget.profile);
+    }
+  }
+
+  void _applyProfile(AppProfile profile) {
+    _tidController.text = '${profile.tid}';
+    _sidController.text = '${profile.sid}';
+    _seedController.text = profile.defaultSeed;
   }
 
   void _save() {
@@ -3379,7 +3858,9 @@ class _SettingsPageState extends State<SettingsPage> {
           onSelectionChanged: (selection) {
             setState(() {
               _game = selection.first;
-              _seedController.text = _game.defaultSeed;
+              _applyProfile(
+                widget.profiles[_game] ?? AppProfile.defaultsFor(_game),
+              );
             });
           },
         ),
@@ -3561,6 +4042,276 @@ class _SavedCalibrationTarget {
   final int id;
   final _CalibrationTarget target;
   final DateTime savedAt;
+}
+
+class _SavedTargetRecord {
+  const _SavedTargetRecord({
+    required this.id,
+    required this.savedAtMs,
+    required this.search,
+    required this.state,
+  });
+
+  factory _SavedTargetRecord.fromSaved(_SavedCalibrationTarget saved) {
+    final target = saved.target;
+    final search = target.search;
+    final state = target.state;
+    return _SavedTargetRecord(
+      id: saved.id,
+      savedAtMs: saved.savedAt.millisecondsSinceEpoch,
+      search: {
+        'seed': search.seed,
+        'initialAdvance': search.initialAdvance,
+        'maxAdvance': search.maxAdvance,
+        'delay': search.delay,
+        'ivRules': search.ivFilter.rules
+            .map(
+              (rule) => {
+                'value': rule.value,
+                'comparison': rule.comparison.index,
+              },
+            )
+            .toList(growable: false),
+        'shinyOnly': search.shinyOnly,
+        'nature': search.nature?.index,
+        'hiddenPowerType': search.hiddenPowerType?.index,
+        'abilitySlot': search.abilitySlot,
+        'gender': search.gender?.index,
+        'encounterSlot': search.encounterSlot,
+        'synchronizeNature': search.synchronizeNature?.index,
+        'pressureLead': search.pressureLead,
+        'staticLead': search.staticLead,
+        'magnetPullLead': search.magnetPullLead,
+        'cuteCharmLead': search.cuteCharmLead?.index,
+        'feebasTile': search.feebasTile,
+        'speciesId': search.speciesId,
+        'area': {
+          'game': search.area.game.jsonName,
+          'locationId': search.area.locationId,
+          'type': search.area.type.jsonName,
+        },
+        'method': search.method.index,
+      },
+      state: {
+        'advance': state.advance,
+        'pid': state.pid.value,
+        'ivs': state.ivs.ordered,
+        'nature': state.nature.index,
+        'abilitySlot': state.abilitySlot,
+        'gender': state.gender.index,
+        'shiny': state.shiny,
+        'encounterSlot': state.encounterSlot,
+        'species': state.species,
+        'form': state.form,
+        'level': state.level,
+      },
+    );
+  }
+
+  factory _SavedTargetRecord.fromJson(Map<String, dynamic> json) {
+    return _SavedTargetRecord(
+      id: json['id'] as int,
+      savedAtMs: json['savedAtMs'] as int,
+      search: json['search'] as Map<String, dynamic>,
+      state: json['state'] as Map<String, dynamic>,
+    );
+  }
+
+  final int id;
+  final int savedAtMs;
+  final Map<String, dynamic> search;
+  final Map<String, dynamic> state;
+
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'savedAtMs': savedAtMs, 'search': search, 'state': state};
+  }
+
+  _SavedCalibrationTarget? toSavedTarget(_HuntData data) {
+    try {
+      final areaJson = search['area'] as Map<String, dynamic>;
+      final game = _gameFromJson(areaJson['game'] as String);
+      final areaType = WildEncounterTypeJson.parse(areaJson['type'] as String);
+      final area = data.wild.areas.firstWhere(
+        (area) =>
+            area.game == game &&
+            area.locationId == areaJson['locationId'] as int &&
+            area.type == areaType,
+      );
+      final ivRules = (search['ivRules'] as List<dynamic>? ?? const [])
+          .cast<Map<String, dynamic>>()
+          .map(
+            (rule) => IvRule(
+              value: rule['value'] as int,
+              comparison: IvComparison.values[rule['comparison'] as int],
+            ),
+          )
+          .toList(growable: false);
+      final ivFilter = IvFilter(
+        rules: ivRules.length == 6
+            ? ivRules
+            : List<IvRule>.filled(
+                6,
+                const IvRule(
+                  value: -1,
+                  comparison: IvComparison.greaterOrEqual,
+                ),
+              ),
+      );
+      final ivs = (state['ivs'] as List<dynamic>).cast<int>();
+      final target = _CalibrationTarget(
+        names: data.names,
+        search: _HuntSearchSnapshot(
+          seed: search['seed'] as int,
+          initialAdvance: search['initialAdvance'] as int,
+          maxAdvance: search['maxAdvance'] as int,
+          delay: search['delay'] as int,
+          ivFilter: ivFilter,
+          shinyOnly: search['shinyOnly'] as bool,
+          nature: _enumOrNull(Nature.values, search['nature']),
+          hiddenPowerType: _enumOrNull(
+            HiddenPowerType.values,
+            search['hiddenPowerType'],
+          ),
+          abilitySlot: search['abilitySlot'] as int?,
+          gender: _enumOrNull(PokemonGender.values, search['gender']),
+          encounterSlot: search['encounterSlot'] as int?,
+          synchronizeNature: _enumOrNull(
+            Nature.values,
+            search['synchronizeNature'],
+          ),
+          pressureLead: search['pressureLead'] as bool,
+          staticLead: search['staticLead'] as bool,
+          magnetPullLead: search['magnetPullLead'] as bool,
+          cuteCharmLead: _enumOrNull(
+            CuteCharmLead.values,
+            search['cuteCharmLead'],
+          ),
+          feebasTile: search['feebasTile'] as bool,
+          speciesId: search['speciesId'] as int,
+          area: area,
+          method: WildMethod.values[search['method'] as int],
+          personalData: data.personal,
+        ),
+        state: WildState(
+          advance: state['advance'] as int,
+          pid: PokemonPid(state['pid'] as int),
+          ivs: Ivs(
+            hp: ivs[0],
+            attack: ivs[1],
+            defense: ivs[2],
+            specialAttack: ivs[3],
+            specialDefense: ivs[4],
+            speed: ivs[5],
+          ),
+          nature: Nature.values[state['nature'] as int],
+          abilitySlot: state['abilitySlot'] as int,
+          gender: PokemonGender.values[state['gender'] as int],
+          shiny: state['shiny'] as bool,
+          encounterSlot: state['encounterSlot'] as int,
+          species: state['species'] as int,
+          form: state['form'] as int,
+          level: state['level'] as int,
+        ),
+      );
+      return _SavedCalibrationTarget(
+        id: id,
+        target: target,
+        savedAt: DateTime.fromMillisecondsSinceEpoch(savedAtMs),
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+}
+
+T? _enumOrNull<T>(List<T> values, Object? index) {
+  return index == null ? null : values[index as int];
+}
+
+GameVersion _gameFromJson(String value) {
+  return GameVersion.values.firstWhere((game) => game.jsonName == value);
+}
+
+class _AppStorage {
+  _AppStorage({SharedPreferencesAsync? preferences})
+    : _preferences = preferences ?? SharedPreferencesAsync();
+
+  final SharedPreferencesAsync _preferences;
+
+  Future<Map<GameVersion, AppProfile>> loadProfiles() async {
+    final profiles = <GameVersion, AppProfile>{};
+    for (final game in GameVersion.values) {
+      profiles[game] = await loadProfile(game);
+    }
+    return profiles;
+  }
+
+  Future<AppProfile> loadProfile(GameVersion game) async {
+    final tid = await _preferences.getInt(_profileKey(game, 'tid')) ?? 0;
+    final sid = await _preferences.getInt(_profileKey(game, 'sid')) ?? 0;
+    final seed =
+        await _preferences.getString(_profileKey(game, 'seed')) ??
+        game.defaultSeed;
+    return AppProfile(game: game, tid: tid, sid: sid, defaultSeed: seed);
+  }
+
+  Future<void> saveProfile(AppProfile profile) async {
+    await _preferences.setInt(_profileKey(profile.game, 'tid'), profile.tid);
+    await _preferences.setInt(_profileKey(profile.game, 'sid'), profile.sid);
+    await _preferences.setString(
+      _profileKey(profile.game, 'seed'),
+      profile.defaultSeed,
+    );
+  }
+
+  Future<GameVersion> loadCurrentGame() async {
+    final raw = await _preferences.getString('app.currentGame');
+    if (raw == null) {
+      return GameVersion.emerald;
+    }
+    return GameVersion.values.firstWhere(
+      (game) => game.jsonName == raw,
+      orElse: () => GameVersion.emerald,
+    );
+  }
+
+  Future<void> saveCurrentGame(GameVersion game) async {
+    await _preferences.setString('app.currentGame', game.jsonName);
+  }
+
+  Future<List<_SavedTargetRecord>> loadTargets(GameVersion game) async {
+    final raw = await _preferences.getString(_targetsKey(game));
+    if (raw == null || raw.isEmpty) {
+      return const [];
+    }
+    try {
+      final json = jsonDecode(raw) as List<dynamic>;
+      return json
+          .cast<Map<String, dynamic>>()
+          .map(_SavedTargetRecord.fromJson)
+          .toList(growable: false);
+    } catch (_) {
+      return const [];
+    }
+  }
+
+  Future<void> saveTargets(
+    GameVersion game,
+    List<_SavedCalibrationTarget> targets,
+  ) async {
+    final json = targets
+        .map((target) => _SavedTargetRecord.fromSaved(target).toJson())
+        .toList(growable: false);
+    await _preferences.setString(_targetsKey(game), jsonEncode(json));
+  }
+
+  String _profileKey(GameVersion game, String field) {
+    return 'profile.${game.jsonName}.$field';
+  }
+
+  String _targetsKey(GameVersion game) {
+    return 'targets.${game.jsonName}';
+  }
 }
 
 sealed class _HuntResult {

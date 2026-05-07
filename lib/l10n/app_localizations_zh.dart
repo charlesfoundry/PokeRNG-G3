@@ -103,7 +103,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get painting => '画作';
 
   @override
-  String get locationEgg => '地点 / 蛋';
+  String get locationEgg => '地点';
 
   @override
   String get egg => '蛋';
@@ -311,6 +311,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get hiddenPower => '觉醒力量';
+
+  @override
+  String get ivs => 'IV';
+
+  @override
+  String get stats => '能力值';
+
+  @override
+  String get statIvCalculator => '能力值 / IV 计算器';
+
+  @override
+  String get calculateStats => '计算能力值';
+
+  @override
+  String get calculateIvs => '计算 IV';
+
+  @override
+  String get calculatorInputError => '请检查宝可梦、等级、性格和输入数值。';
 
   @override
   String get sendToCalibration => '发送到校准';
@@ -532,7 +550,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get painting => '画作';
 
   @override
-  String get locationEgg => '地点 / 蛋';
+  String get locationEgg => '地点';
 
   @override
   String get egg => '蛋';
@@ -740,6 +758,24 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get hiddenPower => '觉醒力量';
+
+  @override
+  String get ivs => 'IV';
+
+  @override
+  String get stats => '能力值';
+
+  @override
+  String get statIvCalculator => '能力值 / IV 计算器';
+
+  @override
+  String get calculateStats => '计算能力值';
+
+  @override
+  String get calculateIvs => '计算 IV';
+
+  @override
+  String get calculatorInputError => '请检查宝可梦、等级、性格和输入数值。';
 
   @override
   String get sendToCalibration => '发送到校准';

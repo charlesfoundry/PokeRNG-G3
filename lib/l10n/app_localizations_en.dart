@@ -103,7 +103,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get painting => 'Painting';
 
   @override
-  String get locationEgg => 'Location / Egg';
+  String get locationEgg => 'Location';
 
   @override
   String get egg => 'Egg';
@@ -314,6 +314,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hiddenPower => 'HPower';
+
+  @override
+  String get ivs => 'IVs';
+
+  @override
+  String get stats => 'Stats';
+
+  @override
+  String get statIvCalculator => 'Stats / IV calculator';
+
+  @override
+  String get calculateStats => 'Calculate stats';
+
+  @override
+  String get calculateIvs => 'Calculate IVs';
+
+  @override
+  String get calculatorInputError =>
+      'Check Pokemon, level, nature, and input values.';
 
   @override
   String get sendToCalibration => 'Send to calibration';

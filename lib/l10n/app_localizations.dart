@@ -290,7 +290,7 @@ abstract class AppLocalizations {
   /// No description provided for @locationEgg.
   ///
   /// In en, this message translates to:
-  /// **'Location / Egg'**
+  /// **'Location'**
   String get locationEgg;
 
   /// No description provided for @egg.
@@ -670,6 +670,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'HPower'**
   String get hiddenPower;
+
+  /// No description provided for @ivs.
+  ///
+  /// In en, this message translates to:
+  /// **'IVs'**
+  String get ivs;
+
+  /// No description provided for @stats.
+  ///
+  /// In en, this message translates to:
+  /// **'Stats'**
+  String get stats;
+
+  /// No description provided for @statIvCalculator.
+  ///
+  /// In en, this message translates to:
+  /// **'Stats / IV calculator'**
+  String get statIvCalculator;
+
+  /// No description provided for @calculateStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculate stats'**
+  String get calculateStats;
+
+  /// No description provided for @calculateIvs.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculate IVs'**
+  String get calculateIvs;
+
+  /// No description provided for @calculatorInputError.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Pokemon, level, nature, and input values.'**
+  String get calculatorInputError;
 
   /// No description provided for @sendToCalibration.
   ///
