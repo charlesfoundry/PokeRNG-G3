@@ -367,8 +367,8 @@ class _AppShellState extends State<_AppShell> {
   final _huntKey = GlobalKey<_HuntPageState>();
   int _selectedIndex = 0;
   _HuntSearchSnapshot? _huntSearch;
-  _CalibrationTarget? _calibrationTarget;
-  final List<_SavedCalibrationTarget> _savedTargets = [];
+  _CalibrationPageTarget? _calibrationTarget;
+  final List<_SavedTarget> _savedTargets = [];
   _HuntResultsSnapshot _huntResults = const _HuntResultsSnapshot();
   GameVersion? _loadedTargetsGame;
   String? _loadedTargetsLocale;
@@ -425,7 +425,7 @@ class _AppShellState extends State<_AppShell> {
         ..addAll(
           records
               .map((record) => record.toSavedTarget(data))
-              .whereType<_SavedCalibrationTarget>(),
+              .whereType<_SavedTarget>(),
         );
     });
   }
@@ -474,18 +474,45 @@ class _AppShellState extends State<_AppShell> {
             context,
           ).showSnackBar(SnackBar(content: Text(l10n.targetSaved)));
         },
+        onSaveStaticTarget: (target) {
+          setState(() {
+            _savedTargets.insert(
+              0,
+              _SavedStaticTarget(
+                id: DateTime.now().microsecondsSinceEpoch,
+                target: target,
+                savedAt: DateTime.now(),
+              ),
+            );
+          });
+          widget.storage.saveTargets(widget.profile.game, _savedTargets);
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(l10n.targetSaved)));
+        },
+        onSendStaticToCalibration: (target) {
+          setState(() {
+            _calibrationTarget = target;
+            _selectedIndex = 2;
+          });
+        },
       ),
       _CalibratePage(
         profile: widget.profile,
         search: _huntSearch,
         target: _calibrationTarget,
       ),
+      const _BreedingPage(),
       _ToolsPage(
         savedTargets: _savedTargets,
         onUseTarget: (saved) {
           setState(() {
-            _huntSearch = saved.target.search;
-            _calibrationTarget = saved.target;
+            if (saved is _SavedCalibrationTarget) {
+              _huntSearch = saved.target.search;
+              _calibrationTarget = saved.target;
+            } else if (saved is _SavedStaticTarget) {
+              _calibrationTarget = saved.target;
+            }
             _selectedIndex = 2;
           });
         },
@@ -543,6 +570,10 @@ class _AppShellState extends State<_AppShell> {
                         label: Text(l10n.calibrate),
                       ),
                       NavigationRailDestination(
+                        icon: const Icon(Icons.egg_alt_outlined),
+                        label: Text(l10n.breeding),
+                      ),
+                      NavigationRailDestination(
                         icon: const Icon(Icons.build),
                         label: Text(l10n.tools),
                       ),
@@ -577,6 +608,10 @@ class _AppShellState extends State<_AppShell> {
                 NavigationDestination(
                   icon: const Icon(Icons.tune),
                   label: l10n.calibrate,
+                ),
+                NavigationDestination(
+                  icon: const Icon(Icons.egg_alt_outlined),
+                  label: l10n.breeding,
                 ),
                 NavigationDestination(
                   icon: const Icon(Icons.build),
@@ -1004,6 +1039,15 @@ class _HuntPageState extends State<_HuntPage> {
       abilitySlot: _abilitySlot,
       gender: _gender,
     );
+    final searchSnapshot = _StaticSearchSnapshot(
+      seed: parsed.seed,
+      initialAdvance: parsed.initialAdvance,
+      maxAdvance: parsed.maxAdvance,
+      delay: parsed.delay,
+      method: _staticMethodFor(_wildMethod),
+      template: template,
+      personalData: data.personal,
+    );
 
     setState(() {
       _error = null;
@@ -1014,6 +1058,7 @@ class _HuntPageState extends State<_HuntPage> {
     widget.onResultsChanged(
       _HuntResultsSnapshot(
         names: data.names,
+        staticSearch: searchSnapshot,
         searching: true,
         delay: parsed.delay,
         searchProgress: 0,
@@ -1046,6 +1091,7 @@ class _HuntPageState extends State<_HuntPage> {
           widget.onResultsChanged(
             _HuntResultsSnapshot(
               names: data.names,
+              staticSearch: searchSnapshot,
               searching: true,
               delay: parsed.delay,
               searchProgress: message.fraction,
@@ -1100,6 +1146,7 @@ class _HuntPageState extends State<_HuntPage> {
     widget.onResultsChanged(
       _HuntResultsSnapshot(
         names: data.names,
+        staticSearch: searchSnapshot,
         delay: parsed.delay,
         results: searchResult.results
             .map(_HuntResult.static)
@@ -1965,6 +2012,7 @@ class _HuntResults extends StatelessWidget {
     required this.error,
     required this.names,
     required this.search,
+    required this.staticSearch,
     required this.delay,
     required this.results,
     required this.resultLimitReached,
@@ -1973,11 +2021,14 @@ class _HuntResults extends StatelessWidget {
     required this.onCancelSearch,
     required this.onSendToCalibration,
     required this.onSaveTarget,
+    required this.onSaveStaticTarget,
+    required this.onSendStaticToCalibration,
   });
 
   final String? error;
   final Gen3NamedResources names;
   final _HuntSearchSnapshot? search;
+  final _StaticSearchSnapshot? staticSearch;
   final int delay;
   final List<_HuntResult> results;
   final bool resultLimitReached;
@@ -1986,6 +2037,8 @@ class _HuntResults extends StatelessWidget {
   final VoidCallback onCancelSearch;
   final ValueChanged<_CalibrationTarget> onSendToCalibration;
   final ValueChanged<_CalibrationTarget> onSaveTarget;
+  final ValueChanged<_StaticTarget> onSaveStaticTarget;
+  final ValueChanged<_StaticTarget> onSendStaticToCalibration;
 
   @override
   Widget build(BuildContext context) {
@@ -2088,12 +2141,35 @@ class _HuntResults extends StatelessWidget {
                           state: state,
                           triggerAdvance: state.advance - delay,
                           natureName: names.natureName(state.nature),
+                          personalData: search?.personalData,
                         ),
                       ),
-                      _StaticHuntResult(:final hit) => _StaticResultTile(
-                        hit: hit,
-                        triggerAdvance: hit.state.advance - delay,
-                        natureName: names.natureName(hit.state.nature),
+                      _StaticHuntResult(:final hit) => _ResultContextMenu(
+                        enabled: staticSearch != null,
+                        onSendToCalibration: staticSearch == null
+                            ? null
+                            : () => onSendStaticToCalibration(
+                                _StaticTarget(
+                                  search: staticSearch!,
+                                  hit: hit,
+                                  names: names,
+                                ),
+                              ),
+                        onSaveTarget: staticSearch == null
+                            ? null
+                            : () => onSaveStaticTarget(
+                                _StaticTarget(
+                                  search: staticSearch!,
+                                  hit: hit,
+                                  names: names,
+                                ),
+                              ),
+                        child: _StaticResultTile(
+                          hit: hit,
+                          triggerAdvance: hit.state.advance - delay,
+                          natureName: names.natureName(hit.state.nature),
+                          personalData: staticSearch?.personalData,
+                        ),
                       ),
                     };
                   },
@@ -2110,12 +2186,16 @@ class _ResultsPage extends StatelessWidget {
     required this.onCancelSearch,
     required this.onSendToCalibration,
     required this.onSaveTarget,
+    required this.onSaveStaticTarget,
+    required this.onSendStaticToCalibration,
   });
 
   final _HuntResultsSnapshot snapshot;
   final VoidCallback onCancelSearch;
   final ValueChanged<_CalibrationTarget> onSendToCalibration;
   final ValueChanged<_CalibrationTarget> onSaveTarget;
+  final ValueChanged<_StaticTarget> onSaveStaticTarget;
+  final ValueChanged<_StaticTarget> onSendStaticToCalibration;
 
   @override
   Widget build(BuildContext context) {
@@ -2127,6 +2207,7 @@ class _ResultsPage extends StatelessWidget {
       error: snapshot.error,
       names: names,
       search: snapshot.search,
+      staticSearch: snapshot.staticSearch,
       delay: snapshot.delay,
       results: snapshot.results,
       resultLimitReached: snapshot.resultLimitReached,
@@ -2135,6 +2216,8 @@ class _ResultsPage extends StatelessWidget {
       onCancelSearch: onCancelSearch,
       onSendToCalibration: onSendToCalibration,
       onSaveTarget: onSaveTarget,
+      onSaveStaticTarget: onSaveStaticTarget,
+      onSendStaticToCalibration: onSendStaticToCalibration,
     );
   }
 }
@@ -2385,28 +2468,30 @@ class _ResultContextMenu extends StatelessWidget {
         Offset.zero & overlay.size,
       ),
       items: [
-        PopupMenuItem<String>(
-          value: 'calibrate',
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.gps_fixed, size: 18),
-              const SizedBox(width: 8),
-              Text(l10n.sendToCalibration),
-            ],
+        if (onSendToCalibration != null)
+          PopupMenuItem<String>(
+            value: 'calibrate',
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.gps_fixed, size: 18),
+                const SizedBox(width: 8),
+                Text(l10n.sendToCalibration),
+              ],
+            ),
           ),
-        ),
-        PopupMenuItem<String>(
-          value: 'save',
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.bookmark_add, size: 18),
-              const SizedBox(width: 8),
-              Text(l10n.saveTarget),
-            ],
+        if (onSaveTarget != null)
+          PopupMenuItem<String>(
+            value: 'save',
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.bookmark_add, size: 18),
+                const SizedBox(width: 8),
+                Text(l10n.saveTarget),
+              ],
+            ),
           ),
-        ),
       ],
     );
     if (selected == 'calibrate') {
@@ -2432,16 +2517,25 @@ class _WildResultTile extends StatelessWidget {
     required this.state,
     required this.triggerAdvance,
     required this.natureName,
+    required this.personalData,
   });
 
   final WildState state;
   final int triggerAdvance;
   final String natureName;
+  final Gen3PersonalData? personalData;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final hiddenPower = state.ivs.hiddenPower;
+    final stats = _resultStats(
+      personalData: personalData,
+      species: state.species,
+      ivs: state.ivs,
+      nature: state.nature,
+      level: state.level,
+    );
     return _HoverSurface(
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -2478,9 +2572,10 @@ class _WildResultTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: _ResultField(
+                  child: _ValueIconField(
                     label: l10n.levelShort,
                     value: '${state.level}',
+                    showIcon: state.shiny,
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -2502,24 +2597,9 @@ class _WildResultTile extends StatelessWidget {
                   '${_hiddenPowerTypeLabel(context, hiddenPower.type)} ${hiddenPower.power}',
               ivsValue: state.ivs.toString(),
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: _ResultField(
-                    label: 'PID',
-                    value: state.pid.toString(),
-                  ),
-                ),
-                if (state.shiny) ...[
-                  const SizedBox(width: 8),
-                  Chip(
-                    avatar: const Icon(Icons.auto_awesome, size: 18),
-                    label: Text(l10n.shiny),
-                    visualDensity: VisualDensity.compact,
-                  ),
-                ],
-              ],
+            _PidStatsRow(
+              pidValue: state.pid.toString(),
+              statsValue: stats?.toString(),
             ),
           ],
         ),
@@ -2533,17 +2613,26 @@ class _StaticResultTile extends StatelessWidget {
     required this.hit,
     required this.triggerAdvance,
     required this.natureName,
+    required this.personalData,
   });
 
   final StaticSearchHit hit;
   final int triggerAdvance;
   final String natureName;
+  final Gen3PersonalData? personalData;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final state = hit.state;
     final hiddenPower = state.ivs.hiddenPower;
+    final stats = _resultStats(
+      personalData: personalData,
+      species: hit.template.species,
+      ivs: state.ivs,
+      nature: state.nature,
+      level: state.level,
+    );
     return _HoverSurface(
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -2583,9 +2672,10 @@ class _StaticResultTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: _ResultField(
+                  child: _ValueIconField(
                     label: l10n.levelShort,
                     value: '${state.level}',
+                    showIcon: state.shiny,
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -2607,28 +2697,129 @@ class _StaticResultTile extends StatelessWidget {
                   '${_hiddenPowerTypeLabel(context, hiddenPower.type)} ${hiddenPower.power}',
               ivsValue: state.ivs.toString(),
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: _ResultField(
-                    label: 'PID',
-                    value: state.pid.toString(),
-                  ),
-                ),
-                if (state.shiny) ...[
-                  const SizedBox(width: 8),
-                  Chip(
-                    avatar: const Icon(Icons.auto_awesome, size: 18),
-                    label: Text(l10n.shiny),
-                    visualDensity: VisualDensity.compact,
-                  ),
-                ],
-              ],
+            _PidStatsRow(
+              pidValue: state.pid.toString(),
+              statsValue: stats?.toString(),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ValueIconField extends StatelessWidget {
+  const _ValueIconField({
+    required this.label,
+    required this.value,
+    required this.showIcon,
+  });
+
+  final String label;
+  final String value;
+  final bool showIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(label, style: Theme.of(context).textTheme.labelSmall),
+        Row(
+          children: [
+            Flexible(
+              child: Text(
+                value,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+            if (showIcon) ...[
+              const SizedBox(width: 4),
+              Tooltip(
+                message: l10n.shiny,
+                child: Icon(
+                  Icons.auto_awesome,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+PokemonStats? _resultStats({
+  required Gen3PersonalData? personalData,
+  required int species,
+  required Ivs ivs,
+  required Nature nature,
+  required int level,
+}) {
+  final personalInfo = personalData?[species];
+  if (personalInfo == null) {
+    return null;
+  }
+  return calculateGen3Stats(
+    personalInfo: personalInfo,
+    ivs: ivs,
+    nature: nature,
+    level: level,
+  );
+}
+
+class _PidStatsRow extends StatelessWidget {
+  const _PidStatsRow({required this.pidValue, required this.statsValue});
+
+  final String pidValue;
+  final String? statsValue;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (!constraints.maxWidth.isFinite) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: _ResultField(label: 'PID', value: pidValue),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 2,
+                child: _ResultField(
+                  label: l10n.stats,
+                  value: statsValue ?? '-',
+                ),
+              ),
+            ],
+          );
+        }
+        final firstColumnWidth = ((constraints.maxWidth - 16) / 3)
+            .clamp(0.0, constraints.maxWidth)
+            .toDouble();
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: firstColumnWidth,
+              child: _ResultField(label: 'PID', value: pidValue),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: _ResultField(label: l10n.stats, value: statsValue ?? '-'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -2699,7 +2890,7 @@ class _CalibratePage extends StatefulWidget {
 
   final AppProfile profile;
   final _HuntSearchSnapshot? search;
-  final _CalibrationTarget? target;
+  final _CalibrationPageTarget? target;
 
   @override
   State<_CalibratePage> createState() => _CalibratePageState();
@@ -2718,7 +2909,7 @@ class _CalibratePageState extends State<_CalibratePage> {
   Nature? _observedNature;
   int? _observedAbilitySlot;
   PokemonGender? _observedGender;
-  List<WildCalibrationHit> _hits = const [];
+  List<_CalibrationHitResult> _hits = const [];
   String? _error;
 
   @override
@@ -2747,16 +2938,15 @@ class _CalibratePageState extends State<_CalibratePage> {
     super.dispose();
   }
 
-  void _syncTarget(_CalibrationTarget? target) {
+  void _syncTarget(_CalibrationPageTarget? target) {
     if (target == null) {
       return;
     }
-    _targetAdvanceController.text =
-        '${target.state.advance - target.search.delay}';
+    _targetAdvanceController.text = '${target.advance - target.delay}';
     _actualAdvanceController.clear();
     _outputController.clear();
     _targetDeltaController.clear();
-    _observedSpeciesId = target.state.species;
+    _observedSpeciesId = target.species;
     _observedNature = null;
     _observedAbilitySlot = null;
     _observedGender = null;
@@ -2774,7 +2964,7 @@ class _CalibratePageState extends State<_CalibratePage> {
       return;
     }
 
-    final referenceAdvance = widget.target?.state.advance ?? currentPress;
+    final referenceAdvance = widget.target?.advance ?? currentPress;
     final delta = actualAdvance - referenceAdvance;
     final nextPress = currentPress - delta;
     final l10n = AppLocalizations.of(context)!;
@@ -2790,10 +2980,10 @@ class _CalibratePageState extends State<_CalibratePage> {
   }
 
   void _reverseHit() {
-    final search = widget.target?.search ?? widget.search;
     final observedStats = _parseStats();
+    final target = widget.target;
 
-    if (search == null || observedStats == null) {
+    if ((target == null && widget.search == null) || observedStats == null) {
       setState(() {
         _error = AppLocalizations.of(
           context,
@@ -2803,7 +2993,44 @@ class _CalibratePageState extends State<_CalibratePage> {
       return;
     }
 
-    final observedSpeciesId = _observedSpeciesId ?? search.speciesId;
+    final hits = switch (target) {
+      _CalibrationTarget() => _findWildHits(target, observedStats),
+      _StaticTarget() => _findStaticHits(target, observedStats),
+      null => _findWildHitsFromSearch(widget.search!, observedStats),
+    };
+
+    if (hits.isEmpty) {
+      setState(() {
+        _error = AppLocalizations.of(context)!.noMatchingAdvanceError;
+        _hits = const [];
+      });
+      return;
+    }
+
+    setState(() {
+      _error = null;
+      _hits = hits;
+    });
+  }
+
+  List<_CalibrationHitResult> _findWildHits(
+    _CalibrationTarget target,
+    PokemonStats observedStats,
+  ) {
+    return _findWildHitsFromSearch(
+      target.search,
+      observedStats,
+      defaultSpeciesId: target.species,
+    );
+  }
+
+  List<_CalibrationHitResult> _findWildHitsFromSearch(
+    _HuntSearchSnapshot search,
+    PokemonStats observedStats, {
+    int? defaultSpeciesId,
+  }) {
+    final observedSpeciesId =
+        _observedSpeciesId ?? defaultSpeciesId ?? search.speciesId;
     final request = WildCalibrationRequest(
       seed: search.seed,
       initialAdvance: search.initialAdvance,
@@ -2826,20 +3053,71 @@ class _CalibratePageState extends State<_CalibratePage> {
       feebasTile: search.feebasTile,
       personalData: search.personalData,
     );
-    final hits = request.findMatches(limit: 50);
+    return request
+        .findMatches(limit: 50)
+        .map(_CalibrationHitResult.wild)
+        .toList(growable: false);
+  }
 
-    if (hits.isEmpty) {
-      setState(() {
-        _error = AppLocalizations.of(context)!.noMatchingAdvanceError;
-        _hits = const [];
-      });
-      return;
+  List<_CalibrationHitResult> _findStaticHits(
+    _StaticTarget target,
+    PokemonStats observedStats,
+  ) {
+    final search = target.search;
+    final template = search.template;
+    final personalInfo = search.personalData[template.species];
+    if (personalInfo == null) {
+      return const [];
     }
+    final generator = StaticGenerator(
+      seed: search.seed,
+      initialAdvance: search.initialAdvance,
+      maxAdvances: search.maxAdvance,
+      method: search.method,
+      tid: widget.profile.tid,
+      sid: widget.profile.sid,
+      genderRatio: personalInfo.genderRatio,
+      level: template.level,
+      buggedRoamer: template.buggedRoamer,
+    );
+    final results = <_CalibrationHitResult>[];
+    for (final state in generator.generate()) {
+      if (_observedNature != null && state.nature != _observedNature) {
+        continue;
+      }
+      if (_observedAbilitySlot != null &&
+          state.abilitySlot != _observedAbilitySlot) {
+        continue;
+      }
+      if (_observedGender != null && state.gender != _observedGender) {
+        continue;
+      }
+      final stats = calculateGen3Stats(
+        personalInfo: personalInfo,
+        ivs: state.ivs,
+        nature: state.nature,
+        level: state.level,
+      );
+      if (!_sameStats(stats, observedStats)) {
+        continue;
+      }
+      results.add(_CalibrationHitResult.static(state, template, stats));
+      if (results.length >= 50) {
+        break;
+      }
+    }
+    return results;
+  }
 
-    setState(() {
-      _error = null;
-      _hits = hits;
-    });
+  bool _sameStats(PokemonStats left, PokemonStats right) {
+    final leftValues = left.ordered;
+    final rightValues = right.ordered;
+    for (var index = 0; index < leftValues.length; index += 1) {
+      if (leftValues[index] != rightValues[index]) {
+        return false;
+      }
+    }
+    return true;
   }
 
   PokemonStats? _parseStats() {
@@ -2939,23 +3217,29 @@ class _CalibratePageState extends State<_CalibratePage> {
     }, growable: false);
   }
 
-  void _selectHit(WildCalibrationHit hit) {
-    _actualAdvanceController.text = '${hit.state.advance}';
+  void _selectHit(_CalibrationHitResult hit) {
+    _actualAdvanceController.text = '${hit.advance}';
     _outputController.text = AppLocalizations.of(
       context,
-    )!.actualAdvanceOutput(hit.state.advance);
+    )!.actualAdvanceOutput(hit.advance);
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final target = widget.target;
-    final search = target?.search ?? widget.search;
-    final observedSpeciesId = _observedSpeciesId ?? search?.speciesId;
+    final wildSearch = target is _CalibrationTarget
+        ? target.search
+        : widget.search;
+    final observedSpeciesId =
+        _observedSpeciesId ?? target?.species ?? wildSearch?.speciesId;
+    final personalData = target?.personalData ?? wildSearch?.personalData;
     final personal = observedSpeciesId == null
         ? null
-        : search?.personalData[observedSpeciesId];
+        : personalData?[observedSpeciesId];
     final names = target?.names;
+    final isStaticTarget = target is _StaticTarget;
+    final hitDelay = target?.delay ?? wildSearch?.delay ?? 0;
     final theme = Theme.of(context);
 
     return ListView(
@@ -3018,30 +3302,32 @@ class _CalibratePageState extends State<_CalibratePage> {
           ),
         ),
         const SizedBox(height: 20),
-        Text(l10n.observedPokemon, style: theme.textTheme.titleMedium),
-        const SizedBox(height: 12),
-        DropdownButtonFormField<int>(
-          key: ValueKey('calibration-species-$observedSpeciesId'),
-          isExpanded: true,
-          initialValue: observedSpeciesId,
-          decoration: InputDecoration(
-            labelText: l10n.pokemon,
-            border: _controlBorder,
+        if (!isStaticTarget) ...[
+          Text(l10n.observedPokemon, style: theme.textTheme.titleMedium),
+          const SizedBox(height: 12),
+          DropdownButtonFormField<int>(
+            key: ValueKey('calibration-species-$observedSpeciesId'),
+            isExpanded: true,
+            initialValue: observedSpeciesId,
+            decoration: InputDecoration(
+              labelText: l10n.pokemon,
+              border: _controlBorder,
+            ),
+            items: _speciesItems(wildSearch, names),
+            onChanged: wildSearch == null
+                ? null
+                : (value) {
+                    setState(() {
+                      _observedSpeciesId = value;
+                      _observedAbilitySlot = null;
+                      _observedGender = null;
+                      _hits = const [];
+                      _error = null;
+                    });
+                  },
           ),
-          items: _speciesItems(search, names),
-          onChanged: search == null
-              ? null
-              : (value) {
-                  setState(() {
-                    _observedSpeciesId = value;
-                    _observedAbilitySlot = null;
-                    _observedGender = null;
-                    _hits = const [];
-                    _error = null;
-                  });
-                },
-        ),
-        const SizedBox(height: 8),
+          const SizedBox(height: 8),
+        ],
         DropdownButtonFormField<int?>(
           key: ValueKey(
             'calibration-ability-$observedSpeciesId-$_observedAbilitySlot',
@@ -3138,12 +3424,9 @@ class _CalibratePageState extends State<_CalibratePage> {
           ..._hits.map(
             (hit) => _CalibrationHitTile(
               hit: hit,
-              triggerAdvance: hit.state.advance - (search?.delay ?? 0),
-              speciesName:
-                  names?.speciesName(hit.state.species) ??
-                  '#${hit.state.species}',
-              natureName:
-                  names?.natureName(hit.state.nature) ?? hit.state.nature.name,
+              triggerAdvance: hit.advance - hitDelay,
+              speciesName: names?.speciesName(hit.species) ?? '#${hit.species}',
+              natureName: names?.natureName(hit.nature) ?? hit.nature.name,
               onTap: () => _selectHit(hit),
             ),
           ),
@@ -3156,7 +3439,7 @@ class _CalibratePageState extends State<_CalibratePage> {
 class _CalibrationTargetCard extends StatelessWidget {
   const _CalibrationTargetCard({required this.target});
 
-  final _CalibrationTarget? target;
+  final _CalibrationPageTarget? target;
 
   @override
   Widget build(BuildContext context) {
@@ -3171,8 +3454,7 @@ class _CalibrationTargetCard extends StatelessWidget {
       );
     }
 
-    final state = target.state;
-    final species = target.names.speciesName(state.species);
+    final species = target.names.speciesName(target.species);
     return _HoverSurface(
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -3186,20 +3468,24 @@ class _CalibrationTargetCard extends StatelessWidget {
             ),
             Row(
               children: [
-                Expanded(child: Text('#${state.species} $species')),
-                Text('${l10n.resultAdvance} ${state.advance}'),
+                Expanded(
+                  child: Text(
+                    '#${target.species} $species · ${target.kindLabel(context)}',
+                  ),
+                ),
+                Text('${l10n.resultAdvance} ${target.advance}'),
               ],
             ),
             Row(
               children: [
                 Expanded(
                   child: Text(
-                    '${l10n.levelShort} ${state.level} · '
-                    '${_genderLabel(state.gender)} · '
-                    '${target.names.natureName(state.nature)}',
+                    '${l10n.levelShort} ${target.level} · '
+                    '${_genderLabel(target.gender)} · '
+                    '${target.names.natureName(target.nature)}',
                   ),
                 ),
-                Text('PID ${state.pid}'),
+                Text('PID ${target.pid}'),
               ],
             ),
           ],
@@ -3207,6 +3493,55 @@ class _CalibrationTargetCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class _CalibrationHitResult {
+  const _CalibrationHitResult({
+    required this.advance,
+    required this.species,
+    required this.level,
+    required this.nature,
+    required this.gender,
+    required this.ivs,
+    required this.stats,
+  });
+
+  factory _CalibrationHitResult.wild(WildCalibrationHit hit) {
+    final state = hit.state;
+    return _CalibrationHitResult(
+      advance: state.advance,
+      species: state.species,
+      level: state.level,
+      nature: state.nature,
+      gender: state.gender,
+      ivs: state.ivs,
+      stats: hit.stats,
+    );
+  }
+
+  factory _CalibrationHitResult.static(
+    StaticState state,
+    StaticEncounterTemplate template,
+    PokemonStats stats,
+  ) {
+    return _CalibrationHitResult(
+      advance: state.advance,
+      species: template.species,
+      level: state.level,
+      nature: state.nature,
+      gender: state.gender,
+      ivs: state.ivs,
+      stats: stats,
+    );
+  }
+
+  final int advance;
+  final int species;
+  final int level;
+  final Nature nature;
+  final PokemonGender gender;
+  final Ivs ivs;
+  final PokemonStats? stats;
 }
 
 class _CalibrationHitTile extends StatelessWidget {
@@ -3218,7 +3553,7 @@ class _CalibrationHitTile extends StatelessWidget {
     required this.onTap,
   });
 
-  final WildCalibrationHit hit;
+  final _CalibrationHitResult hit;
   final int triggerAdvance;
   final String speciesName;
   final String natureName;
@@ -3227,7 +3562,6 @@ class _CalibrationHitTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final state = hit.state;
     final stats = hit.stats;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -3236,18 +3570,50 @@ class _CalibrationHitTile extends StatelessWidget {
           dense: true,
           onTap: onTap,
           title: Text(
-            '#${state.species} $speciesName · '
-            '${l10n.resultAdvance} ${state.advance} · '
+            '#${hit.species} $speciesName · '
+            '${l10n.resultAdvance} ${hit.advance} · '
             '${l10n.resultPress} $triggerAdvance · '
-            '${l10n.levelShort} ${state.level}',
+            '${l10n.levelShort} ${hit.level}',
           ),
           subtitle: Text(
-            '$natureName · ${_genderLabel(state.gender)} · '
-            '${stats ?? state.ivs}',
+            '$natureName · ${_genderLabel(hit.gender)} · '
+            '${stats ?? hit.ivs}',
           ),
           trailing: const Icon(Icons.chevron_right),
         ),
       ),
+    );
+  }
+}
+
+class _BreedingPage extends StatelessWidget {
+  const _BreedingPage();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        Text(l10n.breeding, style: theme.textTheme.titleLarge),
+        const SizedBox(height: 12),
+        _HoverSurface(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.egg_alt_outlined,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(width: 12),
+                Expanded(child: Text(l10n.breedingUnavailable)),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -3259,9 +3625,9 @@ class _ToolsPage extends StatelessWidget {
     required this.onDeleteTarget,
   });
 
-  final List<_SavedCalibrationTarget> savedTargets;
-  final ValueChanged<_SavedCalibrationTarget> onUseTarget;
-  final ValueChanged<_SavedCalibrationTarget> onDeleteTarget;
+  final List<_SavedTarget> savedTargets;
+  final ValueChanged<_SavedTarget> onUseTarget;
+  final ValueChanged<_SavedTarget> onDeleteTarget;
 
   @override
   Widget build(BuildContext context) {
@@ -3315,28 +3681,27 @@ class _SavedTargetTile extends StatelessWidget {
     required this.onDelete,
   });
 
-  final _SavedCalibrationTarget saved;
-  final VoidCallback onUse;
+  final _SavedTarget saved;
+  final VoidCallback? onUse;
   final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final target = saved.target;
-    final state = target.state;
-    final hiddenPower = state.ivs.hiddenPower;
+    final hiddenPower = saved.ivs.hiddenPower;
     return _HoverSurface(
       child: ListTile(
         dense: true,
         onTap: onUse,
         title: Text(
-          '#${state.species} ${target.names.speciesName(state.species)} · '
-          '${l10n.resultAdvance} ${state.advance}',
+          '#${saved.species} ${saved.names.speciesName(saved.species)} · '
+          '${l10n.resultAdvance} ${saved.advance}',
         ),
         subtitle: Text(
-          '${l10n.levelShort} ${state.level} · '
-          '${_genderLabel(state.gender)} · '
-          '${target.names.natureName(state.nature)} · '
+          '${saved.kindLabel(context)} · '
+          '${l10n.levelShort} ${saved.level} · '
+          '${_genderLabel(saved.gender)} · '
+          '${saved.names.natureName(saved.nature)} · '
           '${_hiddenPowerTypeLabel(context, hiddenPower.type)} ${hiddenPower.power}',
         ),
         trailing: IconButton(
@@ -4020,7 +4385,43 @@ class _HuntSearchSnapshot {
   final Gen3PersonalData personalData;
 }
 
-class _CalibrationTarget {
+class _StaticSearchSnapshot {
+  const _StaticSearchSnapshot({
+    required this.seed,
+    required this.initialAdvance,
+    required this.maxAdvance,
+    required this.delay,
+    required this.method,
+    required this.template,
+    required this.personalData,
+  });
+
+  final int seed;
+  final int initialAdvance;
+  final int maxAdvance;
+  final int delay;
+  final StaticMethod method;
+  final StaticEncounterTemplate template;
+  final Gen3PersonalData personalData;
+}
+
+sealed class _CalibrationPageTarget {
+  const _CalibrationPageTarget();
+
+  Gen3NamedResources get names;
+  int get advance;
+  int get delay;
+  int get species;
+  int get level;
+  PokemonPid get pid;
+  Nature get nature;
+  PokemonGender get gender;
+  Ivs get ivs;
+  Gen3PersonalData get personalData;
+  String kindLabel(BuildContext context);
+}
+
+class _CalibrationTarget extends _CalibrationPageTarget {
   const _CalibrationTarget({
     required this.search,
     required this.state,
@@ -4029,19 +4430,182 @@ class _CalibrationTarget {
 
   final _HuntSearchSnapshot search;
   final WildState state;
+  @override
   final Gen3NamedResources names;
+
+  @override
+  int get advance => state.advance;
+
+  @override
+  int get delay => search.delay;
+
+  @override
+  int get species => state.species;
+
+  @override
+  int get level => state.level;
+
+  @override
+  PokemonPid get pid => state.pid;
+
+  @override
+  Nature get nature => state.nature;
+
+  @override
+  PokemonGender get gender => state.gender;
+
+  @override
+  Ivs get ivs => state.ivs;
+
+  @override
+  Gen3PersonalData get personalData => search.personalData;
+
+  @override
+  String kindLabel(BuildContext context) {
+    return _encounterTypeLabel(context, search.area.type);
+  }
 }
 
-class _SavedCalibrationTarget {
+class _StaticTarget extends _CalibrationPageTarget {
+  const _StaticTarget({
+    required this.search,
+    required this.hit,
+    required this.names,
+  });
+
+  final _StaticSearchSnapshot search;
+  final StaticSearchHit hit;
+  @override
+  final Gen3NamedResources names;
+
+  @override
+  int get advance => hit.state.advance;
+
+  @override
+  int get delay => search.delay;
+
+  @override
+  int get species => hit.template.species;
+
+  @override
+  int get level => hit.state.level;
+
+  @override
+  PokemonPid get pid => hit.state.pid;
+
+  @override
+  Nature get nature => hit.state.nature;
+
+  @override
+  PokemonGender get gender => hit.state.gender;
+
+  @override
+  Ivs get ivs => hit.state.ivs;
+
+  @override
+  Gen3PersonalData get personalData => search.personalData;
+
+  @override
+  String kindLabel(BuildContext context) {
+    return _staticEncounterTypeLabel(context, hit.template.type);
+  }
+}
+
+sealed class _SavedTarget {
+  const _SavedTarget();
+
+  int get id;
+  DateTime get savedAt;
+  Gen3NamedResources get names;
+  int get species;
+  int get advance;
+  int get level;
+  Nature get nature;
+  PokemonGender get gender;
+  Ivs get ivs;
+  String kindLabel(BuildContext context);
+}
+
+class _SavedCalibrationTarget extends _SavedTarget {
   const _SavedCalibrationTarget({
     required this.id,
     required this.target,
     required this.savedAt,
   });
 
+  @override
   final int id;
   final _CalibrationTarget target;
+  @override
   final DateTime savedAt;
+
+  @override
+  Gen3NamedResources get names => target.names;
+
+  @override
+  int get species => target.state.species;
+
+  @override
+  int get advance => target.state.advance;
+
+  @override
+  int get level => target.state.level;
+
+  @override
+  Nature get nature => target.state.nature;
+
+  @override
+  PokemonGender get gender => target.state.gender;
+
+  @override
+  Ivs get ivs => target.state.ivs;
+
+  @override
+  String kindLabel(BuildContext context) {
+    return _encounterTypeLabel(context, target.search.area.type);
+  }
+}
+
+class _SavedStaticTarget extends _SavedTarget {
+  const _SavedStaticTarget({
+    required this.id,
+    required this.target,
+    required this.savedAt,
+  });
+
+  @override
+  final int id;
+  final _StaticTarget target;
+  @override
+  final DateTime savedAt;
+
+  StaticSearchHit get hit => target.hit;
+
+  @override
+  Gen3NamedResources get names => target.names;
+
+  @override
+  int get species => hit.template.species;
+
+  @override
+  int get advance => hit.state.advance;
+
+  @override
+  int get level => hit.state.level;
+
+  @override
+  Nature get nature => hit.state.nature;
+
+  @override
+  PokemonGender get gender => hit.state.gender;
+
+  @override
+  Ivs get ivs => hit.state.ivs;
+
+  @override
+  String kindLabel(BuildContext context) {
+    return _staticEncounterTypeLabel(context, hit.template.type);
+  }
 }
 
 class _SavedTargetRecord {
@@ -4052,14 +4616,33 @@ class _SavedTargetRecord {
     required this.state,
   });
 
-  factory _SavedTargetRecord.fromSaved(_SavedCalibrationTarget saved) {
-    final target = saved.target;
+  factory _SavedTargetRecord.fromSaved(_SavedTarget saved) {
+    return switch (saved) {
+      _SavedCalibrationTarget(:final target) => _SavedTargetRecord._fromWild(
+        id: saved.id,
+        savedAtMs: saved.savedAt.millisecondsSinceEpoch,
+        target: target,
+      ),
+      _SavedStaticTarget(:final target) => _SavedTargetRecord._fromStatic(
+        id: saved.id,
+        savedAtMs: saved.savedAt.millisecondsSinceEpoch,
+        target: target,
+      ),
+    };
+  }
+
+  factory _SavedTargetRecord._fromWild({
+    required int id,
+    required int savedAtMs,
+    required _CalibrationTarget target,
+  }) {
     final search = target.search;
     final state = target.state;
     return _SavedTargetRecord(
-      id: saved.id,
-      savedAtMs: saved.savedAt.millisecondsSinceEpoch,
+      id: id,
+      savedAtMs: savedAtMs,
       search: {
+        'kind': 'wild',
         'seed': search.seed,
         'initialAdvance': search.initialAdvance,
         'maxAdvance': search.maxAdvance,
@@ -4092,20 +4675,98 @@ class _SavedTargetRecord {
         },
         'method': search.method.index,
       },
-      state: {
-        'advance': state.advance,
-        'pid': state.pid.value,
-        'ivs': state.ivs.ordered,
-        'nature': state.nature.index,
-        'abilitySlot': state.abilitySlot,
-        'gender': state.gender.index,
-        'shiny': state.shiny,
-        'encounterSlot': state.encounterSlot,
-        'species': state.species,
-        'form': state.form,
-        'level': state.level,
-      },
+      state: _stateJson(
+        advance: state.advance,
+        pid: state.pid,
+        ivs: state.ivs,
+        nature: state.nature,
+        abilitySlot: state.abilitySlot,
+        gender: state.gender,
+        shiny: state.shiny,
+        species: state.species,
+        form: state.form,
+        level: state.level,
+        encounterSlot: state.encounterSlot,
+      ),
     );
+  }
+
+  factory _SavedTargetRecord._fromStatic({
+    required int id,
+    required int savedAtMs,
+    required _StaticTarget target,
+  }) {
+    final hit = target.hit;
+    final search = target.search;
+    final template = hit.template;
+    final state = hit.state;
+    return _SavedTargetRecord(
+      id: id,
+      savedAtMs: savedAtMs,
+      search: {
+        'kind': 'static',
+        'seed': search.seed,
+        'initialAdvance': search.initialAdvance,
+        'maxAdvance': search.maxAdvance,
+        'delay': search.delay,
+        'method': search.method.index,
+        'template': {
+          'game': template.game.jsonName,
+          'type': template.type.jsonName,
+          'description': template.description,
+          'species': template.species,
+          'form': template.form,
+          'level': template.level,
+          'buggedRoamer': template.buggedRoamer,
+        },
+      },
+      state: _stateJson(
+        advance: state.advance,
+        seed: state.seed,
+        pid: state.pid,
+        ivs: state.ivs,
+        nature: state.nature,
+        abilitySlot: state.abilitySlot,
+        gender: state.gender,
+        shiny: state.shiny,
+        species: template.species,
+        form: template.form,
+        level: state.level,
+      ),
+    );
+  }
+
+  static Map<String, dynamic> _stateJson({
+    required int advance,
+    required PokemonPid pid,
+    required Ivs ivs,
+    required Nature nature,
+    required int abilitySlot,
+    required PokemonGender gender,
+    required bool shiny,
+    required int species,
+    required int form,
+    required int level,
+    int? seed,
+    int? encounterSlot,
+  }) {
+    final json = <String, dynamic>{
+      'advance': advance,
+      'pid': pid.value,
+      'ivs': ivs.ordered,
+      'nature': nature.index,
+      'abilitySlot': abilitySlot,
+      'gender': gender.index,
+      'shiny': shiny,
+      'encounterSlot': encounterSlot,
+      'species': species,
+      'form': form,
+      'level': level,
+    };
+    if (seed != null) {
+      json['seed'] = seed;
+    }
+    return json;
   }
 
   factory _SavedTargetRecord.fromJson(Map<String, dynamic> json) {
@@ -4126,8 +4787,64 @@ class _SavedTargetRecord {
     return {'id': id, 'savedAtMs': savedAtMs, 'search': search, 'state': state};
   }
 
-  _SavedCalibrationTarget? toSavedTarget(_HuntData data) {
+  _SavedTarget? toSavedTarget(_HuntData data) {
     try {
+      if (search['kind'] == 'static') {
+        final templateJson = search['template'] as Map<String, dynamic>;
+        final ivs = (state['ivs'] as List<dynamic>).cast<int>();
+        final template = StaticEncounterTemplate(
+          game: _gameFromJson(templateJson['game'] as String),
+          type: StaticEncounterType.fromJson(templateJson['type'] as String),
+          description: templateJson['description'] as String,
+          species: templateJson['species'] as int,
+          form: templateJson['form'] as int,
+          level: templateJson['level'] as int,
+          buggedRoamer: templateJson['buggedRoamer'] as bool,
+        );
+        final advance = state['advance'] as int;
+        final seed = search['seed'] as int? ?? state['seed'] as int? ?? 0;
+        final initialAdvance = search['initialAdvance'] as int? ?? advance;
+        final maxAdvance = search['maxAdvance'] as int? ?? advance;
+        final delay = search['delay'] as int? ?? 0;
+        final method = StaticMethod.values[search['method'] as int? ?? 0];
+        return _SavedStaticTarget(
+          id: id,
+          savedAt: DateTime.fromMillisecondsSinceEpoch(savedAtMs),
+          target: _StaticTarget(
+            names: data.names,
+            search: _StaticSearchSnapshot(
+              seed: seed,
+              initialAdvance: initialAdvance,
+              maxAdvance: maxAdvance,
+              delay: delay,
+              method: method,
+              template: template,
+              personalData: data.personal,
+            ),
+            hit: StaticSearchHit(
+              template: template,
+              state: StaticState(
+                advance: advance,
+                seed: seed,
+                pid: PokemonPid(state['pid'] as int),
+                ivs: Ivs(
+                  hp: ivs[0],
+                  attack: ivs[1],
+                  defense: ivs[2],
+                  specialAttack: ivs[3],
+                  specialDefense: ivs[4],
+                  speed: ivs[5],
+                ),
+                nature: Nature.values[state['nature'] as int],
+                abilitySlot: state['abilitySlot'] as int,
+                gender: PokemonGender.values[state['gender'] as int],
+                level: state['level'] as int,
+                shiny: state['shiny'] as bool,
+              ),
+            ),
+          ),
+        );
+      }
       final areaJson = search['area'] as Map<String, dynamic>;
       final game = _gameFromJson(areaJson['game'] as String);
       final areaType = WildEncounterTypeJson.parse(areaJson['type'] as String);
@@ -4295,10 +5012,7 @@ class _AppStorage {
     }
   }
 
-  Future<void> saveTargets(
-    GameVersion game,
-    List<_SavedCalibrationTarget> targets,
-  ) async {
+  Future<void> saveTargets(GameVersion game, List<_SavedTarget> targets) async {
     final json = targets
         .map((target) => _SavedTargetRecord.fromSaved(target).toJson())
         .toList(growable: false);
@@ -4339,6 +5053,7 @@ class _HuntResultsSnapshot {
     this.error,
     this.names,
     this.search,
+    this.staticSearch,
     this.delay = 0,
     this.results = const <_HuntResult>[],
     this.resultLimitReached = false,
@@ -4349,6 +5064,7 @@ class _HuntResultsSnapshot {
   final String? error;
   final Gen3NamedResources? names;
   final _HuntSearchSnapshot? search;
+  final _StaticSearchSnapshot? staticSearch;
   final int delay;
   final List<_HuntResult> results;
   final bool resultLimitReached;

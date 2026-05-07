@@ -18,6 +18,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calibrate => '校准';
 
   @override
+  String get breeding => '孵蛋';
+
+  @override
   String get tools => '工具';
 
   @override
@@ -91,25 +94,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get observedIvs => '观测 IV';
 
   @override
-  String get idSid => 'ID/SID';
-
-  @override
-  String get ivsToPid => 'IV 转 PID';
-
-  @override
-  String get battleVideo => '对战录像';
-
-  @override
-  String get painting => '画作';
-
-  @override
   String get locationEgg => '地点';
 
   @override
-  String get egg => '蛋';
-
-  @override
-  String get eggUnsupported => '蛋（之后支持）';
+  String get breedingUnavailable => '孵蛋乱数暂未实现。';
 
   @override
   String get method => '生成方式';
@@ -465,6 +453,9 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get calibrate => '校准';
 
   @override
+  String get breeding => '孵蛋';
+
+  @override
   String get tools => '工具';
 
   @override
@@ -538,25 +529,10 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get observedIvs => '观测 IV';
 
   @override
-  String get idSid => 'ID/SID';
-
-  @override
-  String get ivsToPid => 'IV 转 PID';
-
-  @override
-  String get battleVideo => '对战录像';
-
-  @override
-  String get painting => '画作';
-
-  @override
   String get locationEgg => '地点';
 
   @override
-  String get egg => '蛋';
-
-  @override
-  String get eggUnsupported => '蛋（之后支持）';
+  String get breedingUnavailable => '孵蛋乱数暂未实现。';
 
   @override
   String get method => '生成方式';

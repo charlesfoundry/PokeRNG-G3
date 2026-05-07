@@ -119,6 +119,12 @@ abstract class AppLocalizations {
   /// **'Calibrate'**
   String get calibrate;
 
+  /// No description provided for @breeding.
+  ///
+  /// In en, this message translates to:
+  /// **'Eggs'**
+  String get breeding;
+
   /// No description provided for @tools.
   ///
   /// In en, this message translates to:
@@ -263,47 +269,17 @@ abstract class AppLocalizations {
   /// **'Observed IVs'**
   String get observedIvs;
 
-  /// No description provided for @idSid.
-  ///
-  /// In en, this message translates to:
-  /// **'ID/SID'**
-  String get idSid;
-
-  /// No description provided for @ivsToPid.
-  ///
-  /// In en, this message translates to:
-  /// **'IVs to PID'**
-  String get ivsToPid;
-
-  /// No description provided for @battleVideo.
-  ///
-  /// In en, this message translates to:
-  /// **'Battle Video'**
-  String get battleVideo;
-
-  /// No description provided for @painting.
-  ///
-  /// In en, this message translates to:
-  /// **'Painting'**
-  String get painting;
-
   /// No description provided for @locationEgg.
   ///
   /// In en, this message translates to:
   /// **'Location'**
   String get locationEgg;
 
-  /// No description provided for @egg.
+  /// No description provided for @breedingUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Egg'**
-  String get egg;
-
-  /// No description provided for @eggUnsupported.
-  ///
-  /// In en, this message translates to:
-  /// **'Egg (later)'**
-  String get eggUnsupported;
+  /// **'Egg RNG is not implemented yet.'**
+  String get breedingUnavailable;
 
   /// No description provided for @method.
   ///

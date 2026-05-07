@@ -18,6 +18,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calibrate => 'Calibrate';
 
   @override
+  String get breeding => 'Eggs';
+
+  @override
   String get tools => 'Tools';
 
   @override
@@ -91,25 +94,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get observedIvs => 'Observed IVs';
 
   @override
-  String get idSid => 'ID/SID';
-
-  @override
-  String get ivsToPid => 'IVs to PID';
-
-  @override
-  String get battleVideo => 'Battle Video';
-
-  @override
-  String get painting => 'Painting';
-
-  @override
   String get locationEgg => 'Location';
 
   @override
-  String get egg => 'Egg';
-
-  @override
-  String get eggUnsupported => 'Egg (later)';
+  String get breedingUnavailable => 'Egg RNG is not implemented yet.';
 
   @override
   String get method => 'Method';

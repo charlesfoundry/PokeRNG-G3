@@ -18,6 +18,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get calibrate => '調整';
 
   @override
+  String get breeding => 'タマゴ';
+
+  @override
   String get tools => 'ツール';
 
   @override
@@ -91,25 +94,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get observedIvs => '観測 IV';
 
   @override
-  String get idSid => 'ID/SID';
-
-  @override
-  String get ivsToPid => 'IVからPID';
-
-  @override
-  String get battleVideo => 'バトルビデオ';
-
-  @override
-  String get painting => '絵画';
-
-  @override
   String get locationEgg => '場所';
 
   @override
-  String get egg => 'タマゴ';
-
-  @override
-  String get eggUnsupported => 'タマゴ（後で対応）';
+  String get breedingUnavailable => 'タマゴ乱数は未実装です。';
 
   @override
   String get method => '生成方式';
