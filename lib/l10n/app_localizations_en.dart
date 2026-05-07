@@ -332,6 +332,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get targetSaved => 'Target saved';
 
   @override
+  String get targetAlreadySaved => 'This target is already saved';
+
+  @override
   String get savedTargets => 'Saved targets';
 
   @override

@@ -19,6 +19,7 @@ import 'l10n/app_localizations.dart';
 const _maxSearchAdvanceDelta = 10000000;
 const _maxDisplayedResults = 500;
 const _maxSpeciesSuggestions = 50;
+const _maxSavedTargets = 20;
 const _controlRadius = 12.0;
 const _controlBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(_controlRadius)),
@@ -425,9 +426,34 @@ class _AppShellState extends State<_AppShell> {
         ..addAll(
           records
               .map((record) => record.toSavedTarget(data))
-              .whereType<_SavedTarget>(),
+              .whereType<_SavedTarget>()
+              .take(_maxSavedTargets),
         );
     });
+  }
+
+  void _saveTarget(_SavedTarget target) {
+    final l10n = AppLocalizations.of(context)!;
+    final duplicate = _savedTargets.any(
+      (saved) => saved.duplicateKey == target.duplicateKey,
+    );
+    if (duplicate) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.targetAlreadySaved)));
+      return;
+    }
+
+    setState(() {
+      _savedTargets.insert(0, target);
+      if (_savedTargets.length > _maxSavedTargets) {
+        _savedTargets.removeRange(_maxSavedTargets, _savedTargets.length);
+      }
+    });
+    widget.storage.saveTargets(widget.profile.game, _savedTargets);
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(l10n.targetSaved)));
   }
 
   @override
@@ -459,36 +485,22 @@ class _AppShellState extends State<_AppShell> {
           });
         },
         onSaveTarget: (target) {
-          setState(() {
-            _savedTargets.insert(
-              0,
-              _SavedCalibrationTarget(
-                id: DateTime.now().microsecondsSinceEpoch,
-                target: target,
-                savedAt: DateTime.now(),
-              ),
-            );
-          });
-          widget.storage.saveTargets(widget.profile.game, _savedTargets);
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(l10n.targetSaved)));
+          _saveTarget(
+            _SavedCalibrationTarget(
+              id: DateTime.now().microsecondsSinceEpoch,
+              target: target,
+              savedAt: DateTime.now(),
+            ),
+          );
         },
         onSaveStaticTarget: (target) {
-          setState(() {
-            _savedTargets.insert(
-              0,
-              _SavedStaticTarget(
-                id: DateTime.now().microsecondsSinceEpoch,
-                target: target,
-                savedAt: DateTime.now(),
-              ),
-            );
-          });
-          widget.storage.saveTargets(widget.profile.game, _savedTargets);
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(l10n.targetSaved)));
+          _saveTarget(
+            _SavedStaticTarget(
+              id: DateTime.now().microsecondsSinceEpoch,
+              target: target,
+              savedAt: DateTime.now(),
+            ),
+          );
         },
         onSendStaticToCalibration: (target) {
           setState(() {
@@ -4523,6 +4535,7 @@ sealed class _SavedTarget {
   Nature get nature;
   PokemonGender get gender;
   Ivs get ivs;
+  String get duplicateKey;
   String kindLabel(BuildContext context);
 }
 
@@ -4559,6 +4572,22 @@ class _SavedCalibrationTarget extends _SavedTarget {
 
   @override
   Ivs get ivs => target.state.ivs;
+
+  @override
+  String get duplicateKey {
+    final area = target.search.area;
+    return [
+      'wild',
+      area.game.jsonName,
+      area.locationId,
+      area.type.jsonName,
+      target.search.method.index,
+      target.state.species,
+      target.state.encounterSlot,
+      target.state.advance,
+      target.state.pid.value,
+    ].join(':');
+  }
 
   @override
   String kindLabel(BuildContext context) {
@@ -4601,6 +4630,23 @@ class _SavedStaticTarget extends _SavedTarget {
 
   @override
   Ivs get ivs => hit.state.ivs;
+
+  @override
+  String get duplicateKey {
+    final template = hit.template;
+    return [
+      'static',
+      template.game.jsonName,
+      template.type.jsonName,
+      template.description,
+      template.species,
+      template.form,
+      template.level,
+      target.search.method.index,
+      hit.state.advance,
+      hit.state.pid.value,
+    ].join(':');
+  }
 
   @override
   String kindLabel(BuildContext context) {
@@ -5014,6 +5060,7 @@ class _AppStorage {
 
   Future<void> saveTargets(GameVersion game, List<_SavedTarget> targets) async {
     final json = targets
+        .take(_maxSavedTargets)
         .map((target) => _SavedTargetRecord.fromSaved(target).toJson())
         .toList(growable: false);
     await _preferences.setString(_targetsKey(game), jsonEncode(json));

@@ -328,6 +328,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get targetSaved => '目标已保存';
 
   @override
+  String get targetAlreadySaved => '这个目标已经保存过';
+
+  @override
   String get savedTargets => '目标记录';
 
   @override
@@ -761,6 +764,9 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get targetSaved => '目标已保存';
+
+  @override
+  String get targetAlreadySaved => '这个目标已经保存过';
 
   @override
   String get savedTargets => '目标记录';

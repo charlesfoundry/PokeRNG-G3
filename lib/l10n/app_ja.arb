@@ -147,6 +147,7 @@
   "sendToCalibration": "調整へ送る",
   "saveTarget": "目標を保存",
   "targetSaved": "目標を保存しました",
+  "targetAlreadySaved": "この目標は保存済みです",
   "savedTargets": "保存した目標",
   "noSavedTargets": "野生結果を長押し、または右クリックして目標を保存できます。",
   "deleteTarget": "目標を削除",

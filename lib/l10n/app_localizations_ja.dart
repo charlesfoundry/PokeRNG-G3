@@ -328,6 +328,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get targetSaved => '目標を保存しました';
 
   @override
+  String get targetAlreadySaved => 'この目標は保存済みです';
+
+  @override
   String get savedTargets => '保存した目標';
 
   @override

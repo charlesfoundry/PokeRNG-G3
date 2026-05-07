@@ -147,6 +147,7 @@
   "sendToCalibration": "发送到校准",
   "saveTarget": "保存目标",
   "targetSaved": "目标已保存",
+  "targetAlreadySaved": "这个目标已经保存过",
   "savedTargets": "目标记录",
   "noSavedTargets": "在结果页长按或右键某个野生结果，可以保存目标。",
   "deleteTarget": "删除目标",

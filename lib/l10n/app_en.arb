@@ -147,6 +147,7 @@
   "sendToCalibration": "Send to calibration",
   "saveTarget": "Save target",
   "targetSaved": "Target saved",
+  "targetAlreadySaved": "This target is already saved",
   "savedTargets": "Saved targets",
   "noSavedTargets": "Long-press or right-click a wild result to save a target.",
   "deleteTarget": "Delete target",

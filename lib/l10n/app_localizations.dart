@@ -701,6 +701,12 @@ abstract class AppLocalizations {
   /// **'Target saved'**
   String get targetSaved;
 
+  /// No description provided for @targetAlreadySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'This target is already saved'**
+  String get targetAlreadySaved;
+
   /// No description provided for @savedTargets.
   ///
   /// In en, this message translates to:
