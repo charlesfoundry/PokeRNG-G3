@@ -11,6 +11,7 @@
   "search": "検索",
   "searching": "検索中...",
   "cancelSearch": "検索をキャンセル",
+  "resetDefaults": "既定値に戻す",
   "attempt": "試行",
   "pokemon": "ポケモン",
   "pokemonSearchLimitHint": "ポケモンの番号を入力するとその番号から表示します。名前のキーワードでも検索できます。候補は最大 50 件です。",
@@ -32,8 +33,14 @@
   "breedingUnavailable": "タマゴ乱数は未実装です。",
   "eggHeldStage": "タマゴ生成",
   "eggPickupStage": "受け取り",
+  "eggHeldStageHelpEmerald": "育て屋の前にタマゴが出る段階。PID、性格、性別、色違いを決定します。",
+  "eggPickupStageHelpEmerald": "Aでタマゴを受け取る段階。IVと遺伝元を決定します。",
+  "eggHeldStageHelpFrlg": "育て屋の前にタマゴが出る段階。PIDの下位16ビットを決定します。",
+  "eggPickupStageHelpFrlg": "Aでタマゴを受け取る段階。PIDの上位16ビット、IV、遺伝元を決定します。",
   "parentA": "親 1",
   "parentB": "親 2",
+  "parentAShort": "親1",
+  "parentBShort": "親2",
   "parentGender": "親の性別",
   "parentItem": "持ち物",
   "none": "なし",
@@ -44,6 +51,29 @@
   "minRedraws": "最小 Redraw",
   "maxRedraws": "最大 Redraw",
   "redraws": "Redraw",
+  "eggRedrawHelp": "図鑑表示はエメラルドのタマゴPIDを進めます。PokeFinderの既定値は0-5です。",
+  "eggSearchRangeNote": "各段階の最大 - 開始 <= {maxAdvanceDelta} · 結果 <= {maxResults} · 2段階の範囲を組み合わせます",
+  "@eggSearchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "eggSearchCostEstimate": "現在の最大組み合わせ: {count}（生成 × 受け取り × Redraw）",
+  "@eggSearchCostEstimate": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggSearchCostEstimateFrlg": "現在の最大組み合わせ: {count}（生成 × 受け取り）",
+  "@eggSearchCostEstimateFrlg": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggLargeSearchWarning": "組み合わせ数が多いため、色違いや厳しい条件では時間がかかる場合があります。先に範囲を狭めて確認してください。",
+  "inheritance": "遺伝",
+  "inheritRandom": "ランダム",
   "eggInputError": "ポケモン、Seed、2段階のAdvance範囲、キャリブレーション、Redraw、親のIVを確認してください。各段階の最大 - 開始は {maxAdvanceDelta} 以下です。",
   "@eggInputError": {
     "placeholders": {

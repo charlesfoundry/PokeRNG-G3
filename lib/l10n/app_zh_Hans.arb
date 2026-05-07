@@ -11,6 +11,7 @@
   "search": "搜索",
   "searching": "搜索中...",
   "cancelSearch": "取消搜索",
+  "resetDefaults": "恢复默认",
   "attempt": "尝试",
   "pokemon": "宝可梦",
   "pokemonSearchLimitHint": "请输入宝可梦编号从该编号开始浏览，或者输入名字关键字。最多显示 50 个候选。",
@@ -32,8 +33,14 @@
   "breedingUnavailable": "孵蛋乱数暂未实现。",
   "eggHeldStage": "蛋生成帧",
   "eggPickupStage": "蛋领取帧",
+  "eggHeldStageHelpEmerald": "老人出现蛋的阶段，决定 PID、性格、性别和闪光。",
+  "eggPickupStageHelpEmerald": "按 A 领取蛋的阶段，决定 IV 和遗传来源。",
+  "eggHeldStageHelpFrlg": "老人出现蛋的阶段，决定 PID 低 16 位。",
+  "eggPickupStageHelpFrlg": "按 A 领取蛋的阶段，决定 PID 高 16 位、IV 和遗传来源。",
   "parentA": "父母 1",
   "parentB": "父母 2",
+  "parentAShort": "父1",
+  "parentBShort": "父2",
   "parentGender": "父母性别",
   "parentItem": "携带道具",
   "none": "无",
@@ -44,6 +51,29 @@
   "minRedraws": "最小查看图鉴",
   "maxRedraws": "最大查看图鉴",
   "redraws": "查看图鉴",
+  "eggRedrawHelp": "查看图鉴会推进 Emerald 蛋 PID；PokeFinder 默认 0-5。",
+  "eggSearchRangeNote": "每段最大 - 起始 <= {maxAdvanceDelta} 帧 · 结果 <= {maxResults} · 两段范围会组合搜索",
+  "@eggSearchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "eggSearchCostEstimate": "当前最多组合：{count}（蛋生成 × 蛋领取 × 查看图鉴）",
+  "@eggSearchCostEstimate": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggSearchCostEstimateFrlg": "当前最多组合：{count}（蛋生成 × 蛋领取）",
+  "@eggSearchCostEstimateFrlg": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggLargeSearchWarning": "组合数较大，闪光或严格条件可能较慢；可先缩小范围验证。",
+  "inheritance": "遗传",
+  "inheritRandom": "随机",
   "eggInputError": "请检查宝可梦、Seed、两段帧范围、校准、查看图鉴次数和父母 IV。每段最大 - 起始必须 <= {maxAdvanceDelta}。",
   "@eggInputError": {
     "placeholders": {

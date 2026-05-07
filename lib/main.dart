@@ -18,9 +18,11 @@ import 'data/gen3/wild_encounters.dart';
 import 'l10n/app_localizations.dart';
 
 const _maxSearchAdvanceDelta = 10000000;
+const _maxEggAdvanceDelta = 10000;
 const _maxDisplayedResults = 500;
 const _maxSpeciesSuggestions = 50;
 const _maxSavedTargets = 20;
+final _largeEggSearchCombinationThreshold = BigInt.from(50000000);
 const _controlRadius = 12.0;
 const _controlBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(_controlRadius)),
@@ -3814,6 +3816,16 @@ class _BreedingPageState extends State<_BreedingPage> {
     _scheduleSaveEggSettings();
   }
 
+  void _resetEggSettingsToDefaults() {
+    setState(() {
+      _applyEggSettings(_EggSettingsRecord.defaultsFor(widget.profile.game));
+      _settingsLoaded = true;
+      _result = null;
+      _error = null;
+    });
+    _saveEggSettingsNow();
+  }
+
   Future<void> _search(_HuntData data) async {
     final request = _buildRequest(data);
     if (request == null) {
@@ -3858,8 +3870,6 @@ class _BreedingPageState extends State<_BreedingPage> {
     final maxRedraw = int.tryParse(_maxRedrawController.text.trim());
     final ivFilter = _parseEggIvFilter();
     final parentIvs = _parseParentIvs();
-    const maxEggAdvanceDelta = 10000;
-
     if (_speciesId == null ||
         heldSeed == null ||
         pickupSeed == null ||
@@ -3878,14 +3888,14 @@ class _BreedingPageState extends State<_BreedingPage> {
         pickupInitial < 0 ||
         heldMax < heldInitial ||
         pickupMax < pickupInitial ||
-        heldMax - heldInitial > maxEggAdvanceDelta ||
-        pickupMax - pickupInitial > maxEggAdvanceDelta ||
+        heldMax - heldInitial > _maxEggAdvanceDelta ||
+        pickupMax - pickupInitial > _maxEggAdvanceDelta ||
         minRedraw < 0 ||
         maxRedraw < minRedraw) {
       setState(() {
         _error = AppLocalizations.of(
           context,
-        )!.eggInputError(maxEggAdvanceDelta);
+        )!.eggInputError(_maxEggAdvanceDelta);
       });
       return null;
     }
@@ -4011,6 +4021,16 @@ class _BreedingPageState extends State<_BreedingPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       _speciesAutocomplete(data, l10n),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: _searching
+                              ? null
+                              : _resetEggSettingsToDefaults,
+                          icon: const Icon(Icons.restart_alt),
+                          label: Text(l10n.resetDefaults),
+                        ),
+                      ),
                       _twoColumnFields([
                         _eggMethodDropdown(l10n),
                         _compatibilityDropdown(l10n),
@@ -4039,8 +4059,14 @@ class _BreedingPageState extends State<_BreedingPage> {
                             ],
                           ),
                         ]),
+                      if (widget.profile.game == GameVersion.emerald)
+                        Text(
+                          l10n.eggRedrawHelp,
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
                       _stageFields(
                         title: l10n.eggHeldStage,
+                        helpText: _eggHeldStageHelp(l10n),
                         seedController: _heldSeedController,
                         initialController: _heldInitialController,
                         maxController: _heldMaxController,
@@ -4049,11 +4075,39 @@ class _BreedingPageState extends State<_BreedingPage> {
                       ),
                       _stageFields(
                         title: l10n.eggPickupStage,
+                        helpText: _eggPickupStageHelp(l10n),
                         seedController: _pickupSeedController,
                         initialController: _pickupInitialController,
                         maxController: _pickupMaxController,
                         offsetController: _pickupOffsetController,
                         showSeed: widget.profile.game != GameVersion.emerald,
+                      ),
+                      Column(
+                        spacing: 3,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            l10n.eggSearchRangeNote(
+                              _maxEggAdvanceDelta,
+                              _maxDisplayedResults,
+                            ),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          Text(
+                            _eggSearchCostEstimate(l10n),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          if (_eggSearchIsLarge())
+                            Text(
+                              l10n.eggLargeSearchWarning,
+                              style: Theme.of(context).textTheme.labelSmall
+                                  ?.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                  ),
+                            ),
+                        ],
                       ),
                       const Divider(height: 18),
                       _parentEditor(data, l10n, 0),
@@ -4233,6 +4287,7 @@ class _BreedingPageState extends State<_BreedingPage> {
 
   Widget _stageFields({
     required String title,
+    required String helpText,
     required TextEditingController seedController,
     required TextEditingController initialController,
     required TextEditingController maxController,
@@ -4245,6 +4300,7 @@ class _BreedingPageState extends State<_BreedingPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(title, style: Theme.of(context).textTheme.labelLarge),
+        Text(helpText, style: Theme.of(context).textTheme.labelSmall),
         if (showSeed)
           TextField(
             controller: seedController,
@@ -4260,6 +4316,18 @@ class _BreedingPageState extends State<_BreedingPage> {
         _numberField(controller: offsetController, label: 'Offset'),
       ],
     );
+  }
+
+  String _eggHeldStageHelp(AppLocalizations l10n) {
+    return widget.profile.game == GameVersion.emerald
+        ? l10n.eggHeldStageHelpEmerald
+        : l10n.eggHeldStageHelpFrlg;
+  }
+
+  String _eggPickupStageHelp(AppLocalizations l10n) {
+    return widget.profile.game == GameVersion.emerald
+        ? l10n.eggPickupStageHelpEmerald
+        : l10n.eggPickupStageHelpFrlg;
   }
 
   Widget _parentEditor(_HuntData data, AppLocalizations l10n, int index) {
@@ -4510,7 +4578,48 @@ class _BreedingPageState extends State<_BreedingPage> {
       controller: controller,
       decoration: InputDecoration(labelText: label),
       keyboardType: TextInputType.number,
+      onChanged: (_) => setState(() {}),
     );
+  }
+
+  String _eggSearchCostEstimate(AppLocalizations l10n) {
+    final count = _eggSearchCombinationCount();
+    final formatted = count == null ? '-' : _formatInteger(count);
+    if (widget.profile.game == GameVersion.emerald) {
+      return l10n.eggSearchCostEstimate(formatted);
+    }
+    return l10n.eggSearchCostEstimateFrlg(formatted);
+  }
+
+  bool _eggSearchIsLarge() {
+    final count = _eggSearchCombinationCount();
+    return count != null && count > _largeEggSearchCombinationThreshold;
+  }
+
+  BigInt? _eggSearchCombinationCount() {
+    final heldInitial = int.tryParse(_heldInitialController.text.trim());
+    final heldMax = int.tryParse(_heldMaxController.text.trim());
+    final pickupInitial = int.tryParse(_pickupInitialController.text.trim());
+    final pickupMax = int.tryParse(_pickupMaxController.text.trim());
+    final minRedraw = int.tryParse(_minRedrawController.text.trim());
+    final maxRedraw = int.tryParse(_maxRedrawController.text.trim());
+    if (heldInitial == null ||
+        heldMax == null ||
+        pickupInitial == null ||
+        pickupMax == null ||
+        minRedraw == null ||
+        maxRedraw == null ||
+        heldMax < heldInitial ||
+        pickupMax < pickupInitial ||
+        maxRedraw < minRedraw) {
+      return null;
+    }
+    final heldCount = BigInt.from(heldMax - heldInitial + 1);
+    final pickupCount = BigInt.from(pickupMax - pickupInitial + 1);
+    final redrawCount = widget.profile.game == GameVersion.emerald
+        ? BigInt.from(maxRedraw - minRedraw + 1)
+        : BigInt.one;
+    return heldCount * pickupCount * redrawCount;
   }
 }
 
@@ -4561,7 +4670,9 @@ class _EggResultTile extends StatelessWidget {
             Expanded(
               child: _ResultField(
                 label: l10n.gender,
-                value: _genderLabel(state.gender),
+                value: state.shiny
+                    ? '${_genderLabel(state.gender)} ✨'
+                    : _genderLabel(state.gender),
               ),
             ),
             Expanded(
@@ -4597,6 +4708,10 @@ class _EggResultTile extends StatelessWidget {
               child: _ResultField(label: l10n.stats, value: '${state.stats}'),
             ),
           ],
+        ),
+        _ResultField(
+          label: l10n.inheritance,
+          value: _eggInheritanceSummary(context, state.inheritance),
         ),
       ],
     );
@@ -6626,8 +6741,36 @@ String _parentGenderLabel(BuildContext context, DaycareParentGender gender) {
   };
 }
 
+String _eggInheritanceSummary(BuildContext context, List<int> inheritance) {
+  final l10n = AppLocalizations.of(context)!;
+  return [
+    for (var i = 0; i < inheritance.length; i += 1)
+      '${_shortIvLabel(i)}:${_eggInheritanceSourceLabel(l10n, inheritance[i])}',
+  ].join(' ');
+}
+
+String _eggInheritanceSourceLabel(AppLocalizations l10n, int source) {
+  return switch (source) {
+    1 => l10n.parentAShort,
+    2 => l10n.parentBShort,
+    _ => l10n.inheritRandom,
+  };
+}
+
 String _shortIvLabel(int index) {
   return const ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'][index];
+}
+
+String _formatInteger(BigInt value) {
+  final text = value.toString();
+  final buffer = StringBuffer();
+  for (var i = 0; i < text.length; i += 1) {
+    if (i > 0 && (text.length - i) % 3 == 0) {
+      buffer.write(',');
+    }
+    buffer.write(text[i]);
+  }
+  return buffer.toString();
 }
 
 int? _parseHexInput(String value) {

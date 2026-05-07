@@ -11,6 +11,7 @@
   "search": "Search",
   "searching": "Searching...",
   "cancelSearch": "Cancel search",
+  "resetDefaults": "Reset defaults",
   "attempt": "Attempt",
   "pokemon": "Pokemon",
   "pokemonSearchLimitHint": "Type a Pokemon number to browse from that number, or enter a name keyword. Up to 50 suggestions are shown.",
@@ -32,8 +33,14 @@
   "breedingUnavailable": "Egg RNG is not implemented yet.",
   "eggHeldStage": "Held egg",
   "eggPickupStage": "Pickup",
+  "eggHeldStageHelpEmerald": "Stage where the daycare man has an egg; determines PID, nature, gender, and shininess.",
+  "eggPickupStageHelpEmerald": "Stage where you press A to receive the egg; determines IVs and inheritance.",
+  "eggHeldStageHelpFrlg": "Stage where the daycare man has an egg; determines the low 16 bits of PID.",
+  "eggPickupStageHelpFrlg": "Stage where you press A to receive the egg; determines the high 16 bits of PID, IVs, and inheritance.",
   "parentA": "Parent 1",
   "parentB": "Parent 2",
+  "parentAShort": "P1",
+  "parentBShort": "P2",
   "parentGender": "Parent gender",
   "parentItem": "Held item",
   "none": "None",
@@ -44,6 +51,29 @@
   "minRedraws": "Min redraws",
   "maxRedraws": "Max redraws",
   "redraws": "Redraws",
+  "eggRedrawHelp": "Pokedex redraws advance the Emerald egg PID; PokeFinder defaults to 0-5.",
+  "eggSearchRangeNote": "Max - Initial <= {maxAdvanceDelta} for each stage · results <= {maxResults} · both stage ranges are combined",
+  "@eggSearchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "eggSearchCostEstimate": "Current maximum combinations: {count} (held × pickup × redraws)",
+  "@eggSearchCostEstimate": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggSearchCostEstimateFrlg": "Current maximum combinations: {count} (held × pickup)",
+  "@eggSearchCostEstimateFrlg": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggLargeSearchWarning": "Large combination count. Shiny or strict filters can take longer; narrow the range first to verify.",
+  "inheritance": "Inheritance",
+  "inheritRandom": "Random",
   "eggInputError": "Check Pokemon, seed, both advance ranges, calibration, redraws, and parent IVs. Max - Initial must be <= {maxAdvanceDelta} for each stage.",
   "@eggInputError": {
     "placeholders": {

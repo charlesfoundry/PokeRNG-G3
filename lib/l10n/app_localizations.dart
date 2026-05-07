@@ -167,6 +167,12 @@ abstract class AppLocalizations {
   /// **'Cancel search'**
   String get cancelSearch;
 
+  /// No description provided for @resetDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset defaults'**
+  String get resetDefaults;
+
   /// No description provided for @attempt.
   ///
   /// In en, this message translates to:
@@ -293,6 +299,30 @@ abstract class AppLocalizations {
   /// **'Pickup'**
   String get eggPickupStage;
 
+  /// No description provided for @eggHeldStageHelpEmerald.
+  ///
+  /// In en, this message translates to:
+  /// **'Stage where the daycare man has an egg; determines PID, nature, gender, and shininess.'**
+  String get eggHeldStageHelpEmerald;
+
+  /// No description provided for @eggPickupStageHelpEmerald.
+  ///
+  /// In en, this message translates to:
+  /// **'Stage where you press A to receive the egg; determines IVs and inheritance.'**
+  String get eggPickupStageHelpEmerald;
+
+  /// No description provided for @eggHeldStageHelpFrlg.
+  ///
+  /// In en, this message translates to:
+  /// **'Stage where the daycare man has an egg; determines the low 16 bits of PID.'**
+  String get eggHeldStageHelpFrlg;
+
+  /// No description provided for @eggPickupStageHelpFrlg.
+  ///
+  /// In en, this message translates to:
+  /// **'Stage where you press A to receive the egg; determines the high 16 bits of PID, IVs, and inheritance.'**
+  String get eggPickupStageHelpFrlg;
+
   /// No description provided for @parentA.
   ///
   /// In en, this message translates to:
@@ -304,6 +334,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Parent 2'**
   String get parentB;
+
+  /// No description provided for @parentAShort.
+  ///
+  /// In en, this message translates to:
+  /// **'P1'**
+  String get parentAShort;
+
+  /// No description provided for @parentBShort.
+  ///
+  /// In en, this message translates to:
+  /// **'P2'**
+  String get parentBShort;
 
   /// No description provided for @parentGender.
   ///
@@ -364,6 +406,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Redraws'**
   String get redraws;
+
+  /// No description provided for @eggRedrawHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Pokedex redraws advance the Emerald egg PID; PokeFinder defaults to 0-5.'**
+  String get eggRedrawHelp;
+
+  /// No description provided for @eggSearchRangeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Max - Initial <= {maxAdvanceDelta} for each stage · results <= {maxResults} · both stage ranges are combined'**
+  String eggSearchRangeNote(Object maxAdvanceDelta, Object maxResults);
+
+  /// No description provided for @eggSearchCostEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'Current maximum combinations: {count} (held × pickup × redraws)'**
+  String eggSearchCostEstimate(Object count);
+
+  /// No description provided for @eggSearchCostEstimateFrlg.
+  ///
+  /// In en, this message translates to:
+  /// **'Current maximum combinations: {count} (held × pickup)'**
+  String eggSearchCostEstimateFrlg(Object count);
+
+  /// No description provided for @eggLargeSearchWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Large combination count. Shiny or strict filters can take longer; narrow the range first to verify.'**
+  String get eggLargeSearchWarning;
+
+  /// No description provided for @inheritance.
+  ///
+  /// In en, this message translates to:
+  /// **'Inheritance'**
+  String get inheritance;
+
+  /// No description provided for @inheritRandom.
+  ///
+  /// In en, this message translates to:
+  /// **'Random'**
+  String get inheritRandom;
 
   /// No description provided for @eggInputError.
   ///

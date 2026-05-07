@@ -42,6 +42,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get cancelSearch => '検索をキャンセル';
 
   @override
+  String get resetDefaults => '既定値に戻す';
+
+  @override
   String get attempt => '試行';
 
   @override
@@ -106,10 +109,28 @@ class AppLocalizationsJa extends AppLocalizations {
   String get eggPickupStage => '受け取り';
 
   @override
+  String get eggHeldStageHelpEmerald => '育て屋の前にタマゴが出る段階。PID、性格、性別、色違いを決定します。';
+
+  @override
+  String get eggPickupStageHelpEmerald => 'Aでタマゴを受け取る段階。IVと遺伝元を決定します。';
+
+  @override
+  String get eggHeldStageHelpFrlg => '育て屋の前にタマゴが出る段階。PIDの下位16ビットを決定します。';
+
+  @override
+  String get eggPickupStageHelpFrlg => 'Aでタマゴを受け取る段階。PIDの上位16ビット、IV、遺伝元を決定します。';
+
+  @override
   String get parentA => '親 1';
 
   @override
   String get parentB => '親 2';
+
+  @override
+  String get parentAShort => '親1';
+
+  @override
+  String get parentBShort => '親2';
 
   @override
   String get parentGender => '親の性別';
@@ -140,6 +161,34 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get redraws => 'Redraw';
+
+  @override
+  String get eggRedrawHelp => '図鑑表示はエメラルドのタマゴPIDを進めます。PokeFinderの既定値は0-5です。';
+
+  @override
+  String eggSearchRangeNote(Object maxAdvanceDelta, Object maxResults) {
+    return '各段階の最大 - 開始 <= $maxAdvanceDelta · 結果 <= $maxResults · 2段階の範囲を組み合わせます';
+  }
+
+  @override
+  String eggSearchCostEstimate(Object count) {
+    return '現在の最大組み合わせ: $count（生成 × 受け取り × Redraw）';
+  }
+
+  @override
+  String eggSearchCostEstimateFrlg(Object count) {
+    return '現在の最大組み合わせ: $count（生成 × 受け取り）';
+  }
+
+  @override
+  String get eggLargeSearchWarning =>
+      '組み合わせ数が多いため、色違いや厳しい条件では時間がかかる場合があります。先に範囲を狭めて確認してください。';
+
+  @override
+  String get inheritance => '遺伝';
+
+  @override
+  String get inheritRandom => 'ランダム';
 
   @override
   String eggInputError(Object maxAdvanceDelta) {

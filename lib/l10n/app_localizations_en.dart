@@ -42,6 +42,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelSearch => 'Cancel search';
 
   @override
+  String get resetDefaults => 'Reset defaults';
+
+  @override
   String get attempt => 'Attempt';
 
   @override
@@ -106,10 +109,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get eggPickupStage => 'Pickup';
 
   @override
+  String get eggHeldStageHelpEmerald =>
+      'Stage where the daycare man has an egg; determines PID, nature, gender, and shininess.';
+
+  @override
+  String get eggPickupStageHelpEmerald =>
+      'Stage where you press A to receive the egg; determines IVs and inheritance.';
+
+  @override
+  String get eggHeldStageHelpFrlg =>
+      'Stage where the daycare man has an egg; determines the low 16 bits of PID.';
+
+  @override
+  String get eggPickupStageHelpFrlg =>
+      'Stage where you press A to receive the egg; determines the high 16 bits of PID, IVs, and inheritance.';
+
+  @override
   String get parentA => 'Parent 1';
 
   @override
   String get parentB => 'Parent 2';
+
+  @override
+  String get parentAShort => 'P1';
+
+  @override
+  String get parentBShort => 'P2';
 
   @override
   String get parentGender => 'Parent gender';
@@ -140,6 +165,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get redraws => 'Redraws';
+
+  @override
+  String get eggRedrawHelp =>
+      'Pokedex redraws advance the Emerald egg PID; PokeFinder defaults to 0-5.';
+
+  @override
+  String eggSearchRangeNote(Object maxAdvanceDelta, Object maxResults) {
+    return 'Max - Initial <= $maxAdvanceDelta for each stage · results <= $maxResults · both stage ranges are combined';
+  }
+
+  @override
+  String eggSearchCostEstimate(Object count) {
+    return 'Current maximum combinations: $count (held × pickup × redraws)';
+  }
+
+  @override
+  String eggSearchCostEstimateFrlg(Object count) {
+    return 'Current maximum combinations: $count (held × pickup)';
+  }
+
+  @override
+  String get eggLargeSearchWarning =>
+      'Large combination count. Shiny or strict filters can take longer; narrow the range first to verify.';
+
+  @override
+  String get inheritance => 'Inheritance';
+
+  @override
+  String get inheritRandom => 'Random';
 
   @override
   String eggInputError(Object maxAdvanceDelta) {

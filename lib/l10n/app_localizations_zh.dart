@@ -42,6 +42,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get cancelSearch => '取消搜索';
 
   @override
+  String get resetDefaults => '恢复默认';
+
+  @override
   String get attempt => '尝试';
 
   @override
@@ -106,10 +109,28 @@ class AppLocalizationsZh extends AppLocalizations {
   String get eggPickupStage => '蛋领取帧';
 
   @override
+  String get eggHeldStageHelpEmerald => '老人出现蛋的阶段，决定 PID、性格、性别和闪光。';
+
+  @override
+  String get eggPickupStageHelpEmerald => '按 A 领取蛋的阶段，决定 IV 和遗传来源。';
+
+  @override
+  String get eggHeldStageHelpFrlg => '老人出现蛋的阶段，决定 PID 低 16 位。';
+
+  @override
+  String get eggPickupStageHelpFrlg => '按 A 领取蛋的阶段，决定 PID 高 16 位、IV 和遗传来源。';
+
+  @override
   String get parentA => '父母 1';
 
   @override
   String get parentB => '父母 2';
+
+  @override
+  String get parentAShort => '父1';
+
+  @override
+  String get parentBShort => '父2';
 
   @override
   String get parentGender => '父母性别';
@@ -140,6 +161,33 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get redraws => '查看图鉴';
+
+  @override
+  String get eggRedrawHelp => '查看图鉴会推进 Emerald 蛋 PID；PokeFinder 默认 0-5。';
+
+  @override
+  String eggSearchRangeNote(Object maxAdvanceDelta, Object maxResults) {
+    return '每段最大 - 起始 <= $maxAdvanceDelta 帧 · 结果 <= $maxResults · 两段范围会组合搜索';
+  }
+
+  @override
+  String eggSearchCostEstimate(Object count) {
+    return '当前最多组合：$count（蛋生成 × 蛋领取 × 查看图鉴）';
+  }
+
+  @override
+  String eggSearchCostEstimateFrlg(Object count) {
+    return '当前最多组合：$count（蛋生成 × 蛋领取）';
+  }
+
+  @override
+  String get eggLargeSearchWarning => '组合数较大，闪光或严格条件可能较慢；可先缩小范围验证。';
+
+  @override
+  String get inheritance => '遗传';
+
+  @override
+  String get inheritRandom => '随机';
 
   @override
   String eggInputError(Object maxAdvanceDelta) {
@@ -527,6 +575,9 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get cancelSearch => '取消搜索';
 
   @override
+  String get resetDefaults => '恢复默认';
+
+  @override
   String get attempt => '尝试';
 
   @override
@@ -591,10 +642,28 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get eggPickupStage => '蛋领取帧';
 
   @override
+  String get eggHeldStageHelpEmerald => '老人出现蛋的阶段，决定 PID、性格、性别和闪光。';
+
+  @override
+  String get eggPickupStageHelpEmerald => '按 A 领取蛋的阶段，决定 IV 和遗传来源。';
+
+  @override
+  String get eggHeldStageHelpFrlg => '老人出现蛋的阶段，决定 PID 低 16 位。';
+
+  @override
+  String get eggPickupStageHelpFrlg => '按 A 领取蛋的阶段，决定 PID 高 16 位、IV 和遗传来源。';
+
+  @override
   String get parentA => '父母 1';
 
   @override
   String get parentB => '父母 2';
+
+  @override
+  String get parentAShort => '父1';
+
+  @override
+  String get parentBShort => '父2';
 
   @override
   String get parentGender => '父母性别';
@@ -625,6 +694,33 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get redraws => '查看图鉴';
+
+  @override
+  String get eggRedrawHelp => '查看图鉴会推进 Emerald 蛋 PID；PokeFinder 默认 0-5。';
+
+  @override
+  String eggSearchRangeNote(Object maxAdvanceDelta, Object maxResults) {
+    return '每段最大 - 起始 <= $maxAdvanceDelta 帧 · 结果 <= $maxResults · 两段范围会组合搜索';
+  }
+
+  @override
+  String eggSearchCostEstimate(Object count) {
+    return '当前最多组合：$count（蛋生成 × 蛋领取 × 查看图鉴）';
+  }
+
+  @override
+  String eggSearchCostEstimateFrlg(Object count) {
+    return '当前最多组合：$count（蛋生成 × 蛋领取）';
+  }
+
+  @override
+  String get eggLargeSearchWarning => '组合数较大，闪光或严格条件可能较慢；可先缩小范围验证。';
+
+  @override
+  String get inheritance => '遗传';
+
+  @override
+  String get inheritRandom => '随机';
 
   @override
   String eggInputError(Object maxAdvanceDelta) {
