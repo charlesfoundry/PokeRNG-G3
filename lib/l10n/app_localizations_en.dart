@@ -12,7 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'PokeRNG G3';
 
   @override
-  String get hunt => 'Hunt';
+  String get hunt => 'Search';
 
   @override
   String get calibrate => 'Calibrate';
@@ -80,6 +80,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectAResult => 'Select a result';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get languageSystem => 'System';
+
+  @override
+  String get languageChineseSimplified => '简体中文';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get languageJapanese => '日本語';
 
   @override
   String get gameVersion => 'Game version';
@@ -466,6 +481,60 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calculateNextPress => 'Calculate next target Adv';
+
+  @override
+  String get retailTimer => 'Retail timer';
+
+  @override
+  String get timerConsole => 'Console';
+
+  @override
+  String get timerConsoleGba => 'GBA';
+
+  @override
+  String get timerConsoleNdsSlot2 => 'NDS Slot 2';
+
+  @override
+  String get timerConsoleNdsFamily => 'NDS/DSi/3DS';
+
+  @override
+  String get timerPreparation => 'Preparation';
+
+  @override
+  String get timerTargetCountdown => 'Target countdown';
+
+  @override
+  String get timerReady => 'Ready';
+
+  @override
+  String get timerFinished => 'Finished';
+
+  @override
+  String get timerStart => 'Start';
+
+  @override
+  String get timerStop => 'Stop';
+
+  @override
+  String timerTargetFrame(Object advance) {
+    return 'Timer target $advance';
+  }
+
+  @override
+  String timerTargetDuration(Object duration) {
+    return 'Target countdown $duration';
+  }
+
+  @override
+  String get timerPreparationNote =>
+      'Start gives a 3-second countdown; soft reset at zero.';
+
+  @override
+  String get timerEmeraldOnlyNote =>
+      'Retail RNG is recommended for Emerald only: Emerald starts from seed 0.';
+
+  @override
+  String get timerInputError => 'Check current target Adv.';
 
   @override
   String get observedPokemon => 'Observed Pokemon';

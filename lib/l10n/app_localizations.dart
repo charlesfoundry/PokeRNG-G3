@@ -110,7 +110,7 @@ abstract class AppLocalizations {
   /// No description provided for @hunt.
   ///
   /// In en, this message translates to:
-  /// **'Hunt'**
+  /// **'Search'**
   String get hunt;
 
   /// No description provided for @calibrate.
@@ -244,6 +244,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select a result'**
   String get selectAResult;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @languageSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get languageSystem;
+
+  /// No description provided for @languageChineseSimplified.
+  ///
+  /// In en, this message translates to:
+  /// **'简体中文'**
+  String get languageChineseSimplified;
+
+  /// No description provided for @languageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageEnglish;
+
+  /// No description provided for @languageJapanese.
+  ///
+  /// In en, this message translates to:
+  /// **'日本語'**
+  String get languageJapanese;
 
   /// No description provided for @gameVersion.
   ///
@@ -940,6 +970,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calculate next target Adv'**
   String get calculateNextPress;
+
+  /// No description provided for @retailTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Retail timer'**
+  String get retailTimer;
+
+  /// No description provided for @timerConsole.
+  ///
+  /// In en, this message translates to:
+  /// **'Console'**
+  String get timerConsole;
+
+  /// No description provided for @timerConsoleGba.
+  ///
+  /// In en, this message translates to:
+  /// **'GBA'**
+  String get timerConsoleGba;
+
+  /// No description provided for @timerConsoleNdsSlot2.
+  ///
+  /// In en, this message translates to:
+  /// **'NDS Slot 2'**
+  String get timerConsoleNdsSlot2;
+
+  /// No description provided for @timerConsoleNdsFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'NDS/DSi/3DS'**
+  String get timerConsoleNdsFamily;
+
+  /// No description provided for @timerPreparation.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparation'**
+  String get timerPreparation;
+
+  /// No description provided for @timerTargetCountdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Target countdown'**
+  String get timerTargetCountdown;
+
+  /// No description provided for @timerReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get timerReady;
+
+  /// No description provided for @timerFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished'**
+  String get timerFinished;
+
+  /// No description provided for @timerStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get timerStart;
+
+  /// No description provided for @timerStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get timerStop;
+
+  /// No description provided for @timerTargetFrame.
+  ///
+  /// In en, this message translates to:
+  /// **'Timer target {advance}'**
+  String timerTargetFrame(Object advance);
+
+  /// No description provided for @timerTargetDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Target countdown {duration}'**
+  String timerTargetDuration(Object duration);
+
+  /// No description provided for @timerPreparationNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Start gives a 3-second countdown; soft reset at zero.'**
+  String get timerPreparationNote;
+
+  /// No description provided for @timerEmeraldOnlyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Retail RNG is recommended for Emerald only: Emerald starts from seed 0.'**
+  String get timerEmeraldOnlyNote;
+
+  /// No description provided for @timerInputError.
+  ///
+  /// In en, this message translates to:
+  /// **'Check current target Adv.'**
+  String get timerInputError;
 
   /// No description provided for @observedPokemon.
   ///

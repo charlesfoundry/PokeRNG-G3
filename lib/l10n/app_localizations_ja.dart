@@ -82,6 +82,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get selectAResult => '結果を選択';
 
   @override
+  String get language => '言語';
+
+  @override
+  String get languageSystem => 'システム';
+
+  @override
+  String get languageChineseSimplified => '简体中文';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get languageJapanese => '日本語';
+
+  @override
   String get gameVersion => 'ゲーム';
 
   @override
@@ -455,6 +470,58 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get calculateNextPress => '次の目標 Adv を計算';
+
+  @override
+  String get retailTimer => '実機タイマー';
+
+  @override
+  String get timerConsole => '実機環境';
+
+  @override
+  String get timerConsoleGba => 'GBA';
+
+  @override
+  String get timerConsoleNdsSlot2 => 'NDS Slot 2';
+
+  @override
+  String get timerConsoleNdsFamily => 'NDS/DSi/3DS';
+
+  @override
+  String get timerPreparation => '準備カウント';
+
+  @override
+  String get timerTargetCountdown => '目標カウント';
+
+  @override
+  String get timerReady => '待機中';
+
+  @override
+  String get timerFinished => '完了';
+
+  @override
+  String get timerStart => '開始';
+
+  @override
+  String get timerStop => '停止';
+
+  @override
+  String timerTargetFrame(Object advance) {
+    return 'タイマー目標 $advance';
+  }
+
+  @override
+  String timerTargetDuration(Object duration) {
+    return '本番カウント $duration';
+  }
+
+  @override
+  String get timerPreparationNote => '開始後3秒カウントし、0でソフトリセットします。';
+
+  @override
+  String get timerEmeraldOnlyNote => '実機乱数はエメラルドのみ推奨: エメラルドの初期 seed は 0 固定です。';
+
+  @override
+  String get timerInputError => '今回の目標 Adv を確認してください。';
 
   @override
   String get observedPokemon => '実際のポケモン';

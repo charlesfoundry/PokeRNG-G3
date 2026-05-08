@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="pokerng_g3"
+        android:label="PokeRNG G3"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

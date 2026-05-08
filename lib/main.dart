@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +24,11 @@ const _maxDisplayedResults = 500;
 const _maxSpeciesSuggestions = 50;
 const _maxSavedTargets = 20;
 final _largeEggSearchCombinationThreshold = BigInt.from(50000000);
+const _retailTimerPreparation = Duration(seconds: 3);
+const _timerBeepChannel = MethodChannel('pokerng_g3/timer_beep');
+const _gbaFrameRate = 16777216 / 280896;
+const _ndsSlot2FrameRate = 59.6555;
+const _ndsFamilyFrameRate = 59.8261;
 const _controlRadius = 12.0;
 const _controlBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(_controlRadius)),
@@ -37,6 +43,38 @@ enum _LeadMode {
   magnetPull,
   cuteCharmFemale,
   cuteCharmMale,
+}
+
+enum _RetailTimerConsole { gba, ndsSlot2, ndsFamily }
+
+enum _RetailTimerPhase { idle, preparation, target, finished }
+
+enum _AppLanguage {
+  system,
+  zhHans,
+  en,
+  ja;
+
+  Locale? get locale {
+    return switch (this) {
+      _AppLanguage.system => null,
+      _AppLanguage.zhHans => const Locale.fromSubtags(
+        languageCode: 'zh',
+        scriptCode: 'Hans',
+      ),
+      _AppLanguage.en => const Locale('en'),
+      _AppLanguage.ja => const Locale('ja'),
+    };
+  }
+
+  String get jsonName {
+    return switch (this) {
+      _AppLanguage.system => 'system',
+      _AppLanguage.zhHans => 'zh_Hans',
+      _AppLanguage.en => 'en',
+      _AppLanguage.ja => 'ja',
+    };
+  }
 }
 
 String _areaKey(WildEncounterArea area) {
@@ -181,6 +219,7 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
   final _storage = _AppStorage();
   final Map<GameVersion, AppProfile> _profiles = {};
   AppProfile _profile = AppProfile.initial();
+  _AppLanguage _language = _AppLanguage.system;
   bool _loaded = false;
 
   @override
@@ -192,6 +231,7 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
   Future<void> _loadAppState() async {
     final profiles = await _storage.loadProfiles();
     final currentGame = await _storage.loadCurrentGame();
+    final language = await _storage.loadLanguage();
     if (!mounted) {
       return;
     }
@@ -200,6 +240,7 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
         ..clear()
         ..addAll(profiles);
       _profile = profiles[currentGame] ?? profiles[GameVersion.emerald]!;
+      _language = language;
       _loaded = true;
     });
   }
@@ -213,11 +254,18 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
     _storage.saveProfile(profile);
   }
 
+  void _setLanguage(_AppLanguage language) {
+    setState(() => _language = language);
+    _storage.saveLanguage(language);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
+      locale: _language.locale,
+      localeListResolutionCallback: _resolveAppLocale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       builder: (context, child) {
@@ -344,6 +392,8 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
               profiles: Map.unmodifiable(_profiles),
               storage: _storage,
               onProfileChanged: _setProfile,
+              language: _language,
+              onLanguageChanged: _setLanguage,
             )
           : const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
@@ -356,12 +406,16 @@ class _AppShell extends StatefulWidget {
     required this.profiles,
     required this.storage,
     required this.onProfileChanged,
+    required this.language,
+    required this.onLanguageChanged,
   });
 
   final AppProfile profile;
   final Map<GameVersion, AppProfile> profiles;
   final _AppStorage storage;
   final ValueChanged<AppProfile> onProfileChanged;
+  final _AppLanguage language;
+  final ValueChanged<_AppLanguage> onLanguageChanged;
 
   @override
   State<_AppShell> createState() => _AppShellState();
@@ -538,106 +592,142 @@ class _AppShellState extends State<_AppShell> {
           widget.storage.saveTargets(widget.profile.game, _savedTargets);
         },
       ),
-      SettingsPage(
+      _SettingsPage(
         profile: widget.profile,
         profiles: widget.profiles,
         onProfileChanged: widget.onProfileChanged,
+        language: widget.language,
+        onLanguageChanged: widget.onLanguageChanged,
       ),
     ];
     final pageStack = IndexedStack(index: _selectedIndex, children: pages);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.appTitle),
-        actions: [
-          Padding(
-            padding: const EdgeInsetsDirectional.only(end: 12),
-            child: Center(
-              child: Text(
-                '${widget.profile.game.label} · ${widget.profile.tid}/${widget.profile.sid}',
-                style: Theme.of(context).textTheme.labelLarge,
+    return _KeyboardDismissRegion(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(l10n.appTitle),
+          actions: [
+            Padding(
+              padding: const EdgeInsetsDirectional.only(end: 12),
+              child: Center(
+                child: Text(
+                  '${widget.profile.game.label} · ${widget.profile.tid}/${widget.profile.sid}',
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: wide
-            ? Row(
-                children: [
-                  NavigationRail(
-                    selectedIndex: _selectedIndex,
-                    onDestinationSelected: (index) {
-                      setState(() => _selectedIndex = index);
-                    },
-                    labelType: NavigationRailLabelType.all,
-                    destinations: [
-                      NavigationRailDestination(
-                        icon: const Icon(Icons.search),
-                        label: Text(l10n.hunt),
-                      ),
-                      NavigationRailDestination(
-                        icon: const Icon(Icons.list_alt),
-                        label: Text(l10n.results),
-                      ),
-                      NavigationRailDestination(
-                        icon: const Icon(Icons.tune),
-                        label: Text(l10n.calibrate),
-                      ),
-                      NavigationRailDestination(
-                        icon: const Icon(Icons.egg_alt_outlined),
-                        label: Text(l10n.breeding),
-                      ),
-                      NavigationRailDestination(
-                        icon: const Icon(Icons.build),
-                        label: Text(l10n.tools),
-                      ),
-                      NavigationRailDestination(
-                        icon: const Icon(Icons.settings),
-                        label: Text(l10n.settings),
-                      ),
-                    ],
+          ],
+        ),
+        body: SafeArea(
+          child: wide
+              ? Row(
+                  children: [
+                    NavigationRail(
+                      selectedIndex: _selectedIndex,
+                      onDestinationSelected: (index) {
+                        setState(() => _selectedIndex = index);
+                      },
+                      labelType: NavigationRailLabelType.all,
+                      destinations: [
+                        NavigationRailDestination(
+                          icon: const Icon(Icons.search),
+                          label: Text(l10n.hunt),
+                        ),
+                        NavigationRailDestination(
+                          icon: const Icon(Icons.list_alt),
+                          label: Text(l10n.results),
+                        ),
+                        NavigationRailDestination(
+                          icon: const Icon(Icons.tune),
+                          label: Text(l10n.calibrate),
+                        ),
+                        NavigationRailDestination(
+                          icon: const Icon(Icons.egg_alt_outlined),
+                          label: Text(l10n.breeding),
+                        ),
+                        NavigationRailDestination(
+                          icon: const Icon(Icons.build),
+                          label: Text(l10n.tools),
+                        ),
+                        NavigationRailDestination(
+                          icon: const Icon(Icons.settings),
+                          label: Text(l10n.settings),
+                        ),
+                      ],
+                    ),
+                    const VerticalDivider(width: 1),
+                    Expanded(child: pageStack),
+                  ],
+                )
+              : pageStack,
+        ),
+        bottomNavigationBar: wide
+            ? null
+            : NavigationBar(
+                selectedIndex: _selectedIndex,
+                onDestinationSelected: (index) {
+                  setState(() => _selectedIndex = index);
+                },
+                destinations: [
+                  NavigationDestination(
+                    icon: const Icon(Icons.search),
+                    label: l10n.hunt,
                   ),
-                  const VerticalDivider(width: 1),
-                  Expanded(child: pageStack),
+                  NavigationDestination(
+                    icon: const Icon(Icons.list_alt),
+                    label: l10n.results,
+                  ),
+                  NavigationDestination(
+                    icon: const Icon(Icons.tune),
+                    label: l10n.calibrate,
+                  ),
+                  NavigationDestination(
+                    icon: const Icon(Icons.egg_alt_outlined),
+                    label: l10n.breeding,
+                  ),
+                  NavigationDestination(
+                    icon: const Icon(Icons.build),
+                    label: l10n.tools,
+                  ),
+                  NavigationDestination(
+                    icon: const Icon(Icons.settings),
+                    label: l10n.settings,
+                  ),
                 ],
-              )
-            : pageStack,
+              ),
       ),
-      bottomNavigationBar: wide
-          ? null
-          : NavigationBar(
-              selectedIndex: _selectedIndex,
-              onDestinationSelected: (index) {
-                setState(() => _selectedIndex = index);
-              },
-              destinations: [
-                NavigationDestination(
-                  icon: const Icon(Icons.search),
-                  label: l10n.hunt,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.list_alt),
-                  label: l10n.results,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.tune),
-                  label: l10n.calibrate,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.egg_alt_outlined),
-                  label: l10n.breeding,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.build),
-                  label: l10n.tools,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.settings),
-                  label: l10n.settings,
-                ),
-              ],
-            ),
+    );
+  }
+}
+
+class _KeyboardDismissRegion extends StatelessWidget {
+  const _KeyboardDismissRegion({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (event) {
+        final focus = FocusManager.instance.primaryFocus;
+        final focusContext = focus?.context;
+        if (focusContext == null || !focus!.hasFocus) {
+          return;
+        }
+
+        final renderObject = focusContext.findRenderObject();
+        if (renderObject is RenderBox) {
+          final topLeft = renderObject.localToGlobal(Offset.zero);
+          final focusedRect = topLeft & renderObject.size;
+          if (focusedRect.contains(event.position)) {
+            return;
+          }
+        }
+
+        focus.unfocus();
+      },
+      child: child,
     );
   }
 }
@@ -2911,7 +3001,8 @@ class _CalibratePage extends StatefulWidget {
   State<_CalibratePage> createState() => _CalibratePageState();
 }
 
-class _CalibratePageState extends State<_CalibratePage> {
+class _CalibratePageState extends State<_CalibratePage>
+    with WidgetsBindingObserver {
   final _targetAdvanceController = TextEditingController();
   final _actualAdvanceController = TextEditingController();
   final _outputController = TextEditingController();
@@ -2926,23 +3017,41 @@ class _CalibratePageState extends State<_CalibratePage> {
   PokemonGender? _observedGender;
   List<_CalibrationHitResult> _hits = const [];
   String? _error;
+  _RetailTimerConsole _timerConsole = _RetailTimerConsole.gba;
+  _RetailTimerPhase _timerPhase = _RetailTimerPhase.idle;
+  final _timerStopwatch = Stopwatch();
+  Timer? _retailTimer;
+  Duration _timerPhaseDuration = Duration.zero;
+  Duration _timerRemaining = Duration.zero;
+  Duration _timerTargetDuration = Duration.zero;
+  int? _timerTargetAdvance;
+  int _timerSignalVersion = 0;
+  bool _timerPhaseTransitionPending = false;
+  Future<void>? _timerBeepPreparation;
+  bool _timerBeepReady = false;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _syncTarget(widget.target);
+    _prepareTimerBeep();
   }
 
   @override
   void didUpdateWidget(covariant _CalibratePage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.target != widget.target) {
+      _cancelRetailTimer();
+      _resetRetailTimerState();
       _syncTarget(widget.target);
     }
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _cancelRetailTimer();
     _targetAdvanceController.dispose();
     _actualAdvanceController.dispose();
     _outputController.dispose();
@@ -2951,6 +3060,20 @@ class _CalibratePageState extends State<_CalibratePage> {
       controller.dispose();
     }
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        break;
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        _stopRetailTimer();
+    }
   }
 
   void _syncTarget(_CalibrationPageTarget? target) {
@@ -2992,6 +3115,196 @@ class _CalibratePageState extends State<_CalibratePage> {
         nextPress - referenceAdvance,
       );
     });
+  }
+
+  void _toggleRetailTimer() {
+    if (_timerPhase == _RetailTimerPhase.preparation ||
+        _timerPhase == _RetailTimerPhase.target) {
+      _stopRetailTimer();
+      return;
+    }
+    _startRetailTimer();
+  }
+
+  void _startRetailTimer() {
+    final targetAdvance = int.tryParse(_targetAdvanceController.text.trim());
+    if (targetAdvance == null || targetAdvance < 0) {
+      setState(() {
+        _error = AppLocalizations.of(context)!.timerInputError;
+      });
+      return;
+    }
+
+    _prepareTimerBeep();
+    _retailTimer?.cancel();
+    _timerSignalVersion++;
+    _timerStopwatch
+      ..reset()
+      ..start();
+    setState(() {
+      _error = null;
+      _timerTargetAdvance = targetAdvance;
+      _timerTargetDuration = _timerDurationForAdvance(targetAdvance);
+      _timerPhase = _RetailTimerPhase.preparation;
+      _timerPhaseDuration = _retailTimerPreparation;
+      _timerRemaining = _retailTimerPreparation;
+      _timerPhaseTransitionPending = false;
+    });
+    _retailTimer = Timer.periodic(
+      const Duration(milliseconds: 16),
+      (_) => _tickRetailTimer(),
+    );
+  }
+
+  void _stopRetailTimer() {
+    _cancelRetailTimer();
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _resetRetailTimerState();
+    });
+  }
+
+  void _cancelRetailTimer() {
+    _timerSignalVersion++;
+    _retailTimer?.cancel();
+    _retailTimer = null;
+    _timerStopwatch
+      ..stop()
+      ..reset();
+    _timerPhaseTransitionPending = false;
+  }
+
+  void _resetRetailTimerState() {
+    _timerPhase = _RetailTimerPhase.idle;
+    _timerPhaseDuration = Duration.zero;
+    _timerRemaining = Duration.zero;
+    _timerTargetAdvance = null;
+    _timerPhaseTransitionPending = false;
+  }
+
+  void _tickRetailTimer() {
+    if (!mounted) {
+      _cancelRetailTimer();
+      return;
+    }
+
+    if (_timerPhaseTransitionPending) {
+      return;
+    }
+
+    final remaining = _timerPhaseDuration - _timerStopwatch.elapsed;
+    if (remaining > Duration.zero) {
+      setState(() => _timerRemaining = remaining);
+      return;
+    }
+
+    if (_timerPhase == _RetailTimerPhase.preparation) {
+      setState(() {
+        _timerRemaining = Duration.zero;
+        _timerPhaseTransitionPending = true;
+      });
+      _signalRetailTimerAfterFrame(() {
+        if (_timerPhase != _RetailTimerPhase.preparation ||
+            !_timerPhaseTransitionPending) {
+          return;
+        }
+        _timerStopwatch
+          ..reset()
+          ..start();
+        setState(() {
+          _timerPhase = _RetailTimerPhase.target;
+          _timerPhaseDuration = _timerTargetDuration;
+          _timerRemaining = _timerTargetDuration;
+          _timerPhaseTransitionPending = false;
+        });
+      });
+      return;
+    }
+
+    _cancelRetailTimer();
+    setState(() {
+      _timerPhase = _RetailTimerPhase.finished;
+      _timerRemaining = Duration.zero;
+    });
+    _signalRetailTimerAfterFrame();
+  }
+
+  void _signalRetailTimerAfterFrame([VoidCallback? afterSignal]) {
+    final signalVersion = _timerSignalVersion;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || signalVersion != _timerSignalVersion) {
+        return;
+      }
+      _signalRetailTimer();
+      afterSignal?.call();
+    });
+  }
+
+  void _signalRetailTimer() {
+    unawaited(_playTimerBeep());
+    unawaited(_playTimerHaptics());
+  }
+
+  void _prepareTimerBeep() {
+    final preparation = _timerBeepPreparation;
+    if (preparation != null) {
+      return;
+    }
+    _timerBeepPreparation = _timerBeepChannel
+        .invokeMethod<void>('prepare')
+        .then<void>((_) {
+          _timerBeepReady = true;
+        })
+        .catchError((Object _) {
+          _timerBeepReady = false;
+          _timerBeepPreparation = null;
+        });
+  }
+
+  Future<void> _playTimerBeep() async {
+    try {
+      if (!_timerBeepReady) {
+        _prepareTimerBeep();
+        await _timerBeepPreparation;
+      }
+      await _timerBeepChannel.invokeMethod<void>('play');
+    } catch (_) {
+      unawaited(SystemSound.play(_timerSoundType));
+    }
+  }
+
+  SystemSoundType get _timerSoundType {
+    return switch (defaultTargetPlatform) {
+      TargetPlatform.android ||
+      TargetPlatform.iOS ||
+      TargetPlatform.fuchsia => SystemSoundType.click,
+      TargetPlatform.linux ||
+      TargetPlatform.macOS ||
+      TargetPlatform.windows => SystemSoundType.alert,
+    };
+  }
+
+  Future<void> _playTimerHaptics() async {
+    await HapticFeedback.heavyImpact();
+    await Future<void>.delayed(const Duration(milliseconds: 80));
+    await HapticFeedback.heavyImpact();
+    await Future<void>.delayed(const Duration(milliseconds: 80));
+    await HapticFeedback.heavyImpact();
+  }
+
+  Duration _timerDurationForAdvance(int advance) {
+    final milliseconds = advance * 1000 / _timerFrameRate;
+    return Duration(microseconds: (milliseconds * 1000).round());
+  }
+
+  double get _timerFrameRate {
+    return switch (_timerConsole) {
+      _RetailTimerConsole.gba => _gbaFrameRate,
+      _RetailTimerConsole.ndsSlot2 => _ndsSlot2FrameRate,
+      _RetailTimerConsole.ndsFamily => _ndsFamilyFrameRate,
+    };
   }
 
   void _reverseHit() {
@@ -3232,6 +3545,124 @@ class _CalibratePageState extends State<_CalibratePage> {
     }, growable: false);
   }
 
+  Widget _retailTimerPanel(AppLocalizations l10n, ThemeData theme) {
+    final currentTarget = int.tryParse(_targetAdvanceController.text.trim());
+    final displayTarget = _timerTargetAdvance ?? currentTarget;
+    final displayDuration = displayTarget == null || displayTarget < 0
+        ? null
+        : _timerDurationForAdvance(displayTarget);
+    final running =
+        _timerPhase == _RetailTimerPhase.preparation ||
+        _timerPhase == _RetailTimerPhase.target;
+    final phaseLabel = _retailTimerPhaseLabel(l10n);
+    final remaining = running ? _timerRemaining : displayDuration;
+
+    return _HoverSurface(
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          spacing: 10,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    l10n.retailTimer,
+                    style: theme.textTheme.titleSmall,
+                  ),
+                ),
+                Text(phaseLabel, style: theme.textTheme.labelMedium),
+              ],
+            ),
+            DropdownButtonFormField<_RetailTimerConsole>(
+              isExpanded: true,
+              initialValue: _timerConsole,
+              decoration: InputDecoration(
+                labelText: l10n.timerConsole,
+                border: _controlBorder,
+              ),
+              items: _RetailTimerConsole.values
+                  .map(
+                    (value) => DropdownMenuItem<_RetailTimerConsole>(
+                      value: value,
+                      child: Text(_retailTimerConsoleLabel(l10n, value)),
+                    ),
+                  )
+                  .toList(growable: false),
+              onChanged: running
+                  ? null
+                  : (value) {
+                      if (value != null) {
+                        setState(() => _timerConsole = value);
+                      }
+                    },
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: _ResultField(
+                    label: l10n.timerPreparation,
+                    value: _formatDuration(_retailTimerPreparation),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _ResultField(
+                    label: l10n.timerTargetCountdown,
+                    value: remaining == null ? '-' : _formatDuration(remaining),
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              displayTarget == null
+                  ? l10n.timerTargetFrame('-')
+                  : l10n.timerTargetFrame(displayTarget),
+              style: theme.textTheme.labelSmall,
+            ),
+            Text(
+              displayDuration == null
+                  ? l10n.timerTargetDuration('-')
+                  : l10n.timerTargetDuration(_formatDuration(displayDuration)),
+              style: theme.textTheme.labelSmall,
+            ),
+            Text(l10n.timerPreparationNote, style: theme.textTheme.labelSmall),
+            Text(l10n.timerEmeraldOnlyNote, style: theme.textTheme.labelSmall),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _toggleRetailTimer,
+                icon: Icon(running ? Icons.stop : Icons.play_arrow),
+                label: Text(running ? l10n.timerStop : l10n.timerStart),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _retailTimerPhaseLabel(AppLocalizations l10n) {
+    return switch (_timerPhase) {
+      _RetailTimerPhase.idle => l10n.timerReady,
+      _RetailTimerPhase.preparation => l10n.timerPreparation,
+      _RetailTimerPhase.target => l10n.timerTargetCountdown,
+      _RetailTimerPhase.finished => l10n.timerFinished,
+    };
+  }
+
+  String _retailTimerConsoleLabel(
+    AppLocalizations l10n,
+    _RetailTimerConsole value,
+  ) {
+    return switch (value) {
+      _RetailTimerConsole.gba => l10n.timerConsoleGba,
+      _RetailTimerConsole.ndsSlot2 => l10n.timerConsoleNdsSlot2,
+      _RetailTimerConsole.ndsFamily => l10n.timerConsoleNdsFamily,
+    };
+  }
+
   void _selectHit(_CalibrationHitResult hit) {
     _actualAdvanceController.text = '${hit.advance}';
     _outputController.text = AppLocalizations.of(
@@ -3274,6 +3705,7 @@ class _CalibratePageState extends State<_CalibratePage> {
                   border: _controlBorder,
                 ),
                 keyboardType: TextInputType.number,
+                onChanged: (_) => setState(() {}),
               ),
             ),
             const SizedBox(width: 8),
@@ -3316,6 +3748,8 @@ class _CalibratePageState extends State<_CalibratePage> {
             label: Text(l10n.calculateNextPress),
           ),
         ),
+        const SizedBox(height: 12),
+        _retailTimerPanel(l10n, theme),
         const SizedBox(height: 20),
         if (!isStaticTarget) ...[
           Text(l10n.observedPokemon, style: theme.textTheme.titleMedium),
@@ -5225,23 +5659,26 @@ class _StatIvCalculatorState extends State<_StatIvCalculator> {
   }
 }
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({
-    super.key,
+class _SettingsPage extends StatefulWidget {
+  const _SettingsPage({
     required this.profile,
     required this.profiles,
     required this.onProfileChanged,
+    required this.language,
+    required this.onLanguageChanged,
   });
 
   final AppProfile profile;
   final Map<GameVersion, AppProfile> profiles;
   final ValueChanged<AppProfile> onProfileChanged;
+  final _AppLanguage language;
+  final ValueChanged<_AppLanguage> onLanguageChanged;
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<_SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsPageState extends State<_SettingsPage> {
   late final TextEditingController _tidController;
   late final TextEditingController _sidController;
   late final TextEditingController _seedController;
@@ -5266,7 +5703,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   @override
-  void didUpdateWidget(covariant SettingsPage oldWidget) {
+  void didUpdateWidget(covariant _SettingsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.profile != widget.profile) {
       _game = widget.profile.game;
@@ -5310,6 +5747,31 @@ class _SettingsPageState extends State<SettingsPage> {
       children: [
         Text(l10n.settings, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
+        DropdownButtonFormField<_AppLanguage>(
+          isExpanded: true,
+          initialValue: widget.language,
+          decoration: InputDecoration(
+            labelText: l10n.language,
+            prefixIcon: const Icon(Icons.language),
+            border: _controlBorder,
+          ),
+          items: _AppLanguage.values
+              .map(
+                (language) => DropdownMenuItem<_AppLanguage>(
+                  value: language,
+                  child: Text(_languageLabel(l10n, language)),
+                ),
+              )
+              .toList(),
+          onChanged: (language) {
+            if (language != null) {
+              widget.onLanguageChanged(language);
+            }
+          },
+        ),
+        const SizedBox(height: 20),
+        Text(l10n.gameVersion, style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 8),
         SegmentedButton<GameVersion>(
           segments: GameVersion.values
               .map(
@@ -5390,6 +5852,50 @@ class _SettingsPageState extends State<SettingsPage> {
       ],
     );
   }
+}
+
+String _languageLabel(AppLocalizations l10n, _AppLanguage language) {
+  return switch (language) {
+    _AppLanguage.system => l10n.languageSystem,
+    _AppLanguage.zhHans => l10n.languageChineseSimplified,
+    _AppLanguage.en => l10n.languageEnglish,
+    _AppLanguage.ja => l10n.languageJapanese,
+  };
+}
+
+Locale _resolveAppLocale(
+  List<Locale>? preferredLocales,
+  Iterable<Locale> supportedLocales,
+) {
+  const english = Locale('en');
+  const japanese = Locale('ja');
+  const simplifiedChinese = Locale.fromSubtags(
+    languageCode: 'zh',
+    scriptCode: 'Hans',
+  );
+
+  final preferred = preferredLocales?.isEmpty ?? true
+      ? null
+      : preferredLocales!.first;
+  if (preferred == null) {
+    return english;
+  }
+
+  if (preferred.languageCode == 'en') {
+    return english;
+  }
+  if (preferred.languageCode == 'ja') {
+    return japanese;
+  }
+  if (preferred.languageCode == 'zh' &&
+      (preferred.scriptCode == 'Hans' ||
+          preferred.countryCode == 'CN' ||
+          preferred.countryCode == 'SG' ||
+          (preferred.scriptCode == null && preferred.countryCode == null))) {
+    return simplifiedChinese;
+  }
+
+  return english;
 }
 
 class _InfoRow extends StatelessWidget {
@@ -6391,6 +6897,21 @@ class _AppStorage {
     await _preferences.setString('app.currentGame', game.jsonName);
   }
 
+  Future<_AppLanguage> loadLanguage() async {
+    final raw = await _preferences.getString('app.language');
+    if (raw == null) {
+      return _AppLanguage.system;
+    }
+    return _AppLanguage.values.firstWhere(
+      (language) => language.jsonName == raw,
+      orElse: () => _AppLanguage.system,
+    );
+  }
+
+  Future<void> saveLanguage(_AppLanguage language) async {
+    await _preferences.setString('app.language', language.jsonName);
+  }
+
   Future<List<_SavedTargetRecord>> loadTargets(GameVersion game) async {
     final raw = await _preferences.getString(_targetsKey(game));
     if (raw == null || raw.isEmpty) {
@@ -6771,6 +7292,21 @@ String _formatInteger(BigInt value) {
     buffer.write(text[i]);
   }
   return buffer.toString();
+}
+
+String _formatDuration(Duration duration) {
+  final clamped = duration.isNegative ? Duration.zero : duration;
+  final hours = clamped.inHours;
+  final minutes = clamped.inMinutes.remainder(60);
+  final seconds = clamped.inSeconds.remainder(60);
+  final milliseconds = clamped.inMilliseconds.remainder(1000);
+  final secondText = seconds.toString().padLeft(2, '0');
+  final millisecondText = milliseconds.toString().padLeft(3, '0');
+  if (hours > 0) {
+    final minuteText = minutes.toString().padLeft(2, '0');
+    return '$hours:$minuteText:$secondText.$millisecondText';
+  }
+  return '$minutes:$secondText.$millisecondText';
 }
 
 int? _parseHexInput(String value) {

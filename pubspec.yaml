@@ -64,6 +64,7 @@ flutter:
 
   assets:
     - assets/data/gen3/personal_rsefrlg.json
+    - assets/audio/timer_beep.wav
     - assets/data/gen3/static_encounters.json
     - assets/data/gen3/wild_encounters.json
     - assets/i18n/gen3/abilities_en.json

@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "appTitle": "PokeRNG G3",
-  "hunt": "Hunt",
+  "hunt": "Search",
   "calibrate": "Calibrate",
   "breeding": "Eggs",
   "tools": "Tools",
@@ -24,6 +24,11 @@
   "delay": "Delay",
   "results": "Results",
   "selectAResult": "Select a result",
+  "language": "Language",
+  "languageSystem": "System",
+  "languageChineseSimplified": "简体中文",
+  "languageEnglish": "English",
+  "languageJapanese": "日本語",
   "gameVersion": "Game version",
   "defaultSeed": "Default seed",
   "save": "Save",
@@ -208,6 +213,32 @@
   "calibrationOutput": "Output",
   "targetDelta": "Total deviation",
   "calculateNextPress": "Calculate next target Adv",
+  "retailTimer": "Retail timer",
+  "timerConsole": "Console",
+  "timerConsoleGba": "GBA",
+  "timerConsoleNdsSlot2": "NDS Slot 2",
+  "timerConsoleNdsFamily": "NDS/DSi/3DS",
+  "timerPreparation": "Preparation",
+  "timerTargetCountdown": "Target countdown",
+  "timerReady": "Ready",
+  "timerFinished": "Finished",
+  "timerStart": "Start",
+  "timerStop": "Stop",
+  "timerTargetFrame": "Timer target {advance}",
+  "@timerTargetFrame": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "timerTargetDuration": "Target countdown {duration}",
+  "@timerTargetDuration": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "timerPreparationNote": "Start gives a 3-second countdown; soft reset at zero.",
+  "timerEmeraldOnlyNote": "Retail RNG is recommended for Emerald only: Emerald starts from seed 0.",
+  "timerInputError": "Check current target Adv.",
   "observedPokemon": "Observed Pokemon",
   "observedStats": "Stats",
   "reverseHitAdvance": "Reverse hit frame",

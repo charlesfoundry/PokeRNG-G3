@@ -12,7 +12,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get appTitle => 'PokeRNG G3';
 
   @override
-  String get hunt => '狩猎';
+  String get hunt => '检索';
 
   @override
   String get calibrate => '校准';
@@ -80,6 +80,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get selectAResult => '选择一个结果';
+
+  @override
+  String get language => '语言';
+
+  @override
+  String get languageSystem => '跟随系统';
+
+  @override
+  String get languageChineseSimplified => '简体中文';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get languageJapanese => '日本語';
 
   @override
   String get gameVersion => '游戏版本';
@@ -454,6 +469,58 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get calculateNextPress => '计算下一次目标帧';
+
+  @override
+  String get retailTimer => '实机定时器';
+
+  @override
+  String get timerConsole => '实机环境';
+
+  @override
+  String get timerConsoleGba => 'GBA';
+
+  @override
+  String get timerConsoleNdsSlot2 => 'NDS Slot 2';
+
+  @override
+  String get timerConsoleNdsFamily => 'NDS/DSi/3DS';
+
+  @override
+  String get timerPreparation => '准备倒计时';
+
+  @override
+  String get timerTargetCountdown => '目标倒计时';
+
+  @override
+  String get timerReady => '等待开始';
+
+  @override
+  String get timerFinished => '完成';
+
+  @override
+  String get timerStart => '开始';
+
+  @override
+  String get timerStop => '停止';
+
+  @override
+  String timerTargetFrame(Object advance) {
+    return '定时目标帧 $advance';
+  }
+
+  @override
+  String timerTargetDuration(Object duration) {
+    return '正式计时 $duration';
+  }
+
+  @override
+  String get timerPreparationNote => '开始后会先有3秒倒计时，归零瞬间将游戏软重启。';
+
+  @override
+  String get timerEmeraldOnlyNote => '实机乱数仅建议用于绿宝石：绿宝石初始 seed 固定为 0。';
+
+  @override
+  String get timerInputError => '请检查本次目标帧。';
 
   @override
   String get observedPokemon => '实际宝可梦';
@@ -545,7 +612,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get appTitle => 'PokeRNG G3';
 
   @override
-  String get hunt => '狩猎';
+  String get hunt => '检索';
 
   @override
   String get calibrate => '校准';
@@ -613,6 +680,21 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get selectAResult => '选择一个结果';
+
+  @override
+  String get language => '语言';
+
+  @override
+  String get languageSystem => '跟随系统';
+
+  @override
+  String get languageChineseSimplified => '简体中文';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get languageJapanese => '日本語';
 
   @override
   String get gameVersion => '游戏版本';
@@ -987,6 +1069,58 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get calculateNextPress => '计算下一次目标帧';
+
+  @override
+  String get retailTimer => '实机定时器';
+
+  @override
+  String get timerConsole => '实机环境';
+
+  @override
+  String get timerConsoleGba => 'GBA';
+
+  @override
+  String get timerConsoleNdsSlot2 => 'NDS Slot 2';
+
+  @override
+  String get timerConsoleNdsFamily => 'NDS/DSi/3DS';
+
+  @override
+  String get timerPreparation => '准备倒计时';
+
+  @override
+  String get timerTargetCountdown => '目标倒计时';
+
+  @override
+  String get timerReady => '等待开始';
+
+  @override
+  String get timerFinished => '完成';
+
+  @override
+  String get timerStart => '开始';
+
+  @override
+  String get timerStop => '停止';
+
+  @override
+  String timerTargetFrame(Object advance) {
+    return '定时目标帧 $advance';
+  }
+
+  @override
+  String timerTargetDuration(Object duration) {
+    return '正式计时 $duration';
+  }
+
+  @override
+  String get timerPreparationNote => '开始后会先有3秒倒计时，归零瞬间将游戏软重启。';
+
+  @override
+  String get timerEmeraldOnlyNote => '实机乱数仅建议用于绿宝石：绿宝石初始 seed 固定为 0。';
+
+  @override
+  String get timerInputError => '请检查本次目标帧。';
 
   @override
   String get observedPokemon => '实际宝可梦';

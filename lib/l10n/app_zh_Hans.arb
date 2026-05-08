@@ -1,7 +1,7 @@
 {
   "@@locale": "zh_Hans",
   "appTitle": "PokeRNG G3",
-  "hunt": "狩猎",
+  "hunt": "检索",
   "calibrate": "校准",
   "breeding": "孵蛋",
   "tools": "工具",
@@ -24,6 +24,11 @@
   "delay": "延迟",
   "results": "结果",
   "selectAResult": "选择一个结果",
+  "language": "语言",
+  "languageSystem": "跟随系统",
+  "languageChineseSimplified": "简体中文",
+  "languageEnglish": "English",
+  "languageJapanese": "日本語",
   "gameVersion": "游戏版本",
   "defaultSeed": "默认 Seed",
   "save": "保存",
@@ -208,6 +213,32 @@
   "calibrationOutput": "输出",
   "targetDelta": "总偏差值",
   "calculateNextPress": "计算下一次目标帧",
+  "retailTimer": "实机定时器",
+  "timerConsole": "实机环境",
+  "timerConsoleGba": "GBA",
+  "timerConsoleNdsSlot2": "NDS Slot 2",
+  "timerConsoleNdsFamily": "NDS/DSi/3DS",
+  "timerPreparation": "准备倒计时",
+  "timerTargetCountdown": "目标倒计时",
+  "timerReady": "等待开始",
+  "timerFinished": "完成",
+  "timerStart": "开始",
+  "timerStop": "停止",
+  "timerTargetFrame": "定时目标帧 {advance}",
+  "@timerTargetFrame": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "timerTargetDuration": "正式计时 {duration}",
+  "@timerTargetDuration": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "timerPreparationNote": "开始后会先有3秒倒计时，归零瞬间将游戏软重启。",
+  "timerEmeraldOnlyNote": "实机乱数仅建议用于绿宝石：绿宝石初始 seed 固定为 0。",
+  "timerInputError": "请检查本次目标帧。",
   "observedPokemon": "实际宝可梦",
   "observedStats": "能力值",
   "reverseHitAdvance": "反查实际帧",

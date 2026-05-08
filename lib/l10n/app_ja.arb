@@ -24,6 +24,11 @@
   "delay": "遅延",
   "results": "結果",
   "selectAResult": "結果を選択",
+  "language": "言語",
+  "languageSystem": "システム",
+  "languageChineseSimplified": "简体中文",
+  "languageEnglish": "English",
+  "languageJapanese": "日本語",
   "gameVersion": "ゲーム",
   "defaultSeed": "既定 Seed",
   "save": "保存",
@@ -208,6 +213,32 @@
   "calibrationOutput": "出力",
   "targetDelta": "合計ずれ",
   "calculateNextPress": "次の目標 Adv を計算",
+  "retailTimer": "実機タイマー",
+  "timerConsole": "実機環境",
+  "timerConsoleGba": "GBA",
+  "timerConsoleNdsSlot2": "NDS Slot 2",
+  "timerConsoleNdsFamily": "NDS/DSi/3DS",
+  "timerPreparation": "準備カウント",
+  "timerTargetCountdown": "目標カウント",
+  "timerReady": "待機中",
+  "timerFinished": "完了",
+  "timerStart": "開始",
+  "timerStop": "停止",
+  "timerTargetFrame": "タイマー目標 {advance}",
+  "@timerTargetFrame": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "timerTargetDuration": "本番カウント {duration}",
+  "@timerTargetDuration": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "timerPreparationNote": "開始後3秒カウントし、0でソフトリセットします。",
+  "timerEmeraldOnlyNote": "実機乱数はエメラルドのみ推奨: エメラルドの初期 seed は 0 固定です。",
+  "timerInputError": "今回の目標 Adv を確認してください。",
   "observedPokemon": "実際のポケモン",
   "observedStats": "能力値",
   "reverseHitAdvance": "実際のフレームを逆算",
