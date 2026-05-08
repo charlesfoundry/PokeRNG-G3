@@ -106,7 +106,7 @@
   "leadCuteCharmMale": "迷人之躯 ♂",
   "syncNature": "同步性格",
   "feebasTile": "丑丑鱼水格",
-  "ivAnyNote": "-1 = 任意 IV",
+  "ivAnyNote": "空白或 -1 = 任意 IV",
   "searchRangeNote": "最大 - 起始 <= {maxAdvanceDelta} 帧 · 结果 <= {maxResults}",
   "@searchRangeNote": {
     "placeholders": {

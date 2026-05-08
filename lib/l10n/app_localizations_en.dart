@@ -279,7 +279,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feebasTile => 'Feebas tile';
 
   @override
-  String get ivAnyNote => '-1 = Any IV';
+  String get ivAnyNote => 'Empty or -1 = Any IV';
 
   @override
   String searchRangeNote(Object maxAdvanceDelta, Object maxResults) {

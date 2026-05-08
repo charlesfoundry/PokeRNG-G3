@@ -106,7 +106,7 @@
   "leadCuteCharmMale": "メロメロボディ ♂",
   "syncNature": "シンクロ性格",
   "feebasTile": "ヒンバスのマス",
-  "ivAnyNote": "-1 = 任意 IV",
+  "ivAnyNote": "空欄または -1 = 任意 IV",
   "searchRangeNote": "最大 - 開始 <= {maxAdvanceDelta} フレーム · 結果 <= {maxResults}",
   "@searchRangeNote": {
     "placeholders": {

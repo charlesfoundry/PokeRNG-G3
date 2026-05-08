@@ -614,7 +614,7 @@ abstract class AppLocalizations {
   /// No description provided for @ivAnyNote.
   ///
   /// In en, this message translates to:
-  /// **'-1 = Any IV'**
+  /// **'Empty or -1 = Any IV'**
   String get ivAnyNote;
 
   /// No description provided for @searchRangeNote.

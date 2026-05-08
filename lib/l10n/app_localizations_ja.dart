@@ -274,7 +274,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get feebasTile => 'ヒンバスのマス';
 
   @override
-  String get ivAnyNote => '-1 = 任意 IV';
+  String get ivAnyNote => '空欄または -1 = 任意 IV';
 
   @override
   String searchRangeNote(Object maxAdvanceDelta, Object maxResults) {

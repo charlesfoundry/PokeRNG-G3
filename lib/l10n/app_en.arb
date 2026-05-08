@@ -106,7 +106,7 @@
   "leadCuteCharmMale": "Cute Charm ♂",
   "syncNature": "Sync nature",
   "feebasTile": "Feebas tile",
-  "ivAnyNote": "-1 = Any IV",
+  "ivAnyNote": "Empty or -1 = Any IV",
   "searchRangeNote": "Max - Initial <= {maxAdvanceDelta} advances · results <= {maxResults}",
   "@searchRangeNote": {
     "placeholders": {

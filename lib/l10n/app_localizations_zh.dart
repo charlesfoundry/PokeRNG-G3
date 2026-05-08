@@ -273,7 +273,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get feebasTile => '丑丑鱼水格';
 
   @override
-  String get ivAnyNote => '-1 = 任意 IV';
+  String get ivAnyNote => '空白或 -1 = 任意 IV';
 
   @override
   String searchRangeNote(Object maxAdvanceDelta, Object maxResults) {
@@ -906,7 +906,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get feebasTile => '丑丑鱼水格';
 
   @override
-  String get ivAnyNote => '-1 = 任意 IV';
+  String get ivAnyNote => '空白或 -1 = 任意 IV';
 
   @override
   String searchRangeNote(Object maxAdvanceDelta, Object maxResults) {

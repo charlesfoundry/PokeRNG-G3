@@ -748,12 +748,12 @@ class _HuntPageState extends State<_HuntPage> {
   final _initialAdvanceController = TextEditingController(text: '0');
   final _maxAdvanceController = TextEditingController(text: '100000');
   final _delayController = TextEditingController(text: '0');
-  final _hpIvController = TextEditingController(text: '-1');
-  final _attackIvController = TextEditingController(text: '-1');
-  final _defenseIvController = TextEditingController(text: '-1');
-  final _specialAttackIvController = TextEditingController(text: '-1');
-  final _specialDefenseIvController = TextEditingController(text: '-1');
-  final _speedIvController = TextEditingController(text: '-1');
+  final _hpIvController = TextEditingController();
+  final _attackIvController = TextEditingController();
+  final _defenseIvController = TextEditingController();
+  final _specialAttackIvController = TextEditingController();
+  final _specialDefenseIvController = TextEditingController();
+  final _speedIvController = TextEditingController();
 
   final _ivComparisons = List<IvComparison>.filled(
     6,
@@ -1342,12 +1342,12 @@ class _HuntPageState extends State<_HuntPage> {
 
   IvFilter? _parseIvFilter() {
     final values = [
-      int.tryParse(_hpIvController.text.trim()),
-      int.tryParse(_attackIvController.text.trim()),
-      int.tryParse(_defenseIvController.text.trim()),
-      int.tryParse(_specialAttackIvController.text.trim()),
-      int.tryParse(_specialDefenseIvController.text.trim()),
-      int.tryParse(_speedIvController.text.trim()),
+      _parseOptionalIv(_hpIvController.text),
+      _parseOptionalIv(_attackIvController.text),
+      _parseOptionalIv(_defenseIvController.text),
+      _parseOptionalIv(_specialAttackIvController.text),
+      _parseOptionalIv(_specialDefenseIvController.text),
+      _parseOptionalIv(_speedIvController.text),
     ];
     if (values.any((value) => value == null || value < -1 || value > 31)) {
       return null;
@@ -1358,6 +1358,14 @@ class _HuntPageState extends State<_HuntPage> {
           IvRule(value: values[i]!, comparison: _ivComparisons[i]),
       ],
     );
+  }
+
+  int? _parseOptionalIv(String text) {
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) {
+      return -1;
+    }
+    return int.tryParse(trimmed);
   }
 
   int? _parseHex(String value) {
