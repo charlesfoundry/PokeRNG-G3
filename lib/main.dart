@@ -710,25 +710,15 @@ class _KeyboardDismissRegion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      behavior: HitTestBehavior.translucent,
-      onPointerDown: (event) {
-        final focus = FocusManager.instance.primaryFocus;
-        final focusContext = focus?.context;
-        if (focusContext == null || !focus!.hasFocus) {
-          return;
-        }
-
-        final renderObject = focusContext.findRenderObject();
-        if (renderObject is RenderBox) {
-          final topLeft = renderObject.localToGlobal(Offset.zero);
-          final focusedRect = topLeft & renderObject.size;
-          if (focusedRect.contains(event.position)) {
-            return;
-          }
-        }
-
-        focus.unfocus();
+    return Actions(
+      actions: {
+        EditableTextTapOutsideIntent:
+            CallbackAction<EditableTextTapOutsideIntent>(
+              onInvoke: (intent) {
+                intent.focusNode.unfocus();
+                return null;
+              },
+            ),
       },
       child: child,
     );
@@ -800,7 +790,25 @@ class _HuntPageState extends State<_HuntPage> {
     final localeName = Localizations.localeOf(context).toString();
     if (_localeName != localeName) {
       _localeName = localeName;
-      _dataFuture = _HuntData.load(localeName);
+      final dataFuture = _HuntData.load(localeName);
+      _dataFuture = dataFuture;
+      unawaited(
+        dataFuture
+            .then((data) {
+              if (!mounted || _localeName != data.localeName) {
+                return;
+              }
+              final selectedSpeciesId = _selectedSpeciesId;
+              if (selectedSpeciesId != null) {
+                _pokemonController.text = data.speciesDisplayName(
+                  selectedSpeciesId,
+                );
+              } else {
+                _refreshAutocompleteOptions(_pokemonController);
+              }
+            })
+            .catchError((Object _) {}),
+      );
     }
   }
 
@@ -1627,76 +1635,82 @@ class _HuntControls extends StatelessWidget {
       children: [
         Text(l10n.target, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 8),
-        RawAutocomplete<_SpeciesOption>(
-          textEditingController: pokemonController,
+        _AutocompleteOptionsPrimer(
+          controller: pokemonController,
           focusNode: pokemonFocusNode,
-          displayStringForOption: (option) => option.displayName,
-          optionsBuilder: (textEditingValue) {
-            final query = textEditingValue.text.trim().toLowerCase();
-            if (query.isEmpty) {
-              return data.speciesOptions.take(_maxSpeciesSuggestions);
-            }
-            final numericStart = _numericSpeciesStart(query);
-            if (numericStart != null) {
-              if (numericStart > data.speciesOptions.length) {
-                return const Iterable<_SpeciesOption>.empty();
+          token: data.localeName,
+          child: RawAutocomplete<_SpeciesOption>(
+            textEditingController: pokemonController,
+            focusNode: pokemonFocusNode,
+            displayStringForOption: (option) => option.displayName,
+            optionsBuilder: (textEditingValue) {
+              final query = textEditingValue.text.trim().toLowerCase();
+              if (query.isEmpty) {
+                return data.speciesOptions.take(_maxSpeciesSuggestions);
+              }
+              final numericStart = _numericSpeciesStart(query);
+              if (numericStart != null) {
+                if (numericStart > data.speciesOptions.length) {
+                  return const Iterable<_SpeciesOption>.empty();
+                }
+                return data.speciesOptions
+                    .skip(numericStart - 1)
+                    .take(_maxSpeciesSuggestions);
               }
               return data.speciesOptions
-                  .skip(numericStart - 1)
+                  .where((option) => option.searchText.contains(query))
                   .take(_maxSpeciesSuggestions);
-            }
-            return data.speciesOptions
-                .where((option) => option.searchText.contains(query))
-                .take(_maxSpeciesSuggestions);
-          },
-          onSelected: (option) => onSpeciesSelected(option.speciesId),
-          fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
-            return TextField(
-              key: const ValueKey('pokemon-field'),
-              controller: controller,
-              focusNode: focusNode,
-              decoration: InputDecoration(
-                labelText: l10n.pokemon,
-                prefixIcon: const Icon(Icons.catching_pokemon),
-                border: _controlBorder,
-              ),
-              textInputAction: TextInputAction.next,
-              onSubmitted: (_) => onFieldSubmitted(),
-            );
-          },
-          optionsViewBuilder: (context, onSelected, options) {
-            return Align(
-              alignment: Alignment.topLeft,
-              child: Material(
-                elevation: 4,
-                borderRadius: BorderRadius.circular(_controlRadius),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 360,
-                    maxHeight: 280,
-                  ),
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount: options.length,
-                    itemBuilder: (context, index) {
-                      final option = options.elementAt(index);
-                      return InkWell(
-                        onTap: () => onSelected(option),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
+            },
+            onSelected: (option) => onSpeciesSelected(option.speciesId),
+            fieldViewBuilder:
+                (context, controller, focusNode, onFieldSubmitted) {
+                  return TextField(
+                    key: const ValueKey('pokemon-field'),
+                    controller: controller,
+                    focusNode: focusNode,
+                    decoration: InputDecoration(
+                      labelText: l10n.pokemon,
+                      prefixIcon: const Icon(Icons.catching_pokemon),
+                      border: _controlBorder,
+                    ),
+                    textInputAction: TextInputAction.next,
+                    onSubmitted: (_) => onFieldSubmitted(),
+                  );
+                },
+            optionsViewBuilder: (context, onSelected, options) {
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(_controlRadius),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 360,
+                      maxHeight: 280,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: options.length,
+                      itemBuilder: (context, index) {
+                        final option = options.elementAt(index);
+                        return InkWell(
+                          onTap: () => onSelected(option),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            child: Text(option.displayName),
                           ),
-                          child: Text(option.displayName),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
         const SizedBox(height: 8),
         if (selectedSpeciesId == null)
@@ -4584,76 +4598,84 @@ class _BreedingPageState extends State<_BreedingPage> {
   }
 
   Widget _speciesAutocomplete(_HuntData data, AppLocalizations l10n) {
-    return RawAutocomplete<_SpeciesOption>(
-      textEditingController: _pokemonController,
+    return _AutocompleteOptionsPrimer(
+      controller: _pokemonController,
       focusNode: _pokemonFocusNode,
-      displayStringForOption: (option) => option.displayName,
-      optionsBuilder: (textEditingValue) {
-        final query = textEditingValue.text.trim().toLowerCase();
-        if (query.isEmpty) {
-          return data.speciesOptions.take(_maxSpeciesSuggestions);
-        }
-        final numericStart = _numericSpeciesStart(query);
-        if (numericStart != null) {
-          if (numericStart > data.speciesOptions.length) {
-            return const Iterable<_SpeciesOption>.empty();
+      token: data.localeName,
+      child: RawAutocomplete<_SpeciesOption>(
+        textEditingController: _pokemonController,
+        focusNode: _pokemonFocusNode,
+        displayStringForOption: (option) => option.displayName,
+        optionsBuilder: (textEditingValue) {
+          final query = textEditingValue.text.trim().toLowerCase();
+          if (query.isEmpty) {
+            return data.speciesOptions.take(_maxSpeciesSuggestions);
+          }
+          final numericStart = _numericSpeciesStart(query);
+          if (numericStart != null) {
+            if (numericStart > data.speciesOptions.length) {
+              return const Iterable<_SpeciesOption>.empty();
+            }
+            return data.speciesOptions
+                .skip(numericStart - 1)
+                .take(_maxSpeciesSuggestions);
           }
           return data.speciesOptions
-              .skip(numericStart - 1)
+              .where((option) => option.searchText.contains(query))
               .take(_maxSpeciesSuggestions);
-        }
-        return data.speciesOptions
-            .where((option) => option.searchText.contains(query))
-            .take(_maxSpeciesSuggestions);
-      },
-      onSelected: (option) {
-        _updateEggSettings(() {
-          _speciesId = option.speciesId;
-          _pokemonController.text = option.displayName;
-          _abilitySlot = null;
-          _gender = null;
-        });
-      },
-      fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
-        return TextField(
-          controller: controller,
-          focusNode: focusNode,
-          decoration: InputDecoration(
-            labelText: l10n.pokemon,
-            border: _controlBorder,
-          ),
-        );
-      },
-      optionsViewBuilder: (context, onSelected, options) {
-        return Align(
-          alignment: Alignment.topLeft,
-          child: Material(
-            elevation: 4,
-            borderRadius: BorderRadius.circular(_controlRadius),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 360, maxHeight: 240),
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: options.length,
-                itemBuilder: (context, index) {
-                  final option = options.elementAt(index);
-                  return InkWell(
-                    onTap: () => onSelected(option),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
+        },
+        onSelected: (option) {
+          _updateEggSettings(() {
+            _speciesId = option.speciesId;
+            _pokemonController.text = option.displayName;
+            _abilitySlot = null;
+            _gender = null;
+          });
+        },
+        fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+          return TextField(
+            controller: controller,
+            focusNode: focusNode,
+            decoration: InputDecoration(
+              labelText: l10n.pokemon,
+              border: _controlBorder,
+            ),
+          );
+        },
+        optionsViewBuilder: (context, onSelected, options) {
+          return Align(
+            alignment: Alignment.topLeft,
+            child: Material(
+              elevation: 4,
+              borderRadius: BorderRadius.circular(_controlRadius),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: 360,
+                  maxHeight: 240,
+                ),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: options.length,
+                  itemBuilder: (context, index) {
+                    final option = options.elementAt(index);
+                    return InkWell(
+                      onTap: () => onSelected(option),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        child: Text(option.displayName),
                       ),
-                      child: Text(option.displayName),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -5484,78 +5506,89 @@ class _StatIvCalculatorState extends State<_StatIvCalculator> {
                 if (data == null)
                   const LinearProgressIndicator()
                 else ...[
-                  RawAutocomplete<_SpeciesOption>(
-                    textEditingController: _pokemonController,
+                  _AutocompleteOptionsPrimer(
+                    controller: _pokemonController,
                     focusNode: _pokemonFocusNode,
-                    displayStringForOption: (option) => option.displayName,
-                    optionsBuilder: (textEditingValue) {
-                      final query = textEditingValue.text.trim().toLowerCase();
-                      if (query.isEmpty) {
-                        return data.speciesOptions.take(_maxSpeciesSuggestions);
-                      }
-                      final numericStart = _numericSpeciesStart(query);
-                      if (numericStart != null) {
-                        if (numericStart > data.speciesOptions.length) {
-                          return const Iterable<_SpeciesOption>.empty();
+                    token: data.localeName,
+                    child: RawAutocomplete<_SpeciesOption>(
+                      textEditingController: _pokemonController,
+                      focusNode: _pokemonFocusNode,
+                      displayStringForOption: (option) => option.displayName,
+                      optionsBuilder: (textEditingValue) {
+                        final query = textEditingValue.text
+                            .trim()
+                            .toLowerCase();
+                        if (query.isEmpty) {
+                          return data.speciesOptions.take(
+                            _maxSpeciesSuggestions,
+                          );
+                        }
+                        final numericStart = _numericSpeciesStart(query);
+                        if (numericStart != null) {
+                          if (numericStart > data.speciesOptions.length) {
+                            return const Iterable<_SpeciesOption>.empty();
+                          }
+                          return data.speciesOptions
+                              .skip(numericStart - 1)
+                              .take(_maxSpeciesSuggestions);
                         }
                         return data.speciesOptions
-                            .skip(numericStart - 1)
+                            .where(
+                              (option) => option.searchText.contains(query),
+                            )
                             .take(_maxSpeciesSuggestions);
-                      }
-                      return data.speciesOptions
-                          .where((option) => option.searchText.contains(query))
-                          .take(_maxSpeciesSuggestions);
-                    },
-                    onSelected: (option) {
-                      setState(() {
-                        _speciesId = option.speciesId;
-                        _pokemonController.text = option.displayName;
-                      });
-                    },
-                    fieldViewBuilder:
-                        (context, controller, focusNode, onFieldSubmitted) {
-                          return TextField(
-                            controller: controller,
-                            focusNode: focusNode,
-                            decoration: InputDecoration(
-                              labelText: l10n.pokemon,
-                              border: _controlBorder,
-                            ),
-                          );
-                        },
-                    optionsViewBuilder: (context, onSelected, options) {
-                      return Align(
-                        alignment: Alignment.topLeft,
-                        child: Material(
-                          elevation: 4,
-                          borderRadius: BorderRadius.circular(_controlRadius),
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              maxWidth: 360,
-                              maxHeight: 240,
-                            ),
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              itemCount: options.length,
-                              itemBuilder: (context, index) {
-                                final option = options.elementAt(index);
-                                return InkWell(
-                                  onTap: () => onSelected(option),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 8,
+                      },
+                      onSelected: (option) {
+                        setState(() {
+                          _speciesId = option.speciesId;
+                          _pokemonController.text = option.displayName;
+                        });
+                      },
+                      fieldViewBuilder:
+                          (context, controller, focusNode, onFieldSubmitted) {
+                            return TextField(
+                              controller: controller,
+                              focusNode: focusNode,
+                              decoration: InputDecoration(
+                                labelText: l10n.pokemon,
+                                border: _controlBorder,
+                              ),
+                            );
+                          },
+                      optionsViewBuilder: (context, onSelected, options) {
+                        return Align(
+                          alignment: Alignment.topLeft,
+                          child: Material(
+                            elevation: 4,
+                            borderRadius: BorderRadius.circular(_controlRadius),
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                maxWidth: 360,
+                                maxHeight: 240,
+                              ),
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount: options.length,
+                                itemBuilder: (context, index) {
+                                  final option = options.elementAt(index);
+                                  return InkWell(
+                                    onTap: () => onSelected(option),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 8,
+                                      ),
+                                      child: Text(option.displayName),
                                     ),
-                                    child: Text(option.displayName),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                   Row(
                     children: [
@@ -5935,6 +5968,66 @@ String _languageLabel(AppLocalizations l10n, _AppLanguage language) {
     _AppLanguage.en => l10n.languageEnglish,
     _AppLanguage.ja => l10n.languageJapanese,
   };
+}
+
+void _refreshAutocompleteOptions(TextEditingController controller) {
+  final value = controller.value;
+  final transientText = '${value.text} ';
+  controller.value = TextEditingValue(
+    text: transientText,
+    selection: TextSelection.collapsed(offset: transientText.length),
+  );
+  controller.value = value;
+}
+
+class _AutocompleteOptionsPrimer extends StatefulWidget {
+  const _AutocompleteOptionsPrimer({
+    required this.controller,
+    required this.focusNode,
+    required this.token,
+    required this.child,
+  });
+
+  final TextEditingController controller;
+  final FocusNode focusNode;
+  final Object token;
+  final Widget child;
+
+  @override
+  State<_AutocompleteOptionsPrimer> createState() =>
+      _AutocompleteOptionsPrimerState();
+}
+
+class _AutocompleteOptionsPrimerState
+    extends State<_AutocompleteOptionsPrimer> {
+  @override
+  void initState() {
+    super.initState();
+    _schedulePrime();
+  }
+
+  @override
+  void didUpdateWidget(covariant _AutocompleteOptionsPrimer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.token != widget.token ||
+        oldWidget.controller != widget.controller) {
+      _schedulePrime();
+    }
+  }
+
+  void _schedulePrime() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || widget.focusNode.hasFocus) {
+        return;
+      }
+      _refreshAutocompleteOptions(widget.controller);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
 }
 
 Locale _resolveAppLocale(
@@ -7126,6 +7219,7 @@ class _SpeciesOption {
 
 class _HuntData {
   const _HuntData({
+    required this.localeName,
     required this.names,
     required this.locations,
     required this.personal,
@@ -7134,6 +7228,7 @@ class _HuntData {
     required this.speciesOptions,
   });
 
+  final String localeName;
   final Gen3NamedResources names;
   final Gen3LocationNames locations;
   final Gen3PersonalData personal;
@@ -7165,6 +7260,7 @@ class _HuntData {
     }, growable: false);
 
     return _HuntData(
+      localeName: localeName,
       names: names,
       locations: values[1] as Gen3LocationNames,
       personal: values[2] as Gen3PersonalData,
