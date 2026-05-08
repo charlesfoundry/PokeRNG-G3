@@ -23,6 +23,9 @@ const _maxEggAdvanceDelta = 10000;
 const _maxDisplayedResults = 500;
 const _maxSpeciesSuggestions = 50;
 const _maxSavedTargets = 20;
+const _appVersion = '1.0.0+1';
+const _projectUrl = 'https://github.com/charlesfoundry/PokeRNG-G3';
+const _appLicense = 'GPL-3.0-only';
 final _largeEggSearchCombinationThreshold = BigInt.from(50000000);
 const _retailTimerPreparation = Duration(seconds: 3);
 const _timerBeepChannel = MethodChannel('pokerng_g3/timer_beep');
@@ -5739,6 +5742,13 @@ class _SettingsPageState extends State<_SettingsPage> {
     setState(() => _error = null);
   }
 
+  void _copyProjectUrl() {
+    Clipboard.setData(const ClipboardData(text: _projectUrl));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context)!.projectUrlCopied)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -5849,7 +5859,71 @@ class _SettingsPageState extends State<_SettingsPage> {
             style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
         ],
+        const SizedBox(height: 24),
+        _aboutSection(l10n),
       ],
+    );
+  }
+
+  Widget _aboutSection(AppLocalizations l10n) {
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(l10n.about, style: theme.textTheme.titleSmall),
+        const SizedBox(height: 8),
+        _HoverSurface(
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(l10n.appTitle, style: theme.textTheme.titleMedium),
+                const SizedBox(height: 6),
+                Text(l10n.aboutDescription),
+                const SizedBox(height: 14),
+                _aboutRow(l10n.version, _appVersion),
+                _aboutRow(l10n.license, _appLicense),
+                _aboutRow(l10n.project, _projectUrl, selectable: true),
+                const SizedBox(height: 10),
+                Text(l10n.credits, style: theme.textTheme.labelLarge),
+                const SizedBox(height: 6),
+                Text(l10n.aboutCredits),
+                const SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: _copyProjectUrl,
+                    icon: const Icon(Icons.copy),
+                    label: Text(l10n.copyProjectUrl),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _aboutRow(String label, String value, {bool selectable = false}) {
+    final theme = Theme.of(context);
+    final valueStyle = theme.textTheme.bodyMedium;
+    final valueWidget = selectable
+        ? SelectableText(value, style: valueStyle)
+        : Text(value, style: valueStyle);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 86,
+            child: Text(label, style: theme.textTheme.labelMedium),
+          ),
+          Expanded(child: valueWidget),
+        ],
+      ),
     );
   }
 }

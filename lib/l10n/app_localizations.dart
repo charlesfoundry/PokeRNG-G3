@@ -671,6 +671,60 @@ abstract class AppLocalizations {
   /// **'Check TID, SID, and seed.'**
   String get settingsInputError;
 
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
+
+  /// No description provided for @license.
+  ///
+  /// In en, this message translates to:
+  /// **'License'**
+  String get license;
+
+  /// No description provided for @project.
+  ///
+  /// In en, this message translates to:
+  /// **'Project'**
+  String get project;
+
+  /// No description provided for @credits.
+  ///
+  /// In en, this message translates to:
+  /// **'Credits'**
+  String get credits;
+
+  /// No description provided for @aboutDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'A multi-platform RNG tool for Gen 3 FireRed, LeafGreen, and Emerald.'**
+  String get aboutDescription;
+
+  /// No description provided for @aboutCredits.
+  ///
+  /// In en, this message translates to:
+  /// **'References PokeFinder, EonTimer, and PokemonRNG community research.'**
+  String get aboutCredits;
+
+  /// No description provided for @copyProjectUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy project URL'**
+  String get copyProjectUrl;
+
+  /// No description provided for @projectUrlCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Project URL copied'**
+  String get projectUrlCopied;
+
   /// No description provided for @targetAdvance.
   ///
   /// In en, this message translates to:

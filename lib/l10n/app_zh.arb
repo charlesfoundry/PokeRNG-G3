@@ -132,6 +132,15 @@
   "noResults": "未找到结果。请放宽条件或提高最大帧。",
   "searchCancelled": "搜索已取消。",
   "settingsInputError": "请检查 TID、SID 和 Seed。",
+  "about": "关于",
+  "version": "版本",
+  "license": "许可证",
+  "project": "项目",
+  "credits": "致谢",
+  "aboutDescription": "面向第三世代火红、叶绿和绿宝石的多平台乱数工具。",
+  "aboutCredits": "参考 PokeFinder、EonTimer 与 PokemonRNG 社区研究。",
+  "copyProjectUrl": "复制项目地址",
+  "projectUrlCopied": "项目地址已复制",
   "targetAdvance": "目标帧 {advance}",
   "@targetAdvance": {
     "placeholders": {

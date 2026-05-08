@@ -310,6 +310,35 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsInputError => 'TID、SID、Seed を確認してください。';
 
   @override
+  String get about => '情報';
+
+  @override
+  String get version => 'バージョン';
+
+  @override
+  String get license => 'ライセンス';
+
+  @override
+  String get project => 'プロジェクト';
+
+  @override
+  String get credits => 'クレジット';
+
+  @override
+  String get aboutDescription =>
+      '第3世代のファイアレッド、リーフグリーン、エメラルド向けのマルチプラットフォーム乱数ツールです。';
+
+  @override
+  String get aboutCredits =>
+      'PokeFinder、EonTimer、PokemonRNG コミュニティの研究を参考にしています。';
+
+  @override
+  String get copyProjectUrl => 'プロジェクトURLをコピー';
+
+  @override
+  String get projectUrlCopied => 'プロジェクトURLをコピーしました';
+
+  @override
   String targetAdvance(Object advance) {
     return '目標 $advance';
   }

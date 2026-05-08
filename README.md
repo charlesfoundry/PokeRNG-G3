@@ -63,4 +63,6 @@ See [LICENSE](LICENSE) for the full license text.
 
 - Admiral-Fish and the PokeFinder contributors for
   [PokeFinder](https://github.com/Admiral-Fish/PokeFinder)
+- DasAmpharos and the EonTimer contributors for
+  [EonTimer](https://github.com/DasAmpharos/EonTimer)
 - The PokemonRNG team for Gen 3 RNG guides and research

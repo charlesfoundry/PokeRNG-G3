@@ -318,6 +318,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsInputError => 'Check TID, SID, and seed.';
 
   @override
+  String get about => 'About';
+
+  @override
+  String get version => 'Version';
+
+  @override
+  String get license => 'License';
+
+  @override
+  String get project => 'Project';
+
+  @override
+  String get credits => 'Credits';
+
+  @override
+  String get aboutDescription =>
+      'A multi-platform RNG tool for Gen 3 FireRed, LeafGreen, and Emerald.';
+
+  @override
+  String get aboutCredits =>
+      'References PokeFinder, EonTimer, and PokemonRNG community research.';
+
+  @override
+  String get copyProjectUrl => 'Copy project URL';
+
+  @override
+  String get projectUrlCopied => 'Project URL copied';
+
+  @override
   String targetAdvance(Object advance) {
     return 'Target $advance';
   }

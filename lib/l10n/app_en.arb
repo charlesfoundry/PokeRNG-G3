@@ -132,6 +132,15 @@
   "noResults": "No results. Loosen filters or increase Max Advance.",
   "searchCancelled": "Search cancelled.",
   "settingsInputError": "Check TID, SID, and seed.",
+  "about": "About",
+  "version": "Version",
+  "license": "License",
+  "project": "Project",
+  "credits": "Credits",
+  "aboutDescription": "A multi-platform RNG tool for Gen 3 FireRed, LeafGreen, and Emerald.",
+  "aboutCredits": "References PokeFinder, EonTimer, and PokemonRNG community research.",
+  "copyProjectUrl": "Copy project URL",
+  "projectUrlCopied": "Project URL copied",
   "targetAdvance": "Target {advance}",
   "@targetAdvance": {
     "placeholders": {

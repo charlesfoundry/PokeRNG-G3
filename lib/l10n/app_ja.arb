@@ -132,6 +132,15 @@
   "noResults": "結果がありません。条件を緩めるか最大 Advance を上げてください。",
   "searchCancelled": "検索をキャンセルしました。",
   "settingsInputError": "TID、SID、Seed を確認してください。",
+  "about": "情報",
+  "version": "バージョン",
+  "license": "ライセンス",
+  "project": "プロジェクト",
+  "credits": "クレジット",
+  "aboutDescription": "第3世代のファイアレッド、リーフグリーン、エメラルド向けのマルチプラットフォーム乱数ツールです。",
+  "aboutCredits": "PokeFinder、EonTimer、PokemonRNG コミュニティの研究を参考にしています。",
+  "copyProjectUrl": "プロジェクトURLをコピー",
+  "projectUrlCopied": "プロジェクトURLをコピーしました",
   "targetAdvance": "目標 {advance}",
   "@targetAdvance": {
     "placeholders": {

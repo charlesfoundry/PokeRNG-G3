@@ -309,6 +309,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsInputError => '请检查 TID、SID 和 Seed。';
 
   @override
+  String get about => '关于';
+
+  @override
+  String get version => '版本';
+
+  @override
+  String get license => '许可证';
+
+  @override
+  String get project => '项目';
+
+  @override
+  String get credits => '致谢';
+
+  @override
+  String get aboutDescription => '面向第三世代火红、叶绿和绿宝石的多平台乱数工具。';
+
+  @override
+  String get aboutCredits => '参考 PokeFinder、EonTimer 与 PokemonRNG 社区研究。';
+
+  @override
+  String get copyProjectUrl => '复制项目地址';
+
+  @override
+  String get projectUrlCopied => '项目地址已复制';
+
+  @override
   String targetAdvance(Object advance) {
     return '目标帧 $advance';
   }
@@ -907,6 +934,33 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get settingsInputError => '请检查 TID、SID 和 Seed。';
+
+  @override
+  String get about => '关于';
+
+  @override
+  String get version => '版本';
+
+  @override
+  String get license => '许可证';
+
+  @override
+  String get project => '项目';
+
+  @override
+  String get credits => '致谢';
+
+  @override
+  String get aboutDescription => '面向第三世代火红、叶绿和绿宝石的多平台乱数工具。';
+
+  @override
+  String get aboutCredits => '参考 PokeFinder、EonTimer 与 PokemonRNG 社区研究。';
+
+  @override
+  String get copyProjectUrl => '复制项目地址';
+
+  @override
+  String get projectUrlCopied => '项目地址已复制';
 
   @override
   String targetAdvance(Object advance) {
