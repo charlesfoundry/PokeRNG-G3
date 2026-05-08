@@ -322,11 +322,17 @@ class AppLocalizationsJa extends AppLocalizations {
   String get project => 'プロジェクト';
 
   @override
+  String get privacyPolicy => 'プライバシーポリシー';
+
+  @override
   String get credits => 'クレジット';
 
   @override
   String get aboutDescription =>
       '第3世代のファイアレッド、リーフグリーン、エメラルド向けのマルチプラットフォーム乱数ツールです。';
+
+  @override
+  String get unofficialNotice => '非公式の乱数補助ツールです。';
 
   @override
   String get aboutCredits =>

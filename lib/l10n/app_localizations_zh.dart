@@ -321,10 +321,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get project => '项目';
 
   @override
+  String get privacyPolicy => '隐私政策';
+
+  @override
   String get credits => '致谢';
 
   @override
   String get aboutDescription => '面向第三世代火红、叶绿和绿宝石的多平台乱数工具。';
+
+  @override
+  String get unofficialNotice => '非官方乱数辅助工具。';
 
   @override
   String get aboutCredits => '参考 PokeFinder、EonTimer 与 PokemonRNG 社区研究。';
@@ -948,10 +954,16 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get project => '项目';
 
   @override
+  String get privacyPolicy => '隐私政策';
+
+  @override
   String get credits => '致谢';
 
   @override
   String get aboutDescription => '面向第三世代火红、叶绿和绿宝石的多平台乱数工具。';
+
+  @override
+  String get unofficialNotice => '非官方乱数辅助工具。';
 
   @override
   String get aboutCredits => '参考 PokeFinder、EonTimer 与 PokemonRNG 社区研究。';

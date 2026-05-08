@@ -330,11 +330,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get project => 'Project';
 
   @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
   String get credits => 'Credits';
 
   @override
   String get aboutDescription =>
       'A multi-platform RNG tool for Gen 3 FireRed, LeafGreen, and Emerald.';
+
+  @override
+  String get unofficialNotice => 'Unofficial fan-made RNG utility.';
 
   @override
   String get aboutCredits =>

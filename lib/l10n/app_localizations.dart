@@ -695,6 +695,12 @@ abstract class AppLocalizations {
   /// **'Project'**
   String get project;
 
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
   /// No description provided for @credits.
   ///
   /// In en, this message translates to:
@@ -706,6 +712,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A multi-platform RNG tool for Gen 3 FireRed, LeafGreen, and Emerald.'**
   String get aboutDescription;
+
+  /// No description provided for @unofficialNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Unofficial fan-made RNG utility.'**
+  String get unofficialNotice;
 
   /// No description provided for @aboutCredits.
   ///

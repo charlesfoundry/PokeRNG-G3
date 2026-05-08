@@ -59,6 +59,10 @@ This project is licensed under GPL-3.0-only.
 
 See [LICENSE](LICENSE) for the full license text.
 
+## Privacy
+
+See [PRIVACY.md](PRIVACY.md).
+
 ## Credits
 
 - Admiral-Fish and the PokeFinder contributors for

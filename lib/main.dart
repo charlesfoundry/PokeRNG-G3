@@ -25,6 +25,8 @@ const _maxSpeciesSuggestions = 50;
 const _maxSavedTargets = 20;
 const _appVersion = '1.0.0+1';
 const _projectUrl = 'https://github.com/charlesfoundry/PokeRNG-G3';
+const _privacyPolicyUrl =
+    'https://github.com/charlesfoundry/PokeRNG-G3/blob/main/PRIVACY.md';
 const _appLicense = 'GPL-3.0-only';
 final _largeEggSearchCombinationThreshold = BigInt.from(50000000);
 const _retailTimerPreparation = Duration(seconds: 3);
@@ -5914,10 +5916,17 @@ class _SettingsPageState extends State<_SettingsPage> {
                 Text(l10n.appTitle, style: theme.textTheme.titleMedium),
                 const SizedBox(height: 6),
                 Text(l10n.aboutDescription),
+                const SizedBox(height: 4),
+                Text(l10n.unofficialNotice, style: theme.textTheme.labelMedium),
                 const SizedBox(height: 14),
                 _aboutRow(l10n.version, _appVersion),
                 _aboutRow(l10n.license, _appLicense),
                 _aboutRow(l10n.project, _projectUrl, selectable: true),
+                _aboutRow(
+                  l10n.privacyPolicy,
+                  _privacyPolicyUrl,
+                  selectable: true,
+                ),
                 const SizedBox(height: 10),
                 Text(l10n.credits, style: theme.textTheme.labelLarge),
                 const SizedBox(height: 6),
@@ -5951,8 +5960,13 @@ class _SettingsPageState extends State<_SettingsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 86,
-            child: Text(label, style: theme.textTheme.labelMedium),
+            width: 104,
+            child: Text(
+              label,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.labelMedium,
+            ),
           ),
           Expanded(child: valueWidget),
         ],
