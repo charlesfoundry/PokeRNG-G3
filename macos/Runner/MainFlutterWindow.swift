@@ -4,6 +4,7 @@ import FlutterMacOS
 
 class MainFlutterWindow: NSWindow {
   private let timerBeepPlayer = TimerBeepPlayer()
+  private let screenAwakeController = ScreenAwakeController()
 
   override func awakeFromNib() {
     let flutterViewController = FlutterViewController()
@@ -13,8 +14,28 @@ class MainFlutterWindow: NSWindow {
 
     RegisterGeneratedPlugins(registry: flutterViewController)
     timerBeepPlayer.register(messenger: flutterViewController.engine.binaryMessenger)
+    screenAwakeController.register(
+      messenger: flutterViewController.engine.binaryMessenger
+    )
 
     super.awakeFromNib()
+  }
+}
+
+private final class ScreenAwakeController {
+  func register(messenger: FlutterBinaryMessenger) {
+    let channel = FlutterMethodChannel(
+      name: "pokerng_g3/screen_awake",
+      binaryMessenger: messenger
+    )
+    channel.setMethodCallHandler { call, result in
+      switch call.method {
+      case "setEnabled":
+        result(nil)
+      default:
+        result(FlutterMethodNotImplemented)
+      }
+    }
   }
 }
 

@@ -29,8 +29,10 @@ const _privacyPolicyUrl =
     'https://github.com/charlesfoundry/PokeRNG-G3/blob/main/PRIVACY.md';
 const _appLicense = 'GPL-3.0-only';
 final _largeEggSearchCombinationThreshold = BigInt.from(50000000);
-const _retailTimerPreparation = Duration(seconds: 3);
+const _retailTimerPreparation = Duration(seconds: 5);
+const _retailTimerCueLead = Duration(milliseconds: 1500);
 const _timerBeepChannel = MethodChannel('pokerng_g3/timer_beep');
+const _screenAwakeChannel = MethodChannel('pokerng_g3/screen_awake');
 const _gbaFrameRate = 16777216 / 280896;
 const _ndsSlot2FrameRate = 59.6555;
 const _ndsFamilyFrameRate = 59.8261;
@@ -584,6 +586,7 @@ class _AppShellState extends State<_AppShell> {
         profile: widget.profile,
         search: _huntSearch,
         target: _calibrationTarget,
+        active: _selectedIndex == 2,
       ),
       _BreedingPage(profile: widget.profile, storage: widget.storage),
       _ToolsPage(
@@ -3052,11 +3055,13 @@ class _CalibratePage extends StatefulWidget {
     required this.profile,
     required this.search,
     required this.target,
+    required this.active,
   });
 
   final AppProfile profile;
   final _HuntSearchSnapshot? search;
   final _CalibrationPageTarget? target;
+  final bool active;
 
   @override
   State<_CalibratePage> createState() => _CalibratePageState();
@@ -3085,6 +3090,7 @@ class _CalibratePageState extends State<_CalibratePage>
   _RetailTimerPhase _timerPhase = _RetailTimerPhase.idle;
   final _timerStopwatch = Stopwatch();
   Timer? _retailTimer;
+  Timer? _timerCueTimer;
   Duration _timerPhaseDuration = Duration.zero;
   Duration _timerRemaining = Duration.zero;
   Duration _timerTargetDuration = Duration.zero;
@@ -3099,7 +3105,7 @@ class _CalibratePageState extends State<_CalibratePage>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _syncTarget(widget.target);
-    _prepareTimerBeep();
+    _syncScreenAwake();
   }
 
   @override
@@ -3110,11 +3116,15 @@ class _CalibratePageState extends State<_CalibratePage>
       _resetRetailTimerState();
       _syncTarget(widget.target);
     }
+    if (oldWidget.active != widget.active) {
+      _syncScreenAwake();
+    }
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _setScreenAwake(false);
     _cancelRetailTimer();
     _targetAdvanceController.dispose();
     _actualAdvanceController.dispose();
@@ -3132,13 +3142,27 @@ class _CalibratePageState extends State<_CalibratePage>
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.resumed:
+        _syncScreenAwake();
         break;
       case AppLifecycleState.inactive:
       case AppLifecycleState.hidden:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
+        _setScreenAwake(false);
         _stopRetailTimer();
     }
+  }
+
+  void _syncScreenAwake() {
+    _setScreenAwake(widget.active);
+  }
+
+  void _setScreenAwake(bool enabled) {
+    unawaited(
+      _screenAwakeChannel
+          .invokeMethod<void>('setEnabled', {'enabled': enabled})
+          .catchError((Object _) {}),
+    );
   }
 
   void _syncTarget(_CalibrationPageTarget? target) {
@@ -3228,6 +3252,7 @@ class _CalibratePageState extends State<_CalibratePage>
 
     _prepareTimerBeep();
     _retailTimer?.cancel();
+    _timerCueTimer?.cancel();
     _timerSignalVersion++;
     _timerStopwatch
       ..reset()
@@ -3241,6 +3266,7 @@ class _CalibratePageState extends State<_CalibratePage>
       _timerRemaining = _retailTimerPreparation;
       _timerPhaseTransitionPending = false;
     });
+    _scheduleTimerCue(_RetailTimerPhase.preparation, _retailTimerPreparation);
     _retailTimer = Timer.periodic(
       const Duration(milliseconds: 16),
       (_) => _tickRetailTimer(),
@@ -3259,6 +3285,8 @@ class _CalibratePageState extends State<_CalibratePage>
 
   void _cancelRetailTimer() {
     _timerSignalVersion++;
+    _timerCueTimer?.cancel();
+    _timerCueTimer = null;
     _retailTimer?.cancel();
     _retailTimer = null;
     _timerStopwatch
@@ -3310,6 +3338,7 @@ class _CalibratePageState extends State<_CalibratePage>
           _timerRemaining = _timerTargetDuration;
           _timerPhaseTransitionPending = false;
         });
+        _scheduleTimerCue(_RetailTimerPhase.target, _timerTargetDuration);
       });
       return;
     }
@@ -3334,8 +3363,24 @@ class _CalibratePageState extends State<_CalibratePage>
   }
 
   void _signalRetailTimer() {
-    unawaited(_playTimerBeep());
     unawaited(_playTimerHaptics());
+  }
+
+  void _scheduleTimerCue(_RetailTimerPhase phase, Duration phaseDuration) {
+    _timerCueTimer?.cancel();
+    final cueDelay = phaseDuration - _retailTimerCueLead;
+    final signalVersion = _timerSignalVersion;
+    _timerCueTimer = Timer(
+      cueDelay <= Duration.zero ? Duration.zero : cueDelay,
+      () {
+        if (!mounted ||
+            signalVersion != _timerSignalVersion ||
+            _timerPhase != phase) {
+          return;
+        }
+        unawaited(_playTimerBeep());
+      },
+    );
   }
 
   void _prepareTimerBeep() {

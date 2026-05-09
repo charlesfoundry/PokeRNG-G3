@@ -56,7 +56,7 @@
   "minRedraws": "最小 Redraw",
   "maxRedraws": "最大 Redraw",
   "redraws": "Redraw",
-  "eggRedrawHelp": "図鑑表示はエメラルドのタマゴPIDを進めます。PokeFinderの既定値は0-5です。",
+  "eggRedrawHelp": "図鑑表示はエメラルドのタマゴPIDを進めます。",
   "eggSearchRangeNote": "各段階の最大 - 開始 <= {maxAdvanceDelta} · 結果 <= {maxResults} · 2段階の範囲を組み合わせます",
   "@eggSearchRangeNote": {
     "placeholders": {
@@ -250,7 +250,7 @@
       "duration": {}
     }
   },
-  "timerPreparationNote": "開始後3秒カウントし、0でソフトリセットします。",
+  "timerPreparationNote": "開始後5秒カウントし、4音目で操作します。",
   "timerEmeraldOnlyNote": "実機乱数はエメラルドのみ推奨: エメラルドの初期 seed は 0 固定です。",
   "timerInputError": "今回の目標 Adv を確認してください。",
   "observedPokemon": "実際のポケモン",

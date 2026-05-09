@@ -178,7 +178,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get redraws => '查看图鉴';
 
   @override
-  String get eggRedrawHelp => '查看图鉴会推进 Emerald 蛋 PID；PokeFinder 默认 0-5。';
+  String get eggRedrawHelp => '查看图鉴会推进 Emerald 蛋 PID。';
 
   @override
   String eggSearchRangeNote(Object maxAdvanceDelta, Object maxResults) {
@@ -556,7 +556,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get timerPreparationNote => '开始后会先有3秒倒计时，归零瞬间将游戏软重启。';
+  String get timerPreparationNote => '开始后先有5秒倒计时，在第4声瞬间软重启/遇敌。';
 
   @override
   String get timerEmeraldOnlyNote => '实机乱数仅建议用于绿宝石：绿宝石初始 seed 固定为 0。';
@@ -821,7 +821,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get redraws => '查看图鉴';
 
   @override
-  String get eggRedrawHelp => '查看图鉴会推进 Emerald 蛋 PID；PokeFinder 默认 0-5。';
+  String get eggRedrawHelp => '查看图鉴会推进 Emerald 蛋 PID。';
 
   @override
   String eggSearchRangeNote(Object maxAdvanceDelta, Object maxResults) {
@@ -1199,7 +1199,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   }
 
   @override
-  String get timerPreparationNote => '开始后会先有3秒倒计时，归零瞬间将游戏软重启。';
+  String get timerPreparationNote => '开始后先有5秒倒计时，在第4声瞬间软重启/遇敌。';
 
   @override
   String get timerEmeraldOnlyNote => '实机乱数仅建议用于绿宝石：绿宝石初始 seed 固定为 0。';

@@ -56,7 +56,7 @@
   "minRedraws": "Min redraws",
   "maxRedraws": "Max redraws",
   "redraws": "Redraws",
-  "eggRedrawHelp": "Pokedex redraws advance the Emerald egg PID; PokeFinder defaults to 0-5.",
+  "eggRedrawHelp": "Pokedex redraws advance the Emerald egg PID.",
   "eggSearchRangeNote": "Max - Initial <= {maxAdvanceDelta} for each stage · results <= {maxResults} · both stage ranges are combined",
   "@eggSearchRangeNote": {
     "placeholders": {
@@ -250,7 +250,7 @@
       "duration": {}
     }
   },
-  "timerPreparationNote": "Start gives a 3-second countdown; soft reset at zero.",
+  "timerPreparationNote": "Start gives a 5-second countdown; act on the 4th cue.",
   "timerEmeraldOnlyNote": "Retail RNG is recommended for Emerald only: Emerald starts from seed 0.",
   "timerInputError": "Check current target Adv.",
   "observedPokemon": "Observed Pokemon",

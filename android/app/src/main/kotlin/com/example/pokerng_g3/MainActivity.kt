@@ -7,19 +7,62 @@ import io.flutter.FlutterInjector
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
+import android.view.WindowManager
 
 class MainActivity : FlutterActivity() {
     private var timerBeepPlayer: TimerBeepPlayer? = null
+    private var screenAwakeController: ScreenAwakeController? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         timerBeepPlayer = TimerBeepPlayer(this, flutterEngine).also { it.configure() }
+        screenAwakeController = ScreenAwakeController(this, flutterEngine).also { it.configure() }
     }
 
     override fun onDestroy() {
         timerBeepPlayer?.release()
         timerBeepPlayer = null
+        screenAwakeController?.release()
+        screenAwakeController = null
         super.onDestroy()
+    }
+}
+
+private class ScreenAwakeController(
+    private val activity: FlutterActivity,
+    flutterEngine: FlutterEngine,
+) {
+    private val channel = MethodChannel(
+        flutterEngine.dartExecutor.binaryMessenger,
+        "pokerng_g3/screen_awake",
+    )
+
+    fun configure() {
+        channel.setMethodCallHandler { call, result ->
+            when (call.method) {
+                "setEnabled" -> {
+                    val enabled = call.argument<Boolean>("enabled") ?: false
+                    setEnabled(enabled)
+                    result.success(null)
+                }
+                else -> result.notImplemented()
+            }
+        }
+    }
+
+    fun release() {
+        setEnabled(false)
+        channel.setMethodCallHandler(null)
+    }
+
+    private fun setEnabled(enabled: Boolean) {
+        activity.runOnUiThread {
+            if (enabled) {
+                activity.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            } else {
+                activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+        }
     }
 }
 

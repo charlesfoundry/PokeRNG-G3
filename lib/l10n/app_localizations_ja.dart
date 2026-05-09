@@ -178,7 +178,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get redraws => 'Redraw';
 
   @override
-  String get eggRedrawHelp => '図鑑表示はエメラルドのタマゴPIDを進めます。PokeFinderの既定値は0-5です。';
+  String get eggRedrawHelp => '図鑑表示はエメラルドのタマゴPIDを進めます。';
 
   @override
   String eggSearchRangeNote(Object maxAdvanceDelta, Object maxResults) {
@@ -561,7 +561,7 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get timerPreparationNote => '開始後3秒カウントし、0でソフトリセットします。';
+  String get timerPreparationNote => '開始後5秒カウントし、4音目で操作します。';
 
   @override
   String get timerEmeraldOnlyNote => '実機乱数はエメラルドのみ推奨: エメラルドの初期 seed は 0 固定です。';

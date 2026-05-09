@@ -182,8 +182,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get redraws => 'Redraws';
 
   @override
-  String get eggRedrawHelp =>
-      'Pokedex redraws advance the Emerald egg PID; PokeFinder defaults to 0-5.';
+  String get eggRedrawHelp => 'Pokedex redraws advance the Emerald egg PID.';
 
   @override
   String eggSearchRangeNote(Object maxAdvanceDelta, Object maxResults) {
@@ -574,7 +573,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timerPreparationNote =>
-      'Start gives a 3-second countdown; soft reset at zero.';
+      'Start gives a 5-second countdown; act on the 4th cue.';
 
   @override
   String get timerEmeraldOnlyNote =>

@@ -440,7 +440,7 @@ abstract class AppLocalizations {
   /// No description provided for @eggRedrawHelp.
   ///
   /// In en, this message translates to:
-  /// **'Pokedex redraws advance the Emerald egg PID; PokeFinder defaults to 0-5.'**
+  /// **'Pokedex redraws advance the Emerald egg PID.'**
   String get eggRedrawHelp;
 
   /// No description provided for @eggSearchRangeNote.
@@ -1136,7 +1136,7 @@ abstract class AppLocalizations {
   /// No description provided for @timerPreparationNote.
   ///
   /// In en, this message translates to:
-  /// **'Start gives a 3-second countdown; soft reset at zero.'**
+  /// **'Start gives a 5-second countdown; act on the 4th cue.'**
   String get timerPreparationNote;
 
   /// No description provided for @timerEmeraldOnlyNote.

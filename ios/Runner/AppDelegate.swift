@@ -5,6 +5,7 @@ import UIKit
 @main
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
   private let timerBeepPlayer = TimerBeepPlayer()
+  private let screenAwakeController = ScreenAwakeController()
 
   override func application(
     _ application: UIApplication,
@@ -16,6 +17,27 @@ import UIKit
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
     timerBeepPlayer.register(messenger: engineBridge.applicationRegistrar.messenger())
+    screenAwakeController.register(messenger: engineBridge.applicationRegistrar.messenger())
+  }
+}
+
+private final class ScreenAwakeController {
+  func register(messenger: FlutterBinaryMessenger) {
+    let channel = FlutterMethodChannel(
+      name: "pokerng_g3/screen_awake",
+      binaryMessenger: messenger
+    )
+    channel.setMethodCallHandler { call, result in
+      switch call.method {
+      case "setEnabled":
+        let arguments = call.arguments as? [String: Any]
+        let enabled = arguments?["enabled"] as? Bool ?? false
+        UIApplication.shared.isIdleTimerDisabled = enabled
+        result(nil)
+      default:
+        result(FlutterMethodNotImplemented)
+      }
+    }
   }
 }
 
