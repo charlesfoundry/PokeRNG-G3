@@ -2890,7 +2890,6 @@ class _ValueIconField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -2906,20 +2905,29 @@ class _ValueIconField extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
-            if (showIcon) ...[
-              const SizedBox(width: 4),
-              Tooltip(
-                message: l10n.shiny,
-                child: Icon(
-                  Icons.auto_awesome,
-                  size: 16,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ],
+            if (showIcon) const _ShinyIcon(),
           ],
         ),
       ],
+    );
+  }
+}
+
+class _ShinyIcon extends StatelessWidget {
+  const _ShinyIcon();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(start: 8),
+      child: Tooltip(
+        message: AppLocalizations.of(context)!.shiny,
+        child: Icon(
+          Icons.auto_awesome,
+          size: 16,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ),
     );
   }
 }
@@ -4152,8 +4160,18 @@ class _CalibrationTargetCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                    '#${target.species} $species · ${target.kindLabel(context)}',
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          '#${target.species} $species · '
+                          '${target.kindLabel(context)}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      if (target.shiny) const _ShinyIcon(),
+                    ],
                   ),
                 ),
                 Text('${l10n.resultAdvance} ${target.advance}'),
@@ -5476,9 +5494,18 @@ class _SavedTargetTile extends StatelessWidget {
       child: ListTile(
         dense: true,
         onTap: onUse,
-        title: Text(
-          '#${saved.species} ${saved.names.speciesName(saved.species)} · '
-          '${l10n.resultAdvance} ${saved.advance}',
+        title: Row(
+          children: [
+            Flexible(
+              child: Text(
+                '#${saved.species} ${saved.names.speciesName(saved.species)} · '
+                '${l10n.resultAdvance} ${saved.advance}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            if (saved.shiny) const _ShinyIcon(),
+          ],
         ),
         subtitle: Text(
           '${saved.kindLabel(context)} · '
@@ -6418,6 +6445,7 @@ sealed class _CalibrationPageTarget {
   Nature get nature;
   PokemonGender get gender;
   Ivs get ivs;
+  bool get shiny;
   Gen3PersonalData get personalData;
   String kindLabel(BuildContext context);
 }
@@ -6457,6 +6485,9 @@ class _CalibrationTarget extends _CalibrationPageTarget {
 
   @override
   Ivs get ivs => state.ivs;
+
+  @override
+  bool get shiny => state.shiny;
 
   @override
   Gen3PersonalData get personalData => search.personalData;
@@ -6504,6 +6535,9 @@ class _StaticTarget extends _CalibrationPageTarget {
   Ivs get ivs => hit.state.ivs;
 
   @override
+  bool get shiny => hit.state.shiny;
+
+  @override
   Gen3PersonalData get personalData => search.personalData;
 
   @override
@@ -6524,6 +6558,7 @@ sealed class _SavedTarget {
   Nature get nature;
   PokemonGender get gender;
   Ivs get ivs;
+  bool get shiny;
   String get duplicateKey;
   String kindLabel(BuildContext context);
 }
@@ -6561,6 +6596,9 @@ class _SavedCalibrationTarget extends _SavedTarget {
 
   @override
   Ivs get ivs => target.state.ivs;
+
+  @override
+  bool get shiny => target.state.shiny;
 
   @override
   String get duplicateKey {
@@ -6619,6 +6657,9 @@ class _SavedStaticTarget extends _SavedTarget {
 
   @override
   Ivs get ivs => hit.state.ivs;
+
+  @override
+  bool get shiny => hit.state.shiny;
 
   @override
   String get duplicateKey {
