@@ -232,6 +232,17 @@ class AppLocalizationsJa extends AppLocalizations {
   String get staticMethod4 => 'Method 4';
 
   @override
+  String get wildMethodHintEmerald =>
+      'エメラルドの野生遭遇は通常 野生 2 推奨です。校準の逆算は野生 1/2/4 を同時に確認します。';
+
+  @override
+  String get wildMethodHintFrlg =>
+      'ファイアレッド/リーフグリーンの野生遭遇は通常 野生 1 推奨です。他の方式はまれです。';
+
+  @override
+  String get staticMethodHint => '固定・配布などのポケモンは通常 Method 1 を使います。';
+
+  @override
   String get ability => '特性';
 
   @override
@@ -574,7 +585,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get calibrationFrameInputError => '今回の目標 Adv と実際の Adv を確認してください。';
 
   @override
-  String get runHuntAndEnterObservedStatsError => '結果から目標を送り、実際の能力値を入力してください。';
+  String get runHuntAndEnterObservedStatsError =>
+      '結果から目標を送り、実際のポケモン、Lv、性格、能力値を入力してください。';
 
   @override
   String actualAdvanceOutput(Object advance) {

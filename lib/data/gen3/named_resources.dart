@@ -31,6 +31,19 @@ class Gen3NamedResources {
     );
   }
 
+  static Future<Gen3NamedResources> loadAssetLocale(String locale) async {
+    final species = await _loadNames('species', locale);
+    final englishSpecies = locale == 'en'
+        ? species
+        : await _loadNames('species', 'en');
+    return Gen3NamedResources._(
+      species: species,
+      englishSpecies: englishSpecies,
+      abilities: await _loadNames('abilities', locale),
+      natures: await _loadNames('natures', locale),
+    );
+  }
+
   String speciesName(int speciesId) {
     return species[speciesId] ?? englishSpecies[speciesId] ?? '#$speciesId';
   }

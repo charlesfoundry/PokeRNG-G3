@@ -225,6 +225,7 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
   final Map<GameVersion, AppProfile> _profiles = {};
   AppProfile _profile = AppProfile.initial();
   _AppLanguage _language = _AppLanguage.system;
+  int _shellEpoch = 0;
   bool _loaded = false;
 
   @override
@@ -260,7 +261,13 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
   }
 
   void _setLanguage(_AppLanguage language) {
-    setState(() => _language = language);
+    if (_language == language) {
+      return;
+    }
+    setState(() {
+      _language = language;
+      _shellEpoch += 1;
+    });
     _storage.saveLanguage(language);
   }
 
@@ -393,6 +400,7 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
       ),
       home: _loaded
           ? _AppShell(
+              key: ValueKey('app-shell-$_shellEpoch'),
               profile: _profile,
               profiles: Map.unmodifiable(_profiles),
               storage: _storage,
@@ -407,6 +415,7 @@ class _PokeRngG3AppState extends State<PokeRngG3App> {
 
 class _AppShell extends StatefulWidget {
   const _AppShell({
+    super.key,
     required this.profile,
     required this.profiles,
     required this.storage,
@@ -784,6 +793,7 @@ class _HuntPageState extends State<_HuntPage> {
   void initState() {
     super.initState();
     _seedController.text = widget.profile.defaultSeed;
+    _wildMethod = _defaultWildMethodForGame(widget.profile.game);
   }
 
   @override
@@ -824,7 +834,7 @@ class _HuntPageState extends State<_HuntPage> {
       _gender = null;
       _encounterSlot = null;
       _hiddenPowerType = null;
-      _wildMethod = WildMethod.method1;
+      _wildMethod = _defaultWildMethodForGame(widget.profile.game);
       _leadMode = _LeadMode.none;
       _feebasTile = false;
       _cancelSearch();
@@ -867,18 +877,20 @@ class _HuntPageState extends State<_HuntPage> {
     final nextAreas = nextType == null
         ? const <WildEncounterArea>[]
         : areas.where((area) => area.type == nextType).toList();
+    final nextLocationKey = nextAreas.isNotEmpty
+        ? _areaKey(nextAreas.first)
+        : staticTemplates.isNotEmpty
+        ? _staticTemplateKey(staticTemplates.first)
+        : null;
     setState(() {
       _selectedSpeciesId = speciesId;
       _pokemonController.text = data.speciesDisplayName(speciesId);
       _encounterType = nextType;
-      _locationKey = nextAreas.isNotEmpty
-          ? _areaKey(nextAreas.first)
-          : staticTemplates.isNotEmpty
-          ? _staticTemplateKey(staticTemplates.first)
-          : null;
+      _locationKey = nextLocationKey;
       _abilitySlot = null;
       _gender = null;
       _encounterSlot = null;
+      _wildMethod = _defaultMethodForLocation(nextLocationKey);
       _feebasTile = speciesId == 349;
     });
   }
@@ -895,8 +907,16 @@ class _HuntPageState extends State<_HuntPage> {
       _encounterType = type;
       _locationKey = areas.isEmpty ? null : _areaKey(areas.first);
       _encounterSlot = null;
+      _wildMethod = _defaultWildMethodForGame(widget.profile.game);
       _leadMode = _LeadMode.none;
     });
+  }
+
+  WildMethod _defaultMethodForLocation(String? locationKey) {
+    if (locationKey?.startsWith('static:') ?? false) {
+      return WildMethod.method1;
+    }
+    return _defaultWildMethodForGame(widget.profile.game);
   }
 
   void _stopSearchIsolate() {
@@ -1438,6 +1458,7 @@ class _HuntPageState extends State<_HuntPage> {
             setState(() {
               _locationKey = value;
               _encounterSlot = null;
+              _wildMethod = _defaultMethodForLocation(value);
               _leadMode = _LeadMode.none;
             });
           },
@@ -1954,6 +1975,19 @@ class _HuntControls extends StatelessWidget {
               onChanged: onLeadModeChanged,
             ),
           ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 4, left: 2),
+          child: Text(
+            staticSelected
+                ? l10n.staticMethodHint
+                : game == GameVersion.emerald
+                ? l10n.wildMethodHintEmerald
+                : l10n.wildMethodHintFrlg,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
         ),
         if (selectedLeadMode == _LeadMode.synchronize) ...[
           const SizedBox(height: 8),
@@ -3038,6 +3072,9 @@ class _CalibratePageState extends State<_CalibratePage>
     6,
     (_) => TextEditingController(),
   );
+  final _observedLevelController = TextEditingController();
+  Future<_CalibrationNamePair>? _calibrationNamePairFuture;
+  String? _calibrationNamePairLocaleName;
   int? _observedSpeciesId;
   Nature? _observedNature;
   int? _observedAbilitySlot;
@@ -3083,6 +3120,7 @@ class _CalibratePageState extends State<_CalibratePage>
     _actualAdvanceController.dispose();
     _outputController.dispose();
     _targetDeltaController.dispose();
+    _observedLevelController.dispose();
     for (final controller in _statControllers) {
       controller.dispose();
     }
@@ -3111,12 +3149,38 @@ class _CalibratePageState extends State<_CalibratePage>
     _actualAdvanceController.clear();
     _outputController.clear();
     _targetDeltaController.clear();
+    _observedLevelController.clear();
     _observedSpeciesId = target.species;
     _observedNature = null;
     _observedAbilitySlot = null;
     _observedGender = null;
     _hits = const [];
     _error = null;
+  }
+
+  Future<_CalibrationNamePair> _calibrationNamePair(String localeName) {
+    final cached = _calibrationNamePairFuture;
+    if (cached != null && _calibrationNamePairLocaleName == localeName) {
+      return cached;
+    }
+    _calibrationNamePairLocaleName = localeName;
+    return _calibrationNamePairFuture = _loadCalibrationNamePair(localeName);
+  }
+
+  Future<_CalibrationNamePair> _loadCalibrationNamePair(
+    String localeName,
+  ) async {
+    final primaryLocale = _assetLocaleForDisplayLocale(localeName);
+    final secondaryLocale = switch (primaryLocale) {
+      'zh_Hans' => 'ja',
+      'ja' => 'en',
+      _ => 'ja',
+    };
+    final values = await Future.wait([
+      Gen3NamedResources.loadAssetLocale(primaryLocale),
+      Gen3NamedResources.loadAssetLocale(secondaryLocale),
+    ]);
+    return _CalibrationNamePair(primary: values[0], secondary: values[1]);
   }
 
   void _calculateNextPress() {
@@ -3336,9 +3400,14 @@ class _CalibratePageState extends State<_CalibratePage>
 
   void _reverseHit() {
     final observedStats = _parseStats();
+    final observedLevel = _parseObservedLevel();
+    final observedNature = _observedNature;
     final target = widget.target;
 
-    if ((target == null && widget.search == null) || observedStats == null) {
+    if ((target == null && widget.search == null) ||
+        observedStats == null ||
+        observedLevel == null ||
+        observedNature == null) {
       setState(() {
         _error = AppLocalizations.of(
           context,
@@ -3349,9 +3418,24 @@ class _CalibratePageState extends State<_CalibratePage>
     }
 
     final hits = switch (target) {
-      _CalibrationTarget() => _findWildHits(target, observedStats),
-      _StaticTarget() => _findStaticHits(target, observedStats),
-      null => _findWildHitsFromSearch(widget.search!, observedStats),
+      _CalibrationTarget() => _findWildHits(
+        target,
+        observedStats,
+        observedLevel,
+        observedNature,
+      ),
+      _StaticTarget() => _findStaticHits(
+        target,
+        observedStats,
+        observedLevel,
+        observedNature,
+      ),
+      null => _findWildHitsFromSearch(
+        widget.search!,
+        observedStats,
+        observedLevel,
+        observedNature,
+      ),
     };
 
     if (hits.isEmpty) {
@@ -3371,52 +3455,73 @@ class _CalibratePageState extends State<_CalibratePage>
   List<_CalibrationHitResult> _findWildHits(
     _CalibrationTarget target,
     PokemonStats observedStats,
+    int observedLevel,
+    Nature observedNature,
   ) {
     return _findWildHitsFromSearch(
       target.search,
       observedStats,
+      observedLevel,
+      observedNature,
       defaultSpeciesId: target.species,
     );
   }
 
   List<_CalibrationHitResult> _findWildHitsFromSearch(
     _HuntSearchSnapshot search,
-    PokemonStats observedStats, {
+    PokemonStats observedStats,
+    int observedLevel,
+    Nature observedNature, {
     int? defaultSpeciesId,
   }) {
     final observedSpeciesId =
         _observedSpeciesId ?? defaultSpeciesId ?? search.speciesId;
-    final request = WildCalibrationRequest(
-      seed: search.seed,
-      initialAdvance: search.initialAdvance,
-      maxAdvance: search.maxAdvance,
-      delay: search.delay,
-      method: search.method,
-      area: search.area,
-      tid: widget.profile.tid,
-      sid: widget.profile.sid,
-      speciesId: observedSpeciesId,
-      observedStats: observedStats,
-      observedNature: _observedNature,
-      abilitySlot: _observedAbilitySlot,
-      gender: _observedGender,
-      synchronizeNature: search.synchronizeNature,
-      pressureLead: search.pressureLead,
-      staticLead: search.staticLead,
-      magnetPullLead: search.magnetPullLead,
-      cuteCharmLead: search.cuteCharmLead,
-      feebasTile: search.feebasTile,
-      personalData: search.personalData,
-    );
-    return request
-        .findMatches(limit: 50)
-        .map(_CalibrationHitResult.wild)
-        .toList(growable: false);
+    final hits = <_CalibrationHitResult>[];
+    for (final method in _wildReverseMethods(search.method)) {
+      final request = WildCalibrationRequest(
+        seed: search.seed,
+        initialAdvance: search.initialAdvance,
+        maxAdvance: search.maxAdvance,
+        delay: search.delay,
+        method: method,
+        area: search.area,
+        tid: widget.profile.tid,
+        sid: widget.profile.sid,
+        speciesId: observedSpeciesId,
+        observedLevel: observedLevel,
+        observedStats: observedStats,
+        observedNature: observedNature,
+        abilitySlot: _observedAbilitySlot,
+        gender: _observedGender,
+        synchronizeNature: search.synchronizeNature,
+        pressureLead: search.pressureLead,
+        staticLead: search.staticLead,
+        magnetPullLead: search.magnetPullLead,
+        cuteCharmLead: search.cuteCharmLead,
+        feebasTile: search.feebasTile,
+        personalData: search.personalData,
+      );
+      hits.addAll(
+        request.findMatches(limit: 50).map(_CalibrationHitResult.wild),
+      );
+    }
+    hits.sort((left, right) {
+      final advanceCompare = left.advance.compareTo(right.advance);
+      if (advanceCompare != 0) {
+        return advanceCompare;
+      }
+      return (left.wildMethod?.index ?? 0).compareTo(
+        right.wildMethod?.index ?? 0,
+      );
+    });
+    return hits.take(50).toList(growable: false);
   }
 
   List<_CalibrationHitResult> _findStaticHits(
     _StaticTarget target,
     PokemonStats observedStats,
+    int observedLevel,
+    Nature observedNature,
   ) {
     final search = target.search;
     final template = search.template;
@@ -3437,7 +3542,10 @@ class _CalibratePageState extends State<_CalibratePage>
     );
     final results = <_CalibrationHitResult>[];
     for (final state in generator.generate()) {
-      if (_observedNature != null && state.nature != _observedNature) {
+      if (state.level != observedLevel) {
+        continue;
+      }
+      if (state.nature != observedNature) {
         continue;
       }
       if (_observedAbilitySlot != null &&
@@ -3475,6 +3583,14 @@ class _CalibratePageState extends State<_CalibratePage>
     return true;
   }
 
+  int? _parseObservedLevel() {
+    final level = int.tryParse(_observedLevelController.text.trim());
+    if (level == null || level < 1 || level > 100) {
+      return null;
+    }
+    return level;
+  }
+
   PokemonStats? _parseStats() {
     final values = _statControllers
         .map((controller) => int.tryParse(controller.text.trim()))
@@ -3496,22 +3612,23 @@ class _CalibratePageState extends State<_CalibratePage>
   List<DropdownMenuItem<int?>> _abilityItems(
     BuildContext context,
     Gen3PersonalInfo? personal,
-    Gen3NamedResources? names,
-  ) {
+    Gen3NamedResources? names, {
+    Gen3NamedResources? secondaryNames,
+  }) {
     final l10n = AppLocalizations.of(context)!;
     return [
       DropdownMenuItem<int?>(value: null, child: Text(l10n.any)),
       if (personal != null)
         ...List<DropdownMenuItem<int?>>.generate(2, (slot) {
           final id = personal.abilityIds[slot];
+          final name = _pairedName(
+            names?.abilityName(id) ?? 'Ability $id',
+            secondaryNames?.abilityName(id),
+          );
           return DropdownMenuItem<int?>(
             value: slot,
             child: Text(
-              _abilitySlotLabel(
-                context: context,
-                slot: slot,
-                name: names?.abilityName(id) ?? 'Ability $id',
-              ),
+              _abilitySlotLabel(context: context, slot: slot, name: name),
               overflow: TextOverflow.ellipsis,
             ),
           );
@@ -3714,202 +3831,247 @@ class _CalibratePageState extends State<_CalibratePage>
     final isStaticTarget = target is _StaticTarget;
     final hitDelay = target?.delay ?? wildSearch?.delay ?? 0;
     final theme = Theme.of(context);
+    final localeName = Localizations.localeOf(context).toString();
 
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        Text(l10n.calibrate, style: theme.textTheme.titleLarge),
-        const SizedBox(height: 12),
-        _CalibrationTargetCard(target: target),
-        const SizedBox(height: 12),
-        Row(
+    return FutureBuilder<_CalibrationNamePair>(
+      future: _calibrationNamePair(localeName),
+      builder: (context, snapshot) {
+        final calibrationNames = snapshot.data;
+        return ListView(
+          padding: const EdgeInsets.all(16),
           children: [
-            Expanded(
-              child: TextField(
-                controller: _targetAdvanceController,
-                decoration: InputDecoration(
-                  labelText: l10n.currentTargetAdvance,
-                  border: _controlBorder,
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (_) => setState(() {}),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: TextField(
-                controller: _actualAdvanceController,
-                decoration: InputDecoration(
-                  labelText: l10n.actualAdvance,
-                  border: _controlBorder,
-                ),
-                keyboardType: TextInputType.number,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        TextField(
-          controller: _outputController,
-          readOnly: true,
-          decoration: InputDecoration(
-            labelText: l10n.calibrationOutput,
-            border: _controlBorder,
-          ),
-        ),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _targetDeltaController,
-          readOnly: true,
-          decoration: InputDecoration(
-            labelText: l10n.targetDelta,
-            border: _controlBorder,
-          ),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton.icon(
-            onPressed: _calculateNextPress,
-            icon: const Icon(Icons.calculate),
-            label: Text(l10n.calculateNextPress),
-          ),
-        ),
-        const SizedBox(height: 12),
-        _retailTimerPanel(l10n, theme),
-        const SizedBox(height: 20),
-        if (!isStaticTarget) ...[
-          Text(l10n.observedPokemon, style: theme.textTheme.titleMedium),
-          const SizedBox(height: 12),
-          DropdownButtonFormField<int>(
-            key: ValueKey('calibration-species-$observedSpeciesId'),
-            isExpanded: true,
-            initialValue: observedSpeciesId,
-            decoration: InputDecoration(
-              labelText: l10n.pokemon,
-              border: _controlBorder,
-            ),
-            items: _speciesItems(wildSearch, names),
-            onChanged: wildSearch == null
-                ? null
-                : (value) {
-                    setState(() {
-                      _observedSpeciesId = value;
-                      _observedAbilitySlot = null;
-                      _observedGender = null;
-                      _hits = const [];
-                      _error = null;
-                    });
-                  },
-          ),
-          const SizedBox(height: 8),
-        ],
-        DropdownButtonFormField<int?>(
-          key: ValueKey(
-            'calibration-ability-$observedSpeciesId-$_observedAbilitySlot',
-          ),
-          isExpanded: true,
-          initialValue: _observedAbilitySlot,
-          decoration: InputDecoration(
-            labelText: l10n.ability,
-            border: _controlBorder,
-          ),
-          items: _abilityItems(context, personal, names),
-          onChanged: personal == null
-              ? null
-              : (value) => setState(() => _observedAbilitySlot = value),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(
-              child: DropdownButtonFormField<Nature?>(
-                isExpanded: true,
-                initialValue: _observedNature,
-                decoration: InputDecoration(
-                  labelText: l10n.nature,
-                  border: _controlBorder,
-                ),
-                items: [
-                  DropdownMenuItem<Nature?>(value: null, child: Text(l10n.any)),
-                  ...Nature.values.map(
-                    (nature) => DropdownMenuItem<Nature?>(
-                      value: nature,
-                      child: Text(
-                        names?.natureName(nature) ?? nature.name,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+            Text(l10n.calibrate, style: theme.textTheme.titleLarge),
+            const SizedBox(height: 12),
+            _CalibrationTargetCard(target: target),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _targetAdvanceController,
+                    decoration: InputDecoration(
+                      labelText: l10n.currentTargetAdvance,
+                      border: _controlBorder,
                     ),
+                    keyboardType: TextInputType.number,
+                    onChanged: (_) => setState(() {}),
                   ),
-                ],
-                onChanged: (value) => setState(() => _observedNature = value),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TextField(
+                    controller: _actualAdvanceController,
+                    decoration: InputDecoration(
+                      labelText: l10n.actualAdvance,
+                      border: _controlBorder,
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _outputController,
+              readOnly: true,
+              decoration: InputDecoration(
+                labelText: l10n.calibrationOutput,
+                border: _controlBorder,
               ),
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: DropdownButtonFormField<PokemonGender?>(
-                key: ValueKey(
-                  'calibration-gender-$observedSpeciesId-$_observedGender',
-                ),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _targetDeltaController,
+              readOnly: true,
+              decoration: InputDecoration(
+                labelText: l10n.targetDelta,
+                border: _controlBorder,
+              ),
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                onPressed: _calculateNextPress,
+                icon: const Icon(Icons.calculate),
+                label: Text(l10n.calculateNextPress),
+              ),
+            ),
+            const SizedBox(height: 12),
+            _retailTimerPanel(l10n, theme),
+            const SizedBox(height: 20),
+            if (!isStaticTarget) ...[
+              Text(l10n.observedPokemon, style: theme.textTheme.titleMedium),
+              const SizedBox(height: 12),
+              DropdownButtonFormField<int>(
+                key: ValueKey('calibration-species-$observedSpeciesId'),
                 isExpanded: true,
-                initialValue: _observedGender,
+                initialValue: observedSpeciesId,
                 decoration: InputDecoration(
-                  labelText: l10n.gender,
+                  labelText: l10n.pokemon,
                   border: _controlBorder,
                 ),
-                items: [
-                  DropdownMenuItem<PokemonGender?>(
-                    value: null,
-                    child: Text(l10n.any),
-                  ),
-                  ..._legalGenders(personal).map(
-                    (gender) => DropdownMenuItem<PokemonGender?>(
-                      value: gender,
-                      child: Text(_genderLabel(gender)),
-                    ),
-                  ),
-                ],
-                onChanged: personal == null
+                items: _speciesItems(wildSearch, names),
+                onChanged: wildSearch == null
                     ? null
-                    : (value) => setState(() => _observedGender = value),
+                    : (value) {
+                        setState(() {
+                          _observedSpeciesId = value;
+                          _observedAbilitySlot = null;
+                          _observedGender = null;
+                          _hits = const [];
+                          _error = null;
+                        });
+                      },
+              ),
+              const SizedBox(height: 8),
+            ],
+            Row(
+              children: [
+                SizedBox(
+                  width: 96,
+                  child: TextField(
+                    controller: _observedLevelController,
+                    decoration: InputDecoration(
+                      labelText: l10n.levelShort,
+                      border: _controlBorder,
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: DropdownButtonFormField<int?>(
+                    key: ValueKey(
+                      'calibration-ability-$observedSpeciesId-$_observedAbilitySlot',
+                    ),
+                    isExpanded: true,
+                    initialValue: _observedAbilitySlot,
+                    decoration: InputDecoration(
+                      labelText: l10n.ability,
+                      border: _controlBorder,
+                    ),
+                    items: _abilityItems(
+                      context,
+                      personal,
+                      calibrationNames?.primary ?? names,
+                      secondaryNames: calibrationNames?.secondary,
+                    ),
+                    onChanged: personal == null
+                        ? null
+                        : (value) =>
+                              setState(() => _observedAbilitySlot = value),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: DropdownButtonFormField<Nature>(
+                    isExpanded: true,
+                    initialValue: _observedNature,
+                    decoration: InputDecoration(
+                      labelText: l10n.nature,
+                      border: _controlBorder,
+                    ),
+                    items: Nature.values
+                        .map(
+                          (nature) => DropdownMenuItem<Nature>(
+                            value: nature,
+                            child: Text(
+                              _calibrationNatureLabel(
+                                nature,
+                                primaryNames:
+                                    calibrationNames?.primary ?? names,
+                                secondaryNames: calibrationNames?.secondary,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        )
+                        .toList(growable: false),
+                    onChanged: (value) =>
+                        setState(() => _observedNature = value),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: DropdownButtonFormField<PokemonGender?>(
+                    key: ValueKey(
+                      'calibration-gender-$observedSpeciesId-$_observedGender',
+                    ),
+                    isExpanded: true,
+                    initialValue: _observedGender,
+                    decoration: InputDecoration(
+                      labelText: l10n.gender,
+                      border: _controlBorder,
+                    ),
+                    items: [
+                      DropdownMenuItem<PokemonGender?>(
+                        value: null,
+                        child: Text(l10n.any),
+                      ),
+                      ..._legalGenders(personal).map(
+                        (gender) => DropdownMenuItem<PokemonGender?>(
+                          value: gender,
+                          child: Text(_genderLabel(gender)),
+                        ),
+                      ),
+                    ],
+                    onChanged: personal == null
+                        ? null
+                        : (value) => setState(() => _observedGender = value),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(l10n.observedStats, style: theme.textTheme.labelLarge),
+            const SizedBox(height: 8),
+            Wrap(spacing: 8, runSpacing: 8, children: _statFields(l10n)),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                onPressed: _reverseHit,
+                icon: const Icon(Icons.manage_search),
+                label: Text(l10n.reverseHitAdvance),
               ),
             ),
+            if (_error != null) ...[
+              const SizedBox(height: 12),
+              Text(_error!, style: TextStyle(color: theme.colorScheme.error)),
+            ],
+            if (_hits.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              Text(l10n.reverseResults, style: theme.textTheme.titleSmall),
+              const SizedBox(height: 8),
+              ..._hits.map(
+                (hit) => _CalibrationHitTile(
+                  hit: hit,
+                  triggerAdvance: hit.advance - hitDelay,
+                  speciesName:
+                      names?.speciesName(hit.species) ?? '#${hit.species}',
+                  natureName: names?.natureName(hit.nature) ?? hit.nature.name,
+                  onTap: () => _selectHit(hit),
+                ),
+              ),
+            ],
           ],
-        ),
-        const SizedBox(height: 12),
-        Text(l10n.observedStats, style: theme.textTheme.labelLarge),
-        const SizedBox(height: 8),
-        Wrap(spacing: 8, runSpacing: 8, children: _statFields(l10n)),
-        const SizedBox(height: 12),
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton.icon(
-            onPressed: _reverseHit,
-            icon: const Icon(Icons.manage_search),
-            label: Text(l10n.reverseHitAdvance),
-          ),
-        ),
-        if (_error != null) ...[
-          const SizedBox(height: 12),
-          Text(_error!, style: TextStyle(color: theme.colorScheme.error)),
-        ],
-        if (_hits.isNotEmpty) ...[
-          const SizedBox(height: 16),
-          Text(l10n.reverseResults, style: theme.textTheme.titleSmall),
-          const SizedBox(height: 8),
-          ..._hits.map(
-            (hit) => _CalibrationHitTile(
-              hit: hit,
-              triggerAdvance: hit.advance - hitDelay,
-              speciesName: names?.speciesName(hit.species) ?? '#${hit.species}',
-              natureName: names?.natureName(hit.nature) ?? hit.nature.name,
-              onTap: () => _selectHit(hit),
-            ),
-          ),
-        ],
-      ],
+        );
+      },
     );
   }
+}
+
+class _CalibrationNamePair {
+  const _CalibrationNamePair({required this.primary, required this.secondary});
+
+  final Gen3NamedResources primary;
+  final Gen3NamedResources secondary;
 }
 
 class _CalibrationTargetCard extends StatelessWidget {
@@ -3980,6 +4142,7 @@ class _CalibrationHitResult {
     required this.gender,
     required this.ivs,
     required this.stats,
+    this.wildMethod,
   });
 
   factory _CalibrationHitResult.wild(WildCalibrationHit hit) {
@@ -3992,6 +4155,7 @@ class _CalibrationHitResult {
       gender: state.gender,
       ivs: state.ivs,
       stats: hit.stats,
+      wildMethod: hit.method,
     );
   }
 
@@ -4018,6 +4182,7 @@ class _CalibrationHitResult {
   final PokemonGender gender;
   final Ivs ivs;
   final PokemonStats? stats;
+  final WildMethod? wildMethod;
 }
 
 class _CalibrationHitTile extends StatelessWidget {
@@ -4039,6 +4204,9 @@ class _CalibrationHitTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final stats = hit.stats;
+    final methodText = hit.wildMethod == null
+        ? ''
+        : '${_wildMethodLabel(context, hit.wildMethod!)} · ';
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: _HoverSurface(
@@ -4049,6 +4217,7 @@ class _CalibrationHitTile extends StatelessWidget {
             '#${hit.species} $speciesName · '
             '${l10n.resultAdvance} ${hit.advance} · '
             '${l10n.resultPress} $triggerAdvance · '
+            '$methodText'
             '${l10n.levelShort} ${hit.level}',
           ),
           subtitle: Text(
@@ -5417,28 +5586,12 @@ class _StatIvCalculatorState extends State<_StatIvCalculator> {
     required Nature nature,
     required int level,
   }) {
-    final observed = stats.ordered;
-    final possible = List<List<int>>.generate(6, (_) => []);
-    for (var iv = 0; iv <= 31; iv += 1) {
-      final calculated = calculateGen3Stats(
-        personalInfo: personalInfo,
-        ivs: Ivs(
-          hp: iv,
-          attack: iv,
-          defense: iv,
-          specialAttack: iv,
-          specialDefense: iv,
-          speed: iv,
-        ),
-        nature: nature,
-        level: level,
-      ).ordered;
-      for (var index = 0; index < observed.length; index += 1) {
-        if (calculated[index] == observed[index]) {
-          possible[index].add(iv);
-        }
-      }
-    }
+    final possible = possibleGen3IvValuesForStats(
+      personalInfo: personalInfo,
+      stats: stats,
+      nature: nature,
+      level: level,
+    );
     return possible.map(_rangeLabel).toList(growable: false);
   }
 
@@ -6000,6 +6153,14 @@ void _refreshAutocompleteOptions(TextEditingController controller) {
     selection: TextSelection.collapsed(offset: transientText.length),
   );
   controller.value = value;
+}
+
+String _assetLocaleForDisplayLocale(String localeName) {
+  return switch (localeName) {
+    'zh' || 'zh_CN' || 'zh_Hans' || 'zh_Hans_CN' => 'zh_Hans',
+    'ja' || 'ja_JP' => 'ja',
+    _ => 'en',
+  };
 }
 
 class _AutocompleteOptionsPrimer extends StatefulWidget {
@@ -7413,6 +7574,30 @@ StaticMethod _staticMethodFor(WildMethod method) {
   };
 }
 
+String _wildMethodLabel(BuildContext context, WildMethod method) {
+  final l10n = AppLocalizations.of(context)!;
+  return switch (method) {
+    WildMethod.method1 => l10n.wildMethod1,
+    WildMethod.method2 => l10n.wildMethod2,
+    WildMethod.method4 => l10n.wildMethod4,
+  };
+}
+
+WildMethod _defaultWildMethodForGame(GameVersion game) {
+  return switch (game) {
+    GameVersion.emerald => WildMethod.method2,
+    GameVersion.fireRed || GameVersion.leafGreen => WildMethod.method1,
+  };
+}
+
+List<WildMethod> _wildReverseMethods(WildMethod selected) {
+  return [
+    selected,
+    for (final method in WildMethod.values)
+      if (method != selected) method,
+  ];
+}
+
 List<EggMethod3> _eggMethodsForGame(GameVersion game) {
   return switch (game) {
     GameVersion.emerald => const [
@@ -7515,6 +7700,24 @@ String _abilitySlotLabel({
   required String name,
 }) {
   return AppLocalizations.of(context)!.abilitySlot(slot + 1, name);
+}
+
+String _calibrationNatureLabel(
+  Nature nature, {
+  required Gen3NamedResources? primaryNames,
+  required Gen3NamedResources? secondaryNames,
+}) {
+  return _pairedName(
+    primaryNames?.natureName(nature) ?? nature.name,
+    secondaryNames?.natureName(nature),
+  );
+}
+
+String _pairedName(String primary, String? secondary) {
+  if (secondary == null || secondary == primary) {
+    return primary;
+  }
+  return '$primary / $secondary';
 }
 
 List<int> _slotsForSpecies(WildEncounterArea area, int speciesId) {

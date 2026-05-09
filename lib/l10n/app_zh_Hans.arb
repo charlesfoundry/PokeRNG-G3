@@ -92,6 +92,9 @@
   "staticMethod1": "Method 1",
   "staticMethod2": "Method 2",
   "staticMethod4": "Method 4",
+  "wildMethodHintEmerald": "绿宝石野生遇敌通常推荐野生 2；校准反查会同时检查野生 1/2/4。",
+  "wildMethodHintFrlg": "火红/叶绿野生遇敌通常推荐野生 1；其他方式较少见。",
+  "staticMethodHint": "定点、赠送等固定宝可梦通常使用 Method 1。",
   "ability": "特性",
   "gender": "性别",
   "any": "任意",
@@ -255,7 +258,7 @@
   "reverseHitAdvance": "反查实际帧",
   "reverseResults": "反查结果",
   "calibrationFrameInputError": "请检查此次目标帧和实际帧。",
-  "runHuntAndEnterObservedStatsError": "请先从结果页发送目标，并输入实际能力值。",
+  "runHuntAndEnterObservedStatsError": "请先从结果页发送目标，并输入实际宝可梦、Lv、性格和能力值。",
   "actualAdvanceOutput": "实际帧 {advance}",
   "@actualAdvanceOutput": {
     "placeholders": {

@@ -527,6 +527,24 @@ abstract class AppLocalizations {
   /// **'Method 4'**
   String get staticMethod4;
 
+  /// No description provided for @wildMethodHintEmerald.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerald wild encounters usually use Wild 2; calibration reverse search checks Wild 1/2/4.'**
+  String get wildMethodHintEmerald;
+
+  /// No description provided for @wildMethodHintFrlg.
+  ///
+  /// In en, this message translates to:
+  /// **'FireRed/LeafGreen wild encounters usually use Wild 1; other methods are rarer.'**
+  String get wildMethodHintFrlg;
+
+  /// No description provided for @staticMethodHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Stationary, gift, and other fixed Pokemon usually use Method 1.'**
+  String get staticMethodHint;
+
   /// No description provided for @ability.
   ///
   /// In en, this message translates to:
@@ -1166,7 +1184,7 @@ abstract class AppLocalizations {
   /// No description provided for @runHuntAndEnterObservedStatsError.
   ///
   /// In en, this message translates to:
-  /// **'Send a target from results and enter observed stats.'**
+  /// **'Send a target from results and enter observed Pokemon, Lv, nature, and stats.'**
   String get runHuntAndEnterObservedStatsError;
 
   /// No description provided for @actualAdvanceOutput.

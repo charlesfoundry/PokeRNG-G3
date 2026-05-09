@@ -231,6 +231,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get staticMethod4 => 'Method 4';
 
   @override
+  String get wildMethodHintEmerald => '綠寶石野生遇敵通常推薦野生 2；校準反查會同時檢查野生 1/2/4。';
+
+  @override
+  String get wildMethodHintFrlg => '火紅/葉綠野生遇敵通常推薦野生 1；其他方式較少見。';
+
+  @override
+  String get staticMethodHint => '定點、贈送等固定寶可夢通常使用 Method 1。';
+
+  @override
   String get ability => '特性';
 
   @override
@@ -571,7 +580,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calibrationFrameInputError => '请检查此次目标帧和实际帧。';
 
   @override
-  String get runHuntAndEnterObservedStatsError => '请先从结果页发送目标，并输入实际能力值。';
+  String get runHuntAndEnterObservedStatsError =>
+      '请先从结果页发送目标，并输入实际宝可梦、Lv、性格和能力值。';
 
   @override
   String actualAdvanceOutput(Object advance) {
@@ -864,6 +874,15 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get staticMethod4 => 'Method 4';
 
   @override
+  String get wildMethodHintEmerald => '绿宝石野生遇敌通常推荐野生 2；校准反查会同时检查野生 1/2/4。';
+
+  @override
+  String get wildMethodHintFrlg => '火红/叶绿野生遇敌通常推荐野生 1；其他方式较少见。';
+
+  @override
+  String get staticMethodHint => '定点、赠送等固定宝可梦通常使用 Method 1。';
+
+  @override
   String get ability => '特性';
 
   @override
@@ -1204,7 +1223,8 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get calibrationFrameInputError => '请检查此次目标帧和实际帧。';
 
   @override
-  String get runHuntAndEnterObservedStatsError => '请先从结果页发送目标，并输入实际能力值。';
+  String get runHuntAndEnterObservedStatsError =>
+      '请先从结果页发送目标，并输入实际宝可梦、Lv、性格和能力值。';
 
   @override
   String actualAdvanceOutput(Object advance) {

@@ -237,6 +237,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get staticMethod4 => 'Method 4';
 
   @override
+  String get wildMethodHintEmerald =>
+      'Emerald wild encounters usually use Wild 2; calibration reverse search checks Wild 1/2/4.';
+
+  @override
+  String get wildMethodHintFrlg =>
+      'FireRed/LeafGreen wild encounters usually use Wild 1; other methods are rarer.';
+
+  @override
+  String get staticMethodHint =>
+      'Stationary, gift, and other fixed Pokemon usually use Method 1.';
+
+  @override
   String get ability => 'Ability';
 
   @override
@@ -588,7 +600,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get runHuntAndEnterObservedStatsError =>
-      'Send a target from results and enter observed stats.';
+      'Send a target from results and enter observed Pokemon, Lv, nature, and stats.';
 
   @override
   String actualAdvanceOutput(Object advance) {

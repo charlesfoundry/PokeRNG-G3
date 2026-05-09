@@ -92,6 +92,9 @@
   "staticMethod1": "Method 1",
   "staticMethod2": "Method 2",
   "staticMethod4": "Method 4",
+  "wildMethodHintEmerald": "エメラルドの野生遭遇は通常 野生 2 推奨です。校準の逆算は野生 1/2/4 を同時に確認します。",
+  "wildMethodHintFrlg": "ファイアレッド/リーフグリーンの野生遭遇は通常 野生 1 推奨です。他の方式はまれです。",
+  "staticMethodHint": "固定・配布などのポケモンは通常 Method 1 を使います。",
   "ability": "特性",
   "gender": "性別",
   "any": "任意",
@@ -255,7 +258,7 @@
   "reverseHitAdvance": "実際のフレームを逆算",
   "reverseResults": "逆算結果",
   "calibrationFrameInputError": "今回の目標 Adv と実際の Adv を確認してください。",
-  "runHuntAndEnterObservedStatsError": "結果から目標を送り、実際の能力値を入力してください。",
+  "runHuntAndEnterObservedStatsError": "結果から目標を送り、実際のポケモン、Lv、性格、能力値を入力してください。",
   "actualAdvanceOutput": "実際 Adv {advance}",
   "@actualAdvanceOutput": {
     "placeholders": {

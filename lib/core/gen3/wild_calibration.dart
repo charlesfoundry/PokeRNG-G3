@@ -15,6 +15,7 @@ class WildCalibrationRequest {
     required this.sid,
     required this.speciesId,
     required this.personalData,
+    this.observedLevel,
     this.observedIvs,
     this.observedStats,
     this.observedNature,
@@ -38,6 +39,7 @@ class WildCalibrationRequest {
   final int tid;
   final int sid;
   final int speciesId;
+  final int? observedLevel;
   final Ivs? observedIvs;
   final PokemonStats? observedStats;
   final Nature? observedNature;
@@ -67,6 +69,11 @@ class WildCalibrationRequest {
   }
 
   List<WildCalibrationHit> findMatches({int limit = 20}) {
+    final ivCandidates = _ivCandidates();
+    if (ivCandidates?.isEmpty ?? false) {
+      return const [];
+    }
+
     final generator = WildGenerator(
       seed: seed,
       initialAdvance: initialAdvance,
@@ -86,12 +93,13 @@ class WildCalibrationRequest {
 
     final results = <WildCalibrationHit>[];
     for (final state in generator.generate()) {
-      if (!_matches(state)) {
+      if (!_matches(state, ivCandidates)) {
         continue;
       }
       final personalInfo = personalData[state.species];
       results.add(
         WildCalibrationHit(
+          method: method,
           state: state,
           stats: personalInfo == null
               ? null
@@ -110,8 +118,34 @@ class WildCalibrationRequest {
     return results;
   }
 
-  bool _matches(WildState state) {
+  List<List<int>>? _ivCandidates() {
+    final stats = observedStats;
+    final nature = observedNature;
+    final level = observedLevel;
+    final personalInfo = personalData[speciesId];
+    if (stats == null || nature == null || level == null) {
+      return null;
+    }
+    if (personalInfo == null) {
+      return const [];
+    }
+    final candidates = possibleGen3IvValuesForStats(
+      personalInfo: personalInfo,
+      stats: stats,
+      nature: nature,
+      level: level,
+    );
+    if (candidates.any((values) => values.isEmpty)) {
+      return const [];
+    }
+    return candidates;
+  }
+
+  bool _matches(WildState state, List<List<int>>? ivCandidates) {
     if (state.species != speciesId) {
+      return false;
+    }
+    if (observedLevel != null && state.level != observedLevel) {
       return false;
     }
     if (observedNature != null && state.nature != observedNature) {
@@ -129,7 +163,10 @@ class WildCalibrationRequest {
     if (observedIvs != null && !_sameIvs(state.ivs, observedIvs!)) {
       return false;
     }
-    if (observedStats != null) {
+    if (ivCandidates != null && !_ivCandidatesAllow(state.ivs, ivCandidates)) {
+      return false;
+    }
+    if (observedStats != null && ivCandidates == null) {
       final personalInfo = personalData[state.species];
       if (personalInfo == null) {
         return false;
@@ -149,8 +186,13 @@ class WildCalibrationRequest {
 }
 
 class WildCalibrationHit {
-  const WildCalibrationHit({required this.state, required this.stats});
+  const WildCalibrationHit({
+    required this.method,
+    required this.state,
+    required this.stats,
+  });
 
+  final WildMethod method;
   final WildState state;
   final PokemonStats? stats;
 }
@@ -216,6 +258,37 @@ PokemonStats calculateGen3Stats({
   );
 }
 
+List<List<int>> possibleGen3IvValuesForStats({
+  required Gen3PersonalInfo personalInfo,
+  required PokemonStats stats,
+  required Nature nature,
+  required int level,
+}) {
+  final observed = stats.ordered;
+  final possible = List<List<int>>.generate(6, (_) => []);
+  for (var iv = 0; iv <= 31; iv += 1) {
+    final calculated = calculateGen3Stats(
+      personalInfo: personalInfo,
+      ivs: Ivs(
+        hp: iv,
+        attack: iv,
+        defense: iv,
+        specialAttack: iv,
+        specialDefense: iv,
+        speed: iv,
+      ),
+      nature: nature,
+      level: level,
+    ).ordered;
+    for (var index = 0; index < observed.length; index += 1) {
+      if (calculated[index] == observed[index]) {
+        possible[index].add(iv);
+      }
+    }
+  }
+  return possible;
+}
+
 int _nonHpStat({
   required int base,
   required int iv,
@@ -243,6 +316,16 @@ bool _sameIvs(Ivs left, Ivs right) {
   final b = right.ordered;
   for (var i = 0; i < a.length; i += 1) {
     if (a[i] != b[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool _ivCandidatesAllow(Ivs ivs, List<List<int>> candidates) {
+  final values = ivs.ordered;
+  for (var index = 0; index < values.length; index += 1) {
+    if (!candidates[index].contains(values[index])) {
       return false;
     }
   }
