@@ -21,15 +21,15 @@ class PokeRng {
 
     while (steps > 0) {
       if ((steps & 1) != 0) {
-        accMult = (accMult * curMult) & _u32Mask;
-        accAdd = (accAdd * curMult + curAdd) & _u32Mask;
+        accMult = _mulU32(accMult, curMult);
+        accAdd = _addU32(_mulU32(accAdd, curMult), curAdd);
       }
-      curAdd = (curAdd * (curMult + 1)) & _u32Mask;
-      curMult = (curMult * curMult) & _u32Mask;
+      curAdd = _mulU32(curAdd, _addU32(curMult, 1));
+      curMult = _mulU32(curMult, curMult);
       steps >>>= 1;
     }
 
-    return PokeRng((accMult * (seed & _u32Mask) + accAdd) & _u32Mask);
+    return PokeRng(_addU32(_mulU32(accMult, seed), accAdd));
   }
 
   RngResult nextU16() {
@@ -43,7 +43,23 @@ class PokeRng {
   }
 
   static int nextSeed(int seed) {
-    return ((seed & _u32Mask) * multiplier + increment) & _u32Mask;
+    return _addU32(_mulU32(seed, multiplier), increment);
+  }
+
+  static int _addU32(int left, int right) {
+    return ((left & _u32Mask) + (right & _u32Mask)) & _u32Mask;
+  }
+
+  static int _mulU32(int left, int right) {
+    final a = left & _u32Mask;
+    final b = right & _u32Mask;
+    final aLow = a & 0xffff;
+    final aHigh = a >>> 16;
+    final bLow = b & 0xffff;
+    final bHigh = b >>> 16;
+    final low = aLow * bLow;
+    final high = (low >>> 16) + aHigh * bLow + aLow * bHigh;
+    return (low & 0xffff) + ((high & 0xffff) * 0x10000);
   }
 }
 
