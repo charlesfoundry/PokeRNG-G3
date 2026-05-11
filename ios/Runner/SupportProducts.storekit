@@ -20,13 +20,13 @@
       "internalID" : "A25E0CB0",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "Buy me a snack",
+          "description" : "Optional support. No features are unlocked.",
+          "displayName" : "Support with a Snack",
           "locale" : "en_US"
         }
       ],
-      "productID" : "support.small",
-      "referenceName" : "Buy me a snack",
+      "productID" : "pokerngg3.support.snack",
+      "referenceName" : "PokeRNG G3 Support - Snack",
       "type" : "Consumable"
     },
     {
@@ -35,13 +35,13 @@
       "internalID" : "9956A6EC",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "Buy me a coffee",
+          "description" : "Optional support. No features are unlocked.",
+          "displayName" : "Support with a Coffee",
           "locale" : "en_US"
         }
       ],
-      "productID" : "support.medium",
-      "referenceName" : "Buy me a coffee",
+      "productID" : "pokerngg3.support.coffee",
+      "referenceName" : "PokeRNG G3 Support - Coffee",
       "type" : "Consumable"
     },
     {
@@ -50,13 +50,13 @@
       "internalID" : "9C6A3C8D",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "Buy me a meal",
+          "description" : "Optional support. No features are unlocked.",
+          "displayName" : "Support with a Meal",
           "locale" : "en_US"
         }
       ],
-      "productID" : "support.large",
-      "referenceName" : "Buy me a meal",
+      "productID" : "pokerngg3.support.meal",
+      "referenceName" : "PokeRNG G3 Support - Meal",
       "type" : "Consumable"
     }
   ],

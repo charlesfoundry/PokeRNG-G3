@@ -34,7 +34,11 @@ const _retailTimerCueLead = Duration(milliseconds: 1500);
 const _timerBeepChannel = MethodChannel('pokerng_g3/timer_beep');
 const _screenAwakeChannel = MethodChannel('pokerng_g3/screen_awake');
 const _supportPurchaseChannel = MethodChannel('pokerng_g3/support_purchase');
-const _supportProductIds = ['support.small', 'support.medium', 'support.large'];
+const _supportProductIds = [
+  'pokerngg3.support.snack',
+  'pokerngg3.support.coffee',
+  'pokerngg3.support.meal',
+];
 const _gbaFrameRate = 16777216 / 280896;
 const _ndsSlot2FrameRate = 59.6555;
 const _ndsFamilyFrameRate = 59.8261;
