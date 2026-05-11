@@ -1072,6 +1072,42 @@ class _HuntPageState extends State<_HuntPage> {
       ),
     );
 
+    if (kIsWeb) {
+      try {
+        final searchResult = request.search();
+        if (!mounted || epoch != _searchEpoch) {
+          return;
+        }
+        setState(() {
+          _searching = false;
+          _error = null;
+        });
+        widget.onResultsChanged(
+          _HuntResultsSnapshot(
+            names: data.names,
+            search: searchSnapshot,
+            delay: parsed.delay,
+            results: searchResult.results
+                .map(_HuntResult.wild)
+                .toList(growable: false),
+            resultLimitReached: searchResult.resultLimitReached,
+          ),
+        );
+      } catch (error) {
+        if (!mounted || epoch != _searchEpoch) {
+          return;
+        }
+        setState(() {
+          _searching = false;
+          _error = error.toString();
+        });
+        widget.onResultsChanged(
+          _HuntResultsSnapshot(error: error.toString(), names: data.names),
+        );
+      }
+      return;
+    }
+
     final receivePort = ReceivePort();
     _searchReceivePort = receivePort;
     Isolate? isolate;
@@ -1211,6 +1247,42 @@ class _HuntPageState extends State<_HuntPage> {
         searchProgress: 0,
       ),
     );
+
+    if (kIsWeb) {
+      try {
+        final searchResult = request.search();
+        if (!mounted || epoch != _searchEpoch) {
+          return;
+        }
+        setState(() {
+          _searching = false;
+          _error = null;
+        });
+        widget.onResultsChanged(
+          _HuntResultsSnapshot(
+            names: data.names,
+            staticSearch: searchSnapshot,
+            delay: parsed.delay,
+            results: searchResult.results
+                .map(_HuntResult.static)
+                .toList(growable: false),
+            resultLimitReached: searchResult.resultLimitReached,
+          ),
+        );
+      } catch (error) {
+        if (!mounted || epoch != _searchEpoch) {
+          return;
+        }
+        setState(() {
+          _searching = false;
+          _error = error.toString();
+        });
+        widget.onResultsChanged(
+          _HuntResultsSnapshot(error: error.toString(), names: data.names),
+        );
+      }
+      return;
+    }
 
     final receivePort = ReceivePort();
     _searchReceivePort = receivePort;
@@ -3172,6 +3244,9 @@ class _CalibratePageState extends State<_CalibratePage>
   }
 
   void _setScreenAwake(bool enabled) {
+    if (kIsWeb) {
+      return;
+    }
     unawaited(
       _screenAwakeChannel
           .invokeMethod<void>('setEnabled', {'enabled': enabled})
@@ -3398,6 +3473,9 @@ class _CalibratePageState extends State<_CalibratePage>
   }
 
   void _prepareTimerBeep() {
+    if (kIsWeb) {
+      return;
+    }
     final preparation = _timerBeepPreparation;
     if (preparation != null) {
       return;
@@ -3414,6 +3492,10 @@ class _CalibratePageState extends State<_CalibratePage>
   }
 
   Future<void> _playTimerBeep() async {
+    if (kIsWeb) {
+      unawaited(SystemSound.play(_timerSoundType));
+      return;
+    }
     try {
       if (!_timerBeepReady) {
         _prepareTimerBeep();
@@ -3437,6 +3519,9 @@ class _CalibratePageState extends State<_CalibratePage>
   }
 
   Future<void> _playTimerHaptics() async {
+    if (kIsWeb) {
+      return;
+    }
     await HapticFeedback.heavyImpact();
     await Future<void>.delayed(const Duration(milliseconds: 80));
     await HapticFeedback.heavyImpact();
@@ -4549,7 +4634,9 @@ class _BreedingPageState extends State<_BreedingPage> {
       _result = null;
     });
     try {
-      final result = await Isolate.run(request.search);
+      final result = kIsWeb
+          ? request.search()
+          : await Isolate.run(request.search);
       if (!mounted) {
         return;
       }
@@ -6057,7 +6144,7 @@ class _SettingsPageState extends State<_SettingsPage> {
   }
 
   bool get _supportsApplePurchases {
-    return defaultTargetPlatform == TargetPlatform.iOS;
+    return !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
   }
 
   void _openSupportPage() {
@@ -6296,6 +6383,13 @@ class _SupportPageState extends State<_SupportPage> {
 
   Future<void> _loadProducts() async {
     if (_loading) {
+      return;
+    }
+    if (kIsWeb) {
+      setState(() {
+        _products = const [];
+        _error = AppLocalizations.of(context)!.supportUnavailable;
+      });
       return;
     }
     setState(() {
