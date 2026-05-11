@@ -260,6 +260,7 @@
     }
   },
   "timerPreparationNote": "開始後5秒カウントし、4音目で操作します。",
+  "timerWebSoundUnsupported": "Web版タイマーは現在、カウントダウン音に対応していません。",
   "timerEmeraldOnlyNote": "実機乱数はエメラルドのみ推奨: エメラルドの初期 seed は 0 固定です。",
   "timerInputError": "今回の目標 Adv を確認してください。",
   "observedPokemon": "実際のポケモン",

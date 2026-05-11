@@ -586,6 +586,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get timerPreparationNote => '开始后先有5秒倒计时，在第4声瞬间软重启/遇敌。';
 
   @override
+  String get timerWebSoundUnsupported => 'Web 版本的定时器暂时不支持倒计时提示音。';
+
+  @override
   String get timerEmeraldOnlyNote => '实机乱数仅建议用于绿宝石：绿宝石初始 seed 固定为 0。';
 
   @override
@@ -1257,6 +1260,9 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get timerPreparationNote => '开始后先有5秒倒计时，在第4声瞬间软重启/遇敌。';
+
+  @override
+  String get timerWebSoundUnsupported => 'Web 版本的定时器暂时不支持倒计时提示音。';
 
   @override
   String get timerEmeraldOnlyNote => '实机乱数仅建议用于绿宝石：绿宝石初始 seed 固定为 0。';

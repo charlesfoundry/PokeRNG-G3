@@ -1193,6 +1193,12 @@ abstract class AppLocalizations {
   /// **'Start gives a 5-second countdown; act on the 4th cue.'**
   String get timerPreparationNote;
 
+  /// No description provided for @timerWebSoundUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'The web timer does not support countdown audio yet.'**
+  String get timerWebSoundUnsupported;
+
   /// No description provided for @timerEmeraldOnlyNote.
   ///
   /// In en, this message translates to:

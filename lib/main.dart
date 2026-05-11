@@ -3916,6 +3916,11 @@ class _CalibratePageState extends State<_CalibratePage>
               style: theme.textTheme.labelSmall,
             ),
             Text(l10n.timerPreparationNote, style: theme.textTheme.labelSmall),
+            if (kIsWeb)
+              Text(
+                l10n.timerWebSoundUnsupported,
+                style: theme.textTheme.labelSmall,
+              ),
             Text(l10n.timerEmeraldOnlyNote, style: theme.textTheme.labelSmall),
             SizedBox(
               width: double.infinity,

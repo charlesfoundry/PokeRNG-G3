@@ -604,6 +604,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Start gives a 5-second countdown; act on the 4th cue.';
 
   @override
+  String get timerWebSoundUnsupported =>
+      'The web timer does not support countdown audio yet.';
+
+  @override
   String get timerEmeraldOnlyNote =>
       'Retail RNG is recommended for Emerald only: Emerald starts from seed 0.';
 

@@ -260,6 +260,7 @@
     }
   },
   "timerPreparationNote": "开始后先有5秒倒计时，在第4声瞬间软重启/遇敌。",
+  "timerWebSoundUnsupported": "Web 版本的定时器暂时不支持倒计时提示音。",
   "timerEmeraldOnlyNote": "实机乱数仅建议用于绿宝石：绿宝石初始 seed 固定为 0。",
   "timerInputError": "请检查本次目标帧。",
   "observedPokemon": "实际宝可梦",

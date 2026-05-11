@@ -591,6 +591,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get timerPreparationNote => '開始後5秒カウントし、4音目で操作します。';
 
   @override
+  String get timerWebSoundUnsupported => 'Web版タイマーは現在、カウントダウン音に対応していません。';
+
+  @override
   String get timerEmeraldOnlyNote => '実機乱数はエメラルドのみ推奨: エメラルドの初期 seed は 0 固定です。';
 
   @override
