@@ -364,6 +364,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get projectUrlCopied => 'Project URL copied';
 
   @override
+  String get supportDeveloper => 'Support developer';
+
+  @override
+  String get supportDescription =>
+      'Optional in-app purchases can support ongoing development.';
+
+  @override
+  String get supportNoUnlock => 'Purchases do not unlock extra features.';
+
+  @override
+  String get supportUnavailable => 'Support purchases are unavailable.';
+
+  @override
+  String get supportThanks => 'Thank you for your support.';
+
+  @override
+  String get supportCancelled => 'Purchase cancelled.';
+
+  @override
+  String get supportPending => 'Purchase is pending approval.';
+
+  @override
+  String get supportFailed => 'Purchase failed. Please try again later.';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
   String targetAdvance(Object advance) {
     return 'Target $advance';
   }
@@ -605,6 +633,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String actualAdvanceOutput(Object advance) {
     return 'Actual Adv $advance';
   }
+
+  @override
+  String get actualAdvanceUpdated => 'Actual Adv updated. Calculate above.';
 
   @override
   String nextTargetAdvanceOutput(Object advance, Object delta) {

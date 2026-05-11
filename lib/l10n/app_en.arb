@@ -146,6 +146,15 @@
   "aboutCredits": "References PokeFinder, EonTimer, and PokemonRNG community research.",
   "copyProjectUrl": "Copy project URL",
   "projectUrlCopied": "Project URL copied",
+  "supportDeveloper": "Support developer",
+  "supportDescription": "Optional in-app purchases can support ongoing development.",
+  "supportNoUnlock": "Purchases do not unlock extra features.",
+  "supportUnavailable": "Support purchases are unavailable.",
+  "supportThanks": "Thank you for your support.",
+  "supportCancelled": "Purchase cancelled.",
+  "supportPending": "Purchase is pending approval.",
+  "supportFailed": "Purchase failed. Please try again later.",
+  "retry": "Retry",
   "targetAdvance": "Target {advance}",
   "@targetAdvance": {
     "placeholders": {
@@ -265,6 +274,7 @@
       "advance": {}
     }
   },
+  "actualAdvanceUpdated": "Actual Adv updated. Calculate above.",
   "nextTargetAdvanceOutput": "{advance} · Delta {delta}",
   "@nextTargetAdvanceOutput": {
     "placeholders": {

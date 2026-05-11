@@ -146,6 +146,15 @@
   "aboutCredits": "PokeFinder、EonTimer、PokemonRNG コミュニティの研究を参考にしています。",
   "copyProjectUrl": "プロジェクトURLをコピー",
   "projectUrlCopied": "プロジェクトURLをコピーしました",
+  "supportDeveloper": "開発者を支援",
+  "supportDescription": "任意のアプリ内課金で継続開発を支援できます。",
+  "supportNoUnlock": "購入しても追加機能は解放されません。",
+  "supportUnavailable": "支援購入は現在利用できません。",
+  "supportThanks": "ご支援ありがとうございます。",
+  "supportCancelled": "購入をキャンセルしました。",
+  "supportPending": "購入は承認待ちです。",
+  "supportFailed": "購入に失敗しました。あとでもう一度お試しください。",
+  "retry": "再試行",
   "targetAdvance": "目標 {advance}",
   "@targetAdvance": {
     "placeholders": {
@@ -265,6 +274,7 @@
       "advance": {}
     }
   },
+  "actualAdvanceUpdated": "実際 Adv を更新しました。上で計算してください。",
   "nextTargetAdvanceOutput": "{advance} · ずれ {delta}",
   "@nextTargetAdvanceOutput": {
     "placeholders": {

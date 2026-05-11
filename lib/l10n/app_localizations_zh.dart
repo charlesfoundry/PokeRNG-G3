@@ -351,6 +351,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get projectUrlCopied => '项目地址已复制';
 
   @override
+  String get supportDeveloper => '支持作者';
+
+  @override
+  String get supportDescription => '可通过自愿内购支持后续开发。';
+
+  @override
+  String get supportNoUnlock => '购买不会解锁额外功能。';
+
+  @override
+  String get supportUnavailable => '支持作者暂不可用。';
+
+  @override
+  String get supportThanks => '感谢支持。';
+
+  @override
+  String get supportCancelled => '已取消购买。';
+
+  @override
+  String get supportPending => '购买正在等待批准。';
+
+  @override
+  String get supportFailed => '购买失败，请稍后再试。';
+
+  @override
+  String get retry => '重试';
+
+  @override
   String targetAdvance(Object advance) {
     return '目标帧 $advance';
   }
@@ -587,6 +614,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String actualAdvanceOutput(Object advance) {
     return '实际帧 $advance';
   }
+
+  @override
+  String get actualAdvanceUpdated => '实际帧已刷新，请到上方计算。';
 
   @override
   String nextTargetAdvanceOutput(Object advance, Object delta) {
@@ -994,6 +1024,33 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get projectUrlCopied => '项目地址已复制';
 
   @override
+  String get supportDeveloper => '支持作者';
+
+  @override
+  String get supportDescription => '可通过自愿内购支持后续开发。';
+
+  @override
+  String get supportNoUnlock => '购买不会解锁额外功能。';
+
+  @override
+  String get supportUnavailable => '支持作者暂不可用。';
+
+  @override
+  String get supportThanks => '感谢支持。';
+
+  @override
+  String get supportCancelled => '已取消购买。';
+
+  @override
+  String get supportPending => '购买正在等待批准。';
+
+  @override
+  String get supportFailed => '购买失败，请稍后再试。';
+
+  @override
+  String get retry => '重试';
+
+  @override
   String targetAdvance(Object advance) {
     return '目标帧 $advance';
   }
@@ -1230,6 +1287,9 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String actualAdvanceOutput(Object advance) {
     return '实际帧 $advance';
   }
+
+  @override
+  String get actualAdvanceUpdated => '实际帧已刷新，请到上方计算。';
 
   @override
   String nextTargetAdvanceOutput(Object advance, Object delta) {

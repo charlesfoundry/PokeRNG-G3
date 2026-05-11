@@ -146,6 +146,15 @@
   "aboutCredits": "参考 PokeFinder、EonTimer 与 PokemonRNG 社区研究。",
   "copyProjectUrl": "复制项目地址",
   "projectUrlCopied": "项目地址已复制",
+  "supportDeveloper": "支持作者",
+  "supportDescription": "可通过自愿内购支持后续开发。",
+  "supportNoUnlock": "购买不会解锁额外功能。",
+  "supportUnavailable": "支持作者暂不可用。",
+  "supportThanks": "感谢支持。",
+  "supportCancelled": "已取消购买。",
+  "supportPending": "购买正在等待批准。",
+  "supportFailed": "购买失败，请稍后再试。",
+  "retry": "重试",
   "targetAdvance": "目标帧 {advance}",
   "@targetAdvance": {
     "placeholders": {
@@ -265,6 +274,7 @@
       "advance": {}
     }
   },
+  "actualAdvanceUpdated": "实际帧已刷新，请到上方计算。",
   "nextTargetAdvanceOutput": "{advance} · 偏差 {delta}",
   "@nextTargetAdvanceOutput": {
     "placeholders": {

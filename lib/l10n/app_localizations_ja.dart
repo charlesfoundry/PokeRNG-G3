@@ -356,6 +356,33 @@ class AppLocalizationsJa extends AppLocalizations {
   String get projectUrlCopied => 'プロジェクトURLをコピーしました';
 
   @override
+  String get supportDeveloper => '開発者を支援';
+
+  @override
+  String get supportDescription => '任意のアプリ内課金で継続開発を支援できます。';
+
+  @override
+  String get supportNoUnlock => '購入しても追加機能は解放されません。';
+
+  @override
+  String get supportUnavailable => '支援購入は現在利用できません。';
+
+  @override
+  String get supportThanks => 'ご支援ありがとうございます。';
+
+  @override
+  String get supportCancelled => '購入をキャンセルしました。';
+
+  @override
+  String get supportPending => '購入は承認待ちです。';
+
+  @override
+  String get supportFailed => '購入に失敗しました。あとでもう一度お試しください。';
+
+  @override
+  String get retry => '再試行';
+
+  @override
   String targetAdvance(Object advance) {
     return '目標 $advance';
   }
@@ -592,6 +619,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String actualAdvanceOutput(Object advance) {
     return '実際 Adv $advance';
   }
+
+  @override
+  String get actualAdvanceUpdated => '実際 Adv を更新しました。上で計算してください。';
 
   @override
   String nextTargetAdvanceOutput(Object advance, Object delta) {

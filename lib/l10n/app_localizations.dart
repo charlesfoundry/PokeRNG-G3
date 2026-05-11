@@ -755,6 +755,60 @@ abstract class AppLocalizations {
   /// **'Project URL copied'**
   String get projectUrlCopied;
 
+  /// No description provided for @supportDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Support developer'**
+  String get supportDeveloper;
+
+  /// No description provided for @supportDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional in-app purchases can support ongoing development.'**
+  String get supportDescription;
+
+  /// No description provided for @supportNoUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases do not unlock extra features.'**
+  String get supportNoUnlock;
+
+  /// No description provided for @supportUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Support purchases are unavailable.'**
+  String get supportUnavailable;
+
+  /// No description provided for @supportThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your support.'**
+  String get supportThanks;
+
+  /// No description provided for @supportCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase cancelled.'**
+  String get supportCancelled;
+
+  /// No description provided for @supportPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase is pending approval.'**
+  String get supportPending;
+
+  /// No description provided for @supportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase failed. Please try again later.'**
+  String get supportFailed;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
   /// No description provided for @targetAdvance.
   ///
   /// In en, this message translates to:
@@ -1192,6 +1246,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Actual Adv {advance}'**
   String actualAdvanceOutput(Object advance);
+
+  /// No description provided for @actualAdvanceUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual Adv updated. Calculate above.'**
+  String get actualAdvanceUpdated;
 
   /// No description provided for @nextTargetAdvanceOutput.
   ///
