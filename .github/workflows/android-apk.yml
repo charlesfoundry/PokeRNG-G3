@@ -34,7 +34,12 @@ jobs:
         run: flutter analyze
 
       - name: Test
-        run: flutter test
+        run: |
+          if [ -d test ]; then
+            flutter test
+          else
+            echo "No test directory in this repository; skipping flutter test."
+          fi
 
       - name: Build arm64 APK
         run: flutter build apk --release --target-platform android-arm64
