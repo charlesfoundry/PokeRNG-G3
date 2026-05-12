@@ -23,7 +23,7 @@ const _maxEggAdvanceDelta = 10000;
 const _maxDisplayedResults = 500;
 const _maxSpeciesSuggestions = 50;
 const _maxSavedTargets = 20;
-const _appVersion = '1.0.0+1';
+const _appVersion = '1.0.1';
 const _projectUrl = 'https://github.com/charlesfoundry/PokeRNG-G3';
 const _privacyPolicyUrl =
     'https://github.com/charlesfoundry/PokeRNG-G3/blob/main/PRIVACY.md';
