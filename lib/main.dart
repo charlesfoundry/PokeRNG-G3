@@ -5,6 +5,7 @@ import 'dart:isolate';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/profile.dart';
@@ -23,7 +24,6 @@ const _maxEggAdvanceDelta = 10000;
 const _maxDisplayedResults = 500;
 const _maxSpeciesSuggestions = 50;
 const _maxSavedTargets = 20;
-const _appVersion = '1.0.1';
 const _projectUrl = 'https://github.com/charlesfoundry/PokeRNG-G3';
 const _privacyPolicyUrl =
     'https://github.com/charlesfoundry/PokeRNG-G3/blob/main/PRIVACY.md';
@@ -6085,6 +6085,7 @@ class _SettingsPageState extends State<_SettingsPage> {
   late final TextEditingController _sidController;
   late final TextEditingController _seedController;
   late GameVersion _game;
+  String _appVersion = '-';
   String? _error;
 
   @override
@@ -6094,6 +6095,19 @@ class _SettingsPageState extends State<_SettingsPage> {
     _tidController = TextEditingController(text: '${widget.profile.tid}');
     _sidController = TextEditingController(text: '${widget.profile.sid}');
     _seedController = TextEditingController(text: widget.profile.defaultSeed);
+    _loadAppVersion();
+  }
+
+  Future<void> _loadAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _appVersion = info.buildNumber.isEmpty
+          ? info.version
+          : '${info.version} (${info.buildNumber})';
+    });
   }
 
   @override
