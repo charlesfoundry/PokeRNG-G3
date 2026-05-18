@@ -2543,6 +2543,68 @@ class _ResponsiveFormGrid extends StatelessWidget {
   }
 }
 
+class _ClearOnFirstFocusTextField extends StatefulWidget {
+  const _ClearOnFirstFocusTextField({
+    required this.controller,
+    required this.decoration,
+    this.keyboardType,
+    this.inputFormatters,
+  });
+
+  final TextEditingController controller;
+  final InputDecoration decoration;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+
+  @override
+  State<_ClearOnFirstFocusTextField> createState() =>
+      _ClearOnFirstFocusTextFieldState();
+}
+
+class _ClearOnFirstFocusTextFieldState
+    extends State<_ClearOnFirstFocusTextField> {
+  final _focusNode = FocusNode();
+  bool _clearOnFocus = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(_handleFocusChange);
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(_handleFocusChange);
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _handleFocusChange() {
+    if (_focusNode.hasFocus && _clearOnFocus) {
+      widget.controller.clear();
+    }
+    if (!_focusNode.hasFocus) {
+      _clearOnFocus = false;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      onPointerDown: (_) {
+        _clearOnFocus = !_focusNode.hasFocus;
+      },
+      child: TextField(
+        controller: widget.controller,
+        focusNode: _focusNode,
+        decoration: widget.decoration,
+        keyboardType: widget.keyboardType,
+        inputFormatters: widget.inputFormatters,
+      ),
+    );
+  }
+}
+
 class _IvInputGrid extends StatelessWidget {
   const _IvInputGrid({
     required this.controllers,
@@ -3840,13 +3902,14 @@ class _CalibratePageState extends State<_CalibratePage>
     return List<Widget>.generate(labels.length, (index) {
       return SizedBox(
         width: 108,
-        child: TextField(
+        child: _ClearOnFirstFocusTextField(
           controller: _statControllers[index],
           decoration: InputDecoration(
             labelText: labels[index],
             border: _controlBorder,
           ),
           keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         ),
       );
     }, growable: false);
@@ -5825,7 +5888,7 @@ class _StatIvCalculatorState extends State<_StatIvCalculator> {
     return List<Widget>.generate(labels.length, (index) {
       return SizedBox(
         width: 96,
-        child: TextField(
+        child: _ClearOnFirstFocusTextField(
           controller: controllers[index],
           decoration: InputDecoration(
             labelText: labels[index],
