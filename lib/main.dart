@@ -3318,12 +3318,31 @@ class _CalibratePageState extends State<_CalibratePage>
       _targetDeltaController.text = l10n.targetDeltaOutput(
         nextPress - referenceAdvance,
       );
+      _refreshRetailTimerPreview();
     });
   }
 
+  bool get _retailTimerRunning {
+    return _timerPhase == _RetailTimerPhase.preparation ||
+        _timerPhase == _RetailTimerPhase.target;
+  }
+
+  void _refreshRetailTimerPreview() {
+    if (_retailTimerRunning) {
+      return;
+    }
+    final targetAdvance = int.tryParse(_targetAdvanceController.text.trim());
+    if (targetAdvance == null || targetAdvance < 0) {
+      _timerTargetAdvance = null;
+      _timerTargetDuration = Duration.zero;
+      return;
+    }
+    _timerTargetAdvance = targetAdvance;
+    _timerTargetDuration = _timerDurationForAdvance(targetAdvance);
+  }
+
   void _toggleRetailTimer() {
-    if (_timerPhase == _RetailTimerPhase.preparation ||
-        _timerPhase == _RetailTimerPhase.target) {
+    if (_retailTimerRunning) {
       _stopRetailTimer();
       return;
     }
@@ -3839,9 +3858,7 @@ class _CalibratePageState extends State<_CalibratePage>
     final displayDuration = displayTarget == null || displayTarget < 0
         ? null
         : _timerDurationForAdvance(displayTarget);
-    final running =
-        _timerPhase == _RetailTimerPhase.preparation ||
-        _timerPhase == _RetailTimerPhase.target;
+    final running = _retailTimerRunning;
     final phaseLabel = _retailTimerPhaseLabel(l10n);
     final remaining = running ? _timerRemaining : displayDuration;
 
@@ -4010,7 +4027,9 @@ class _CalibratePageState extends State<_CalibratePage>
                       border: _controlBorder,
                     ),
                     keyboardType: TextInputType.number,
-                    onChanged: (_) => setState(() {}),
+                    onChanged: (_) {
+                      setState(_refreshRetailTimerPreview);
+                    },
                   ),
                 ),
                 const SizedBox(width: 8),
