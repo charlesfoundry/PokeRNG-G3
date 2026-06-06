@@ -1,0 +1,7338 @@
+{
+  "species": {
+    "1": {
+      "baseStats": [
+        45,
+        49,
+        49,
+        65,
+        65,
+        45
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "2": {
+      "baseStats": [
+        60,
+        62,
+        63,
+        80,
+        80,
+        60
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "3": {
+      "baseStats": [
+        80,
+        82,
+        83,
+        100,
+        100,
+        80
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "4": {
+      "baseStats": [
+        39,
+        52,
+        43,
+        60,
+        50,
+        65
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "5": {
+      "baseStats": [
+        58,
+        64,
+        58,
+        80,
+        65,
+        80
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "6": {
+      "baseStats": [
+        78,
+        84,
+        78,
+        109,
+        85,
+        100
+      ],
+      "typeIds": [
+        9,
+        2
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "7": {
+      "baseStats": [
+        44,
+        48,
+        65,
+        50,
+        64,
+        43
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "8": {
+      "baseStats": [
+        59,
+        63,
+        80,
+        65,
+        80,
+        58
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "9": {
+      "baseStats": [
+        79,
+        83,
+        100,
+        85,
+        105,
+        78
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "10": {
+      "baseStats": [
+        45,
+        30,
+        35,
+        20,
+        20,
+        45
+      ],
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "11": {
+      "baseStats": [
+        50,
+        20,
+        55,
+        25,
+        25,
+        30
+      ],
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "12": {
+      "baseStats": [
+        60,
+        45,
+        50,
+        80,
+        80,
+        70
+      ],
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        14,
+        14
+      ],
+      "genderRatio": 127
+    },
+    "13": {
+      "baseStats": [
+        40,
+        35,
+        30,
+        20,
+        20,
+        50
+      ],
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "14": {
+      "baseStats": [
+        45,
+        25,
+        50,
+        25,
+        25,
+        35
+      ],
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "15": {
+      "baseStats": [
+        65,
+        80,
+        40,
+        45,
+        80,
+        75
+      ],
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        68,
+        68
+      ],
+      "genderRatio": 127
+    },
+    "16": {
+      "baseStats": [
+        40,
+        45,
+        40,
+        35,
+        35,
+        56
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "17": {
+      "baseStats": [
+        63,
+        60,
+        55,
+        50,
+        50,
+        71
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "18": {
+      "baseStats": [
+        83,
+        80,
+        75,
+        70,
+        70,
+        91
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "19": {
+      "baseStats": [
+        30,
+        56,
+        35,
+        25,
+        35,
+        72
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "20": {
+      "baseStats": [
+        55,
+        81,
+        60,
+        50,
+        70,
+        97
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "21": {
+      "baseStats": [
+        40,
+        60,
+        30,
+        31,
+        31,
+        70
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "22": {
+      "baseStats": [
+        65,
+        90,
+        65,
+        61,
+        61,
+        100
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "23": {
+      "baseStats": [
+        35,
+        60,
+        44,
+        40,
+        54,
+        55
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        22,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "24": {
+      "baseStats": [
+        60,
+        85,
+        69,
+        65,
+        79,
+        80
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        22,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "25": {
+      "baseStats": [
+        35,
+        55,
+        30,
+        50,
+        40,
+        90
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "26": {
+      "baseStats": [
+        60,
+        90,
+        55,
+        90,
+        80,
+        100
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "27": {
+      "baseStats": [
+        50,
+        75,
+        85,
+        20,
+        30,
+        40
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        8,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "28": {
+      "baseStats": [
+        75,
+        100,
+        110,
+        45,
+        55,
+        65
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        8,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "29": {
+      "baseStats": [
+        55,
+        47,
+        52,
+        40,
+        40,
+        41
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 254
+    },
+    "30": {
+      "baseStats": [
+        70,
+        62,
+        67,
+        55,
+        55,
+        56
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 254
+    },
+    "31": {
+      "baseStats": [
+        90,
+        82,
+        87,
+        75,
+        85,
+        76
+      ],
+      "typeIds": [
+        3,
+        4
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 254
+    },
+    "32": {
+      "baseStats": [
+        46,
+        57,
+        40,
+        40,
+        40,
+        50
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 0
+    },
+    "33": {
+      "baseStats": [
+        61,
+        72,
+        57,
+        55,
+        55,
+        65
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 0
+    },
+    "34": {
+      "baseStats": [
+        81,
+        92,
+        77,
+        85,
+        75,
+        85
+      ],
+      "typeIds": [
+        3,
+        4
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 0
+    },
+    "35": {
+      "baseStats": [
+        70,
+        45,
+        48,
+        60,
+        65,
+        35
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "36": {
+      "baseStats": [
+        95,
+        70,
+        73,
+        85,
+        90,
+        60
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "37": {
+      "baseStats": [
+        38,
+        41,
+        40,
+        50,
+        65,
+        65
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        18,
+        18
+      ],
+      "genderRatio": 191
+    },
+    "38": {
+      "baseStats": [
+        73,
+        76,
+        75,
+        81,
+        100,
+        100
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        18,
+        18
+      ],
+      "genderRatio": 191
+    },
+    "39": {
+      "baseStats": [
+        115,
+        45,
+        20,
+        45,
+        25,
+        20
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "40": {
+      "baseStats": [
+        140,
+        70,
+        45,
+        75,
+        50,
+        45
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "41": {
+      "baseStats": [
+        40,
+        45,
+        35,
+        30,
+        40,
+        55
+      ],
+      "typeIds": [
+        3,
+        2
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "42": {
+      "baseStats": [
+        75,
+        80,
+        70,
+        65,
+        75,
+        90
+      ],
+      "typeIds": [
+        3,
+        2
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "43": {
+      "baseStats": [
+        45,
+        50,
+        55,
+        75,
+        65,
+        30
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "44": {
+      "baseStats": [
+        60,
+        65,
+        70,
+        85,
+        75,
+        40
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "45": {
+      "baseStats": [
+        75,
+        80,
+        85,
+        100,
+        90,
+        50
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "46": {
+      "baseStats": [
+        35,
+        70,
+        55,
+        45,
+        55,
+        25
+      ],
+      "typeIds": [
+        6,
+        11
+      ],
+      "abilityIds": [
+        27,
+        27
+      ],
+      "genderRatio": 127
+    },
+    "47": {
+      "baseStats": [
+        60,
+        95,
+        80,
+        60,
+        80,
+        30
+      ],
+      "typeIds": [
+        6,
+        11
+      ],
+      "abilityIds": [
+        27,
+        27
+      ],
+      "genderRatio": 127
+    },
+    "48": {
+      "baseStats": [
+        60,
+        55,
+        50,
+        40,
+        55,
+        45
+      ],
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        14,
+        14
+      ],
+      "genderRatio": 127
+    },
+    "49": {
+      "baseStats": [
+        70,
+        65,
+        60,
+        90,
+        75,
+        90
+      ],
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "50": {
+      "baseStats": [
+        10,
+        55,
+        25,
+        35,
+        45,
+        95
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        8,
+        71
+      ],
+      "genderRatio": 127
+    },
+    "51": {
+      "baseStats": [
+        35,
+        80,
+        50,
+        50,
+        70,
+        120
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        8,
+        71
+      ],
+      "genderRatio": 127
+    },
+    "52": {
+      "baseStats": [
+        40,
+        45,
+        35,
+        40,
+        40,
+        90
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "53": {
+      "baseStats": [
+        65,
+        70,
+        60,
+        65,
+        65,
+        115
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        7,
+        7
+      ],
+      "genderRatio": 127
+    },
+    "54": {
+      "baseStats": [
+        50,
+        52,
+        48,
+        65,
+        50,
+        55
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        6,
+        13
+      ],
+      "genderRatio": 127
+    },
+    "55": {
+      "baseStats": [
+        80,
+        82,
+        78,
+        95,
+        80,
+        85
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        6,
+        13
+      ],
+      "genderRatio": 127
+    },
+    "56": {
+      "baseStats": [
+        40,
+        80,
+        35,
+        35,
+        45,
+        70
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        72,
+        72
+      ],
+      "genderRatio": 127
+    },
+    "57": {
+      "baseStats": [
+        65,
+        105,
+        60,
+        60,
+        70,
+        95
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        72,
+        72
+      ],
+      "genderRatio": 127
+    },
+    "58": {
+      "baseStats": [
+        55,
+        70,
+        45,
+        70,
+        50,
+        60
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        22,
+        18
+      ],
+      "genderRatio": 63
+    },
+    "59": {
+      "baseStats": [
+        90,
+        110,
+        80,
+        100,
+        80,
+        95
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        22,
+        18
+      ],
+      "genderRatio": 63
+    },
+    "60": {
+      "baseStats": [
+        40,
+        50,
+        40,
+        40,
+        40,
+        90
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        11,
+        6
+      ],
+      "genderRatio": 127
+    },
+    "61": {
+      "baseStats": [
+        65,
+        65,
+        65,
+        50,
+        50,
+        90
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        11,
+        6
+      ],
+      "genderRatio": 127
+    },
+    "62": {
+      "baseStats": [
+        90,
+        85,
+        95,
+        70,
+        90,
+        70
+      ],
+      "typeIds": [
+        10,
+        1
+      ],
+      "abilityIds": [
+        11,
+        6
+      ],
+      "genderRatio": 127
+    },
+    "63": {
+      "baseStats": [
+        25,
+        20,
+        15,
+        105,
+        55,
+        90
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        39
+      ],
+      "genderRatio": 63
+    },
+    "64": {
+      "baseStats": [
+        40,
+        35,
+        30,
+        120,
+        70,
+        105
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        39
+      ],
+      "genderRatio": 63
+    },
+    "65": {
+      "baseStats": [
+        55,
+        50,
+        45,
+        135,
+        85,
+        120
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        39
+      ],
+      "genderRatio": 63
+    },
+    "66": {
+      "baseStats": [
+        70,
+        80,
+        50,
+        35,
+        35,
+        35
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "67": {
+      "baseStats": [
+        80,
+        100,
+        70,
+        50,
+        60,
+        45
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "68": {
+      "baseStats": [
+        90,
+        130,
+        80,
+        65,
+        85,
+        55
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "69": {
+      "baseStats": [
+        50,
+        75,
+        35,
+        70,
+        30,
+        40
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "70": {
+      "baseStats": [
+        65,
+        90,
+        50,
+        85,
+        45,
+        55
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "71": {
+      "baseStats": [
+        80,
+        105,
+        65,
+        100,
+        60,
+        70
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "72": {
+      "baseStats": [
+        40,
+        40,
+        35,
+        50,
+        100,
+        70
+      ],
+      "typeIds": [
+        10,
+        3
+      ],
+      "abilityIds": [
+        29,
+        64
+      ],
+      "genderRatio": 127
+    },
+    "73": {
+      "baseStats": [
+        80,
+        70,
+        65,
+        80,
+        120,
+        100
+      ],
+      "typeIds": [
+        10,
+        3
+      ],
+      "abilityIds": [
+        29,
+        64
+      ],
+      "genderRatio": 127
+    },
+    "74": {
+      "baseStats": [
+        40,
+        80,
+        100,
+        30,
+        30,
+        20
+      ],
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "75": {
+      "baseStats": [
+        55,
+        95,
+        115,
+        45,
+        45,
+        35
+      ],
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "76": {
+      "baseStats": [
+        80,
+        110,
+        130,
+        55,
+        65,
+        45
+      ],
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "77": {
+      "baseStats": [
+        50,
+        85,
+        55,
+        65,
+        65,
+        90
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        50,
+        18
+      ],
+      "genderRatio": 127
+    },
+    "78": {
+      "baseStats": [
+        65,
+        100,
+        70,
+        80,
+        80,
+        105
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        50,
+        18
+      ],
+      "genderRatio": 127
+    },
+    "79": {
+      "baseStats": [
+        90,
+        65,
+        65,
+        40,
+        40,
+        15
+      ],
+      "typeIds": [
+        10,
+        13
+      ],
+      "abilityIds": [
+        12,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "80": {
+      "baseStats": [
+        95,
+        75,
+        110,
+        100,
+        80,
+        30
+      ],
+      "typeIds": [
+        10,
+        13
+      ],
+      "abilityIds": [
+        12,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "81": {
+      "baseStats": [
+        25,
+        35,
+        70,
+        95,
+        55,
+        45
+      ],
+      "typeIds": [
+        12,
+        8
+      ],
+      "abilityIds": [
+        42,
+        5
+      ],
+      "genderRatio": 255
+    },
+    "82": {
+      "baseStats": [
+        50,
+        60,
+        95,
+        120,
+        70,
+        70
+      ],
+      "typeIds": [
+        12,
+        8
+      ],
+      "abilityIds": [
+        42,
+        5
+      ],
+      "genderRatio": 255
+    },
+    "83": {
+      "baseStats": [
+        52,
+        65,
+        55,
+        58,
+        62,
+        60
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        51,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "84": {
+      "baseStats": [
+        35,
+        85,
+        45,
+        35,
+        35,
+        75
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        50,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "85": {
+      "baseStats": [
+        60,
+        110,
+        70,
+        60,
+        60,
+        100
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        50,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "86": {
+      "baseStats": [
+        65,
+        45,
+        55,
+        45,
+        70,
+        45
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "87": {
+      "baseStats": [
+        90,
+        70,
+        80,
+        70,
+        95,
+        70
+      ],
+      "typeIds": [
+        10,
+        14
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "88": {
+      "baseStats": [
+        80,
+        80,
+        50,
+        40,
+        50,
+        25
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        1,
+        60
+      ],
+      "genderRatio": 127
+    },
+    "89": {
+      "baseStats": [
+        105,
+        105,
+        75,
+        65,
+        100,
+        50
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        1,
+        60
+      ],
+      "genderRatio": 127
+    },
+    "90": {
+      "baseStats": [
+        30,
+        65,
+        100,
+        45,
+        25,
+        40
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        75,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "91": {
+      "baseStats": [
+        50,
+        95,
+        180,
+        85,
+        45,
+        70
+      ],
+      "typeIds": [
+        10,
+        14
+      ],
+      "abilityIds": [
+        75,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "92": {
+      "baseStats": [
+        30,
+        35,
+        30,
+        100,
+        35,
+        80
+      ],
+      "typeIds": [
+        7,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "93": {
+      "baseStats": [
+        45,
+        50,
+        45,
+        115,
+        55,
+        95
+      ],
+      "typeIds": [
+        7,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "94": {
+      "baseStats": [
+        60,
+        65,
+        60,
+        130,
+        75,
+        110
+      ],
+      "typeIds": [
+        7,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "95": {
+      "baseStats": [
+        35,
+        45,
+        160,
+        30,
+        45,
+        70
+      ],
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "96": {
+      "baseStats": [
+        60,
+        48,
+        45,
+        43,
+        90,
+        42
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "97": {
+      "baseStats": [
+        85,
+        73,
+        70,
+        73,
+        115,
+        67
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "98": {
+      "baseStats": [
+        30,
+        105,
+        90,
+        25,
+        25,
+        50
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        52,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "99": {
+      "baseStats": [
+        55,
+        130,
+        115,
+        50,
+        50,
+        75
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        52,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "100": {
+      "baseStats": [
+        40,
+        30,
+        50,
+        55,
+        55,
+        100
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        43,
+        9
+      ],
+      "genderRatio": 255
+    },
+    "101": {
+      "baseStats": [
+        60,
+        50,
+        70,
+        80,
+        80,
+        140
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        43,
+        9
+      ],
+      "genderRatio": 255
+    },
+    "102": {
+      "baseStats": [
+        60,
+        40,
+        80,
+        60,
+        45,
+        40
+      ],
+      "typeIds": [
+        11,
+        13
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "103": {
+      "baseStats": [
+        95,
+        95,
+        85,
+        125,
+        65,
+        55
+      ],
+      "typeIds": [
+        11,
+        13
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "104": {
+      "baseStats": [
+        50,
+        50,
+        95,
+        40,
+        50,
+        35
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        69,
+        31
+      ],
+      "genderRatio": 127
+    },
+    "105": {
+      "baseStats": [
+        60,
+        80,
+        110,
+        50,
+        80,
+        45
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        69,
+        31
+      ],
+      "genderRatio": 127
+    },
+    "106": {
+      "baseStats": [
+        50,
+        120,
+        53,
+        35,
+        110,
+        87
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        7,
+        7
+      ],
+      "genderRatio": 0
+    },
+    "107": {
+      "baseStats": [
+        50,
+        105,
+        79,
+        35,
+        110,
+        76
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 0
+    },
+    "108": {
+      "baseStats": [
+        90,
+        55,
+        75,
+        60,
+        75,
+        30
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        20,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "109": {
+      "baseStats": [
+        40,
+        65,
+        95,
+        60,
+        45,
+        35
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "110": {
+      "baseStats": [
+        65,
+        90,
+        120,
+        85,
+        70,
+        60
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "111": {
+      "baseStats": [
+        80,
+        85,
+        95,
+        30,
+        30,
+        25
+      ],
+      "typeIds": [
+        4,
+        5
+      ],
+      "abilityIds": [
+        31,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "112": {
+      "baseStats": [
+        105,
+        130,
+        120,
+        45,
+        45,
+        40
+      ],
+      "typeIds": [
+        4,
+        5
+      ],
+      "abilityIds": [
+        31,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "113": {
+      "baseStats": [
+        250,
+        5,
+        5,
+        35,
+        105,
+        50
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        30,
+        32
+      ],
+      "genderRatio": 254
+    },
+    "114": {
+      "baseStats": [
+        65,
+        55,
+        115,
+        100,
+        40,
+        60
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "115": {
+      "baseStats": [
+        105,
+        95,
+        80,
+        40,
+        80,
+        90
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        48,
+        48
+      ],
+      "genderRatio": 254
+    },
+    "116": {
+      "baseStats": [
+        30,
+        40,
+        70,
+        70,
+        25,
+        60
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "117": {
+      "baseStats": [
+        55,
+        65,
+        95,
+        95,
+        45,
+        85
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        38,
+        38
+      ],
+      "genderRatio": 127
+    },
+    "118": {
+      "baseStats": [
+        45,
+        67,
+        60,
+        35,
+        50,
+        63
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        41
+      ],
+      "genderRatio": 127
+    },
+    "119": {
+      "baseStats": [
+        80,
+        92,
+        65,
+        65,
+        80,
+        68
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        41
+      ],
+      "genderRatio": 127
+    },
+    "120": {
+      "baseStats": [
+        30,
+        45,
+        55,
+        70,
+        55,
+        85
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        35,
+        30
+      ],
+      "genderRatio": 255
+    },
+    "121": {
+      "baseStats": [
+        60,
+        75,
+        85,
+        100,
+        85,
+        115
+      ],
+      "typeIds": [
+        10,
+        13
+      ],
+      "abilityIds": [
+        35,
+        30
+      ],
+      "genderRatio": 255
+    },
+    "122": {
+      "baseStats": [
+        40,
+        45,
+        65,
+        100,
+        120,
+        90
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        43,
+        43
+      ],
+      "genderRatio": 127
+    },
+    "123": {
+      "baseStats": [
+        70,
+        110,
+        80,
+        55,
+        80,
+        105
+      ],
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        68,
+        68
+      ],
+      "genderRatio": 127
+    },
+    "124": {
+      "baseStats": [
+        65,
+        50,
+        35,
+        115,
+        95,
+        95
+      ],
+      "typeIds": [
+        14,
+        13
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 254
+    },
+    "125": {
+      "baseStats": [
+        65,
+        83,
+        57,
+        95,
+        85,
+        105
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 63
+    },
+    "126": {
+      "baseStats": [
+        65,
+        95,
+        57,
+        100,
+        85,
+        93
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        49,
+        49
+      ],
+      "genderRatio": 63
+    },
+    "127": {
+      "baseStats": [
+        65,
+        125,
+        100,
+        55,
+        70,
+        85
+      ],
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        52,
+        52
+      ],
+      "genderRatio": 127
+    },
+    "128": {
+      "baseStats": [
+        75,
+        100,
+        95,
+        40,
+        70,
+        110
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 0
+    },
+    "129": {
+      "baseStats": [
+        20,
+        10,
+        55,
+        15,
+        20,
+        80
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "130": {
+      "baseStats": [
+        95,
+        125,
+        79,
+        60,
+        100,
+        81
+      ],
+      "typeIds": [
+        10,
+        2
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "131": {
+      "baseStats": [
+        130,
+        85,
+        80,
+        85,
+        95,
+        60
+      ],
+      "typeIds": [
+        10,
+        14
+      ],
+      "abilityIds": [
+        11,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "132": {
+      "baseStats": [
+        48,
+        48,
+        48,
+        48,
+        48,
+        48
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        7,
+        7
+      ],
+      "genderRatio": 255
+    },
+    "133": {
+      "baseStats": [
+        55,
+        55,
+        50,
+        45,
+        65,
+        55
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        50
+      ],
+      "genderRatio": 31
+    },
+    "134": {
+      "baseStats": [
+        130,
+        65,
+        60,
+        110,
+        95,
+        65
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        11,
+        11
+      ],
+      "genderRatio": 31
+    },
+    "135": {
+      "baseStats": [
+        65,
+        65,
+        60,
+        110,
+        95,
+        130
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        10,
+        10
+      ],
+      "genderRatio": 31
+    },
+    "136": {
+      "baseStats": [
+        65,
+        130,
+        60,
+        95,
+        110,
+        65
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        18,
+        18
+      ],
+      "genderRatio": 31
+    },
+    "137": {
+      "baseStats": [
+        65,
+        60,
+        70,
+        85,
+        75,
+        40
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        36,
+        36
+      ],
+      "genderRatio": 255
+    },
+    "138": {
+      "baseStats": [
+        35,
+        40,
+        100,
+        90,
+        55,
+        35
+      ],
+      "typeIds": [
+        5,
+        10
+      ],
+      "abilityIds": [
+        33,
+        75
+      ],
+      "genderRatio": 31
+    },
+    "139": {
+      "baseStats": [
+        70,
+        60,
+        125,
+        115,
+        70,
+        55
+      ],
+      "typeIds": [
+        5,
+        10
+      ],
+      "abilityIds": [
+        33,
+        75
+      ],
+      "genderRatio": 31
+    },
+    "140": {
+      "baseStats": [
+        30,
+        80,
+        90,
+        55,
+        45,
+        55
+      ],
+      "typeIds": [
+        5,
+        10
+      ],
+      "abilityIds": [
+        33,
+        4
+      ],
+      "genderRatio": 31
+    },
+    "141": {
+      "baseStats": [
+        60,
+        115,
+        105,
+        65,
+        70,
+        80
+      ],
+      "typeIds": [
+        5,
+        10
+      ],
+      "abilityIds": [
+        33,
+        4
+      ],
+      "genderRatio": 31
+    },
+    "142": {
+      "baseStats": [
+        80,
+        105,
+        65,
+        60,
+        75,
+        130
+      ],
+      "typeIds": [
+        5,
+        2
+      ],
+      "abilityIds": [
+        69,
+        46
+      ],
+      "genderRatio": 31
+    },
+    "143": {
+      "baseStats": [
+        160,
+        110,
+        65,
+        65,
+        110,
+        30
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        17,
+        47
+      ],
+      "genderRatio": 31
+    },
+    "144": {
+      "baseStats": [
+        90,
+        85,
+        100,
+        95,
+        125,
+        85
+      ],
+      "typeIds": [
+        14,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "145": {
+      "baseStats": [
+        90,
+        90,
+        85,
+        125,
+        90,
+        100
+      ],
+      "typeIds": [
+        12,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "146": {
+      "baseStats": [
+        90,
+        100,
+        90,
+        125,
+        85,
+        90
+      ],
+      "typeIds": [
+        9,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "147": {
+      "baseStats": [
+        41,
+        64,
+        45,
+        50,
+        50,
+        50
+      ],
+      "typeIds": [
+        15,
+        15
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "148": {
+      "baseStats": [
+        61,
+        84,
+        65,
+        70,
+        70,
+        70
+      ],
+      "typeIds": [
+        15,
+        15
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "149": {
+      "baseStats": [
+        91,
+        134,
+        95,
+        100,
+        100,
+        80
+      ],
+      "typeIds": [
+        15,
+        2
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "150": {
+      "baseStats": [
+        106,
+        110,
+        90,
+        154,
+        90,
+        130
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "151": {
+      "baseStats": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        28
+      ],
+      "genderRatio": 255
+    },
+    "152": {
+      "baseStats": [
+        45,
+        49,
+        65,
+        49,
+        65,
+        45
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "153": {
+      "baseStats": [
+        60,
+        62,
+        80,
+        63,
+        80,
+        60
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "154": {
+      "baseStats": [
+        80,
+        82,
+        100,
+        83,
+        100,
+        80
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "155": {
+      "baseStats": [
+        39,
+        52,
+        43,
+        60,
+        50,
+        65
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "156": {
+      "baseStats": [
+        58,
+        64,
+        58,
+        80,
+        65,
+        80
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "157": {
+      "baseStats": [
+        78,
+        84,
+        78,
+        109,
+        85,
+        100
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "158": {
+      "baseStats": [
+        50,
+        65,
+        64,
+        44,
+        48,
+        43
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "159": {
+      "baseStats": [
+        65,
+        80,
+        80,
+        59,
+        63,
+        58
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "160": {
+      "baseStats": [
+        85,
+        105,
+        100,
+        79,
+        83,
+        78
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "161": {
+      "baseStats": [
+        35,
+        46,
+        34,
+        35,
+        45,
+        20
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "162": {
+      "baseStats": [
+        85,
+        76,
+        64,
+        45,
+        55,
+        90
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "163": {
+      "baseStats": [
+        60,
+        30,
+        30,
+        36,
+        56,
+        50
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        15,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "164": {
+      "baseStats": [
+        100,
+        50,
+        50,
+        76,
+        96,
+        70
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        15,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "165": {
+      "baseStats": [
+        40,
+        20,
+        30,
+        40,
+        80,
+        55
+      ],
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        68,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "166": {
+      "baseStats": [
+        55,
+        35,
+        50,
+        55,
+        110,
+        85
+      ],
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        68,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "167": {
+      "baseStats": [
+        40,
+        60,
+        40,
+        40,
+        40,
+        30
+      ],
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        68,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "168": {
+      "baseStats": [
+        70,
+        90,
+        70,
+        60,
+        60,
+        40
+      ],
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        68,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "169": {
+      "baseStats": [
+        85,
+        90,
+        80,
+        70,
+        80,
+        130
+      ],
+      "typeIds": [
+        3,
+        2
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "170": {
+      "baseStats": [
+        75,
+        38,
+        38,
+        56,
+        56,
+        67
+      ],
+      "typeIds": [
+        10,
+        12
+      ],
+      "abilityIds": [
+        10,
+        35
+      ],
+      "genderRatio": 127
+    },
+    "171": {
+      "baseStats": [
+        125,
+        58,
+        58,
+        76,
+        76,
+        67
+      ],
+      "typeIds": [
+        10,
+        12
+      ],
+      "abilityIds": [
+        10,
+        35
+      ],
+      "genderRatio": 127
+    },
+    "172": {
+      "baseStats": [
+        20,
+        40,
+        15,
+        35,
+        35,
+        60
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "173": {
+      "baseStats": [
+        50,
+        25,
+        28,
+        45,
+        55,
+        15
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "174": {
+      "baseStats": [
+        90,
+        30,
+        15,
+        40,
+        20,
+        15
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "175": {
+      "baseStats": [
+        35,
+        20,
+        65,
+        40,
+        65,
+        20
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        55,
+        32
+      ],
+      "genderRatio": 31
+    },
+    "176": {
+      "baseStats": [
+        55,
+        40,
+        85,
+        80,
+        105,
+        40
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        55,
+        32
+      ],
+      "genderRatio": 31
+    },
+    "177": {
+      "baseStats": [
+        40,
+        50,
+        45,
+        70,
+        45,
+        70
+      ],
+      "typeIds": [
+        13,
+        2
+      ],
+      "abilityIds": [
+        28,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "178": {
+      "baseStats": [
+        65,
+        75,
+        70,
+        95,
+        70,
+        95
+      ],
+      "typeIds": [
+        13,
+        2
+      ],
+      "abilityIds": [
+        28,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "179": {
+      "baseStats": [
+        55,
+        40,
+        40,
+        65,
+        45,
+        35
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "180": {
+      "baseStats": [
+        70,
+        55,
+        55,
+        80,
+        60,
+        45
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "181": {
+      "baseStats": [
+        90,
+        75,
+        75,
+        115,
+        90,
+        55
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 127
+    },
+    "182": {
+      "baseStats": [
+        75,
+        80,
+        85,
+        90,
+        100,
+        50
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "183": {
+      "baseStats": [
+        70,
+        20,
+        50,
+        20,
+        50,
+        40
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        47,
+        37
+      ],
+      "genderRatio": 127
+    },
+    "184": {
+      "baseStats": [
+        100,
+        50,
+        80,
+        50,
+        80,
+        50
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        47,
+        37
+      ],
+      "genderRatio": 127
+    },
+    "185": {
+      "baseStats": [
+        70,
+        100,
+        115,
+        30,
+        65,
+        30
+      ],
+      "typeIds": [
+        5,
+        5
+      ],
+      "abilityIds": [
+        5,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "186": {
+      "baseStats": [
+        90,
+        75,
+        75,
+        90,
+        100,
+        70
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        11,
+        6
+      ],
+      "genderRatio": 127
+    },
+    "187": {
+      "baseStats": [
+        35,
+        35,
+        40,
+        35,
+        55,
+        50
+      ],
+      "typeIds": [
+        11,
+        2
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "188": {
+      "baseStats": [
+        55,
+        45,
+        50,
+        45,
+        65,
+        80
+      ],
+      "typeIds": [
+        11,
+        2
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "189": {
+      "baseStats": [
+        75,
+        55,
+        70,
+        55,
+        85,
+        110
+      ],
+      "typeIds": [
+        11,
+        2
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "190": {
+      "baseStats": [
+        55,
+        70,
+        55,
+        40,
+        55,
+        85
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        50,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "191": {
+      "baseStats": [
+        30,
+        30,
+        30,
+        30,
+        30,
+        30
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "192": {
+      "baseStats": [
+        75,
+        75,
+        55,
+        105,
+        85,
+        30
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "193": {
+      "baseStats": [
+        65,
+        65,
+        45,
+        75,
+        45,
+        95
+      ],
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        3,
+        14
+      ],
+      "genderRatio": 127
+    },
+    "194": {
+      "baseStats": [
+        55,
+        45,
+        45,
+        25,
+        25,
+        15
+      ],
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        6,
+        11
+      ],
+      "genderRatio": 127
+    },
+    "195": {
+      "baseStats": [
+        95,
+        85,
+        85,
+        65,
+        65,
+        35
+      ],
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        6,
+        11
+      ],
+      "genderRatio": 127
+    },
+    "196": {
+      "baseStats": [
+        65,
+        65,
+        60,
+        130,
+        95,
+        110
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        28
+      ],
+      "genderRatio": 31
+    },
+    "197": {
+      "baseStats": [
+        95,
+        65,
+        110,
+        60,
+        130,
+        65
+      ],
+      "typeIds": [
+        16,
+        16
+      ],
+      "abilityIds": [
+        28,
+        28
+      ],
+      "genderRatio": 31
+    },
+    "198": {
+      "baseStats": [
+        60,
+        85,
+        42,
+        85,
+        42,
+        91
+      ],
+      "typeIds": [
+        16,
+        2
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "199": {
+      "baseStats": [
+        95,
+        75,
+        80,
+        100,
+        110,
+        30
+      ],
+      "typeIds": [
+        10,
+        13
+      ],
+      "abilityIds": [
+        12,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "200": {
+      "baseStats": [
+        60,
+        60,
+        60,
+        85,
+        85,
+        85
+      ],
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "201": {
+      "baseStats": [
+        48,
+        72,
+        48,
+        72,
+        48,
+        48
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "202": {
+      "baseStats": [
+        190,
+        33,
+        58,
+        33,
+        58,
+        33
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        23,
+        23
+      ],
+      "genderRatio": 127
+    },
+    "203": {
+      "baseStats": [
+        70,
+        80,
+        65,
+        90,
+        65,
+        85
+      ],
+      "typeIds": [
+        0,
+        13
+      ],
+      "abilityIds": [
+        39,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "204": {
+      "baseStats": [
+        50,
+        65,
+        90,
+        35,
+        35,
+        15
+      ],
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        5,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "205": {
+      "baseStats": [
+        75,
+        90,
+        140,
+        60,
+        60,
+        40
+      ],
+      "typeIds": [
+        6,
+        8
+      ],
+      "abilityIds": [
+        5,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "206": {
+      "baseStats": [
+        100,
+        70,
+        70,
+        65,
+        65,
+        45
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        32,
+        50
+      ],
+      "genderRatio": 127
+    },
+    "207": {
+      "baseStats": [
+        65,
+        75,
+        105,
+        35,
+        65,
+        85
+      ],
+      "typeIds": [
+        4,
+        2
+      ],
+      "abilityIds": [
+        52,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "208": {
+      "baseStats": [
+        75,
+        85,
+        200,
+        55,
+        65,
+        30
+      ],
+      "typeIds": [
+        8,
+        4
+      ],
+      "abilityIds": [
+        69,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "209": {
+      "baseStats": [
+        60,
+        80,
+        50,
+        40,
+        40,
+        30
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        22,
+        50
+      ],
+      "genderRatio": 191
+    },
+    "210": {
+      "baseStats": [
+        90,
+        120,
+        75,
+        60,
+        60,
+        45
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 191
+    },
+    "211": {
+      "baseStats": [
+        65,
+        95,
+        75,
+        55,
+        55,
+        85
+      ],
+      "typeIds": [
+        10,
+        3
+      ],
+      "abilityIds": [
+        38,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "212": {
+      "baseStats": [
+        70,
+        130,
+        100,
+        55,
+        80,
+        65
+      ],
+      "typeIds": [
+        6,
+        8
+      ],
+      "abilityIds": [
+        68,
+        68
+      ],
+      "genderRatio": 127
+    },
+    "213": {
+      "baseStats": [
+        20,
+        10,
+        230,
+        10,
+        230,
+        5
+      ],
+      "typeIds": [
+        6,
+        5
+      ],
+      "abilityIds": [
+        5,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "214": {
+      "baseStats": [
+        80,
+        125,
+        75,
+        40,
+        95,
+        85
+      ],
+      "typeIds": [
+        6,
+        1
+      ],
+      "abilityIds": [
+        68,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "215": {
+      "baseStats": [
+        55,
+        95,
+        55,
+        35,
+        75,
+        115
+      ],
+      "typeIds": [
+        16,
+        14
+      ],
+      "abilityIds": [
+        39,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "216": {
+      "baseStats": [
+        60,
+        80,
+        50,
+        50,
+        50,
+        40
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "217": {
+      "baseStats": [
+        90,
+        130,
+        75,
+        75,
+        75,
+        55
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "218": {
+      "baseStats": [
+        40,
+        40,
+        40,
+        70,
+        40,
+        20
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        40,
+        49
+      ],
+      "genderRatio": 127
+    },
+    "219": {
+      "baseStats": [
+        50,
+        50,
+        120,
+        80,
+        80,
+        30
+      ],
+      "typeIds": [
+        9,
+        5
+      ],
+      "abilityIds": [
+        40,
+        49
+      ],
+      "genderRatio": 127
+    },
+    "220": {
+      "baseStats": [
+        50,
+        50,
+        40,
+        30,
+        30,
+        50
+      ],
+      "typeIds": [
+        14,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "221": {
+      "baseStats": [
+        100,
+        100,
+        80,
+        60,
+        60,
+        50
+      ],
+      "typeIds": [
+        14,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "222": {
+      "baseStats": [
+        55,
+        55,
+        85,
+        65,
+        85,
+        35
+      ],
+      "typeIds": [
+        10,
+        5
+      ],
+      "abilityIds": [
+        55,
+        30
+      ],
+      "genderRatio": 191
+    },
+    "223": {
+      "baseStats": [
+        35,
+        65,
+        35,
+        65,
+        35,
+        65
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        55,
+        55
+      ],
+      "genderRatio": 127
+    },
+    "224": {
+      "baseStats": [
+        75,
+        105,
+        75,
+        105,
+        75,
+        45
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        21,
+        21
+      ],
+      "genderRatio": 127
+    },
+    "225": {
+      "baseStats": [
+        45,
+        55,
+        45,
+        65,
+        45,
+        75
+      ],
+      "typeIds": [
+        14,
+        2
+      ],
+      "abilityIds": [
+        72,
+        55
+      ],
+      "genderRatio": 127
+    },
+    "226": {
+      "baseStats": [
+        65,
+        40,
+        70,
+        80,
+        140,
+        70
+      ],
+      "typeIds": [
+        10,
+        2
+      ],
+      "abilityIds": [
+        33,
+        11
+      ],
+      "genderRatio": 127
+    },
+    "227": {
+      "baseStats": [
+        65,
+        80,
+        140,
+        40,
+        70,
+        70
+      ],
+      "typeIds": [
+        8,
+        2
+      ],
+      "abilityIds": [
+        51,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "228": {
+      "baseStats": [
+        45,
+        60,
+        30,
+        80,
+        50,
+        65
+      ],
+      "typeIds": [
+        16,
+        9
+      ],
+      "abilityIds": [
+        48,
+        18
+      ],
+      "genderRatio": 127
+    },
+    "229": {
+      "baseStats": [
+        75,
+        90,
+        50,
+        110,
+        80,
+        95
+      ],
+      "typeIds": [
+        16,
+        9
+      ],
+      "abilityIds": [
+        48,
+        18
+      ],
+      "genderRatio": 127
+    },
+    "230": {
+      "baseStats": [
+        75,
+        95,
+        95,
+        95,
+        95,
+        85
+      ],
+      "typeIds": [
+        10,
+        15
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "231": {
+      "baseStats": [
+        90,
+        60,
+        60,
+        40,
+        40,
+        40
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "232": {
+      "baseStats": [
+        90,
+        120,
+        120,
+        60,
+        60,
+        50
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        5,
+        5
+      ],
+      "genderRatio": 127
+    },
+    "233": {
+      "baseStats": [
+        85,
+        80,
+        90,
+        105,
+        95,
+        60
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        36,
+        36
+      ],
+      "genderRatio": 255
+    },
+    "234": {
+      "baseStats": [
+        73,
+        95,
+        62,
+        85,
+        65,
+        85
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "235": {
+      "baseStats": [
+        55,
+        20,
+        35,
+        20,
+        45,
+        75
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        20,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "236": {
+      "baseStats": [
+        35,
+        35,
+        35,
+        35,
+        35,
+        35
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 0
+    },
+    "237": {
+      "baseStats": [
+        50,
+        95,
+        95,
+        35,
+        110,
+        70
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 0
+    },
+    "238": {
+      "baseStats": [
+        45,
+        30,
+        15,
+        85,
+        65,
+        65
+      ],
+      "typeIds": [
+        14,
+        13
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 254
+    },
+    "239": {
+      "baseStats": [
+        45,
+        63,
+        37,
+        65,
+        55,
+        95
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        9
+      ],
+      "genderRatio": 63
+    },
+    "240": {
+      "baseStats": [
+        45,
+        75,
+        37,
+        70,
+        55,
+        83
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        49,
+        49
+      ],
+      "genderRatio": 63
+    },
+    "241": {
+      "baseStats": [
+        95,
+        80,
+        105,
+        40,
+        70,
+        100
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 254
+    },
+    "242": {
+      "baseStats": [
+        255,
+        10,
+        10,
+        75,
+        135,
+        55
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        30,
+        32
+      ],
+      "genderRatio": 254
+    },
+    "243": {
+      "baseStats": [
+        90,
+        85,
+        75,
+        115,
+        100,
+        115
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "244": {
+      "baseStats": [
+        115,
+        115,
+        85,
+        90,
+        75,
+        100
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "245": {
+      "baseStats": [
+        100,
+        75,
+        115,
+        90,
+        115,
+        85
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "246": {
+      "baseStats": [
+        50,
+        64,
+        50,
+        45,
+        50,
+        41
+      ],
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "247": {
+      "baseStats": [
+        70,
+        84,
+        70,
+        65,
+        70,
+        51
+      ],
+      "typeIds": [
+        5,
+        4
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "248": {
+      "baseStats": [
+        100,
+        134,
+        110,
+        95,
+        100,
+        61
+      ],
+      "typeIds": [
+        5,
+        16
+      ],
+      "abilityIds": [
+        45,
+        45
+      ],
+      "genderRatio": 127
+    },
+    "249": {
+      "baseStats": [
+        106,
+        90,
+        130,
+        90,
+        154,
+        110
+      ],
+      "typeIds": [
+        13,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "250": {
+      "baseStats": [
+        106,
+        130,
+        90,
+        110,
+        154,
+        90
+      ],
+      "typeIds": [
+        9,
+        2
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    },
+    "251": {
+      "baseStats": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "typeIds": [
+        13,
+        11
+      ],
+      "abilityIds": [
+        30,
+        30
+      ],
+      "genderRatio": 255
+    },
+    "252": {
+      "baseStats": [
+        40,
+        45,
+        35,
+        65,
+        55,
+        70
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "253": {
+      "baseStats": [
+        50,
+        65,
+        45,
+        85,
+        65,
+        95
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "254": {
+      "baseStats": [
+        70,
+        85,
+        65,
+        105,
+        85,
+        120
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        65,
+        65
+      ],
+      "genderRatio": 31
+    },
+    "255": {
+      "baseStats": [
+        45,
+        60,
+        40,
+        70,
+        50,
+        45
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "256": {
+      "baseStats": [
+        60,
+        85,
+        60,
+        85,
+        60,
+        55
+      ],
+      "typeIds": [
+        9,
+        1
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "257": {
+      "baseStats": [
+        80,
+        120,
+        70,
+        110,
+        70,
+        80
+      ],
+      "typeIds": [
+        9,
+        1
+      ],
+      "abilityIds": [
+        66,
+        66
+      ],
+      "genderRatio": 31
+    },
+    "258": {
+      "baseStats": [
+        50,
+        70,
+        50,
+        50,
+        50,
+        40
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "259": {
+      "baseStats": [
+        70,
+        85,
+        70,
+        60,
+        70,
+        50
+      ],
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "260": {
+      "baseStats": [
+        100,
+        110,
+        90,
+        85,
+        90,
+        60
+      ],
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        67,
+        67
+      ],
+      "genderRatio": 31
+    },
+    "261": {
+      "baseStats": [
+        35,
+        55,
+        35,
+        30,
+        30,
+        35
+      ],
+      "typeIds": [
+        16,
+        16
+      ],
+      "abilityIds": [
+        50,
+        50
+      ],
+      "genderRatio": 127
+    },
+    "262": {
+      "baseStats": [
+        70,
+        90,
+        70,
+        60,
+        60,
+        70
+      ],
+      "typeIds": [
+        16,
+        16
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "263": {
+      "baseStats": [
+        38,
+        30,
+        41,
+        30,
+        41,
+        60
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "264": {
+      "baseStats": [
+        78,
+        70,
+        61,
+        50,
+        61,
+        100
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        53,
+        53
+      ],
+      "genderRatio": 127
+    },
+    "265": {
+      "baseStats": [
+        45,
+        45,
+        35,
+        20,
+        30,
+        20
+      ],
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "266": {
+      "baseStats": [
+        50,
+        35,
+        55,
+        25,
+        25,
+        15
+      ],
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "267": {
+      "baseStats": [
+        60,
+        70,
+        50,
+        90,
+        50,
+        65
+      ],
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        68,
+        68
+      ],
+      "genderRatio": 127
+    },
+    "268": {
+      "baseStats": [
+        50,
+        35,
+        55,
+        25,
+        25,
+        15
+      ],
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "269": {
+      "baseStats": [
+        60,
+        50,
+        70,
+        50,
+        90,
+        65
+      ],
+      "typeIds": [
+        6,
+        3
+      ],
+      "abilityIds": [
+        19,
+        19
+      ],
+      "genderRatio": 127
+    },
+    "270": {
+      "baseStats": [
+        40,
+        30,
+        30,
+        40,
+        50,
+        30
+      ],
+      "typeIds": [
+        10,
+        11
+      ],
+      "abilityIds": [
+        33,
+        44
+      ],
+      "genderRatio": 127
+    },
+    "271": {
+      "baseStats": [
+        60,
+        50,
+        50,
+        60,
+        70,
+        50
+      ],
+      "typeIds": [
+        10,
+        11
+      ],
+      "abilityIds": [
+        33,
+        44
+      ],
+      "genderRatio": 127
+    },
+    "272": {
+      "baseStats": [
+        80,
+        70,
+        70,
+        90,
+        100,
+        70
+      ],
+      "typeIds": [
+        10,
+        11
+      ],
+      "abilityIds": [
+        33,
+        44
+      ],
+      "genderRatio": 127
+    },
+    "273": {
+      "baseStats": [
+        40,
+        40,
+        50,
+        30,
+        30,
+        30
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        34,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "274": {
+      "baseStats": [
+        70,
+        70,
+        40,
+        60,
+        40,
+        60
+      ],
+      "typeIds": [
+        11,
+        16
+      ],
+      "abilityIds": [
+        34,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "275": {
+      "baseStats": [
+        90,
+        100,
+        60,
+        90,
+        60,
+        80
+      ],
+      "typeIds": [
+        11,
+        16
+      ],
+      "abilityIds": [
+        34,
+        48
+      ],
+      "genderRatio": 127
+    },
+    "276": {
+      "baseStats": [
+        40,
+        55,
+        30,
+        30,
+        30,
+        85
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "277": {
+      "baseStats": [
+        60,
+        85,
+        60,
+        50,
+        50,
+        125
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        62,
+        62
+      ],
+      "genderRatio": 127
+    },
+    "278": {
+      "baseStats": [
+        40,
+        30,
+        30,
+        55,
+        30,
+        85
+      ],
+      "typeIds": [
+        10,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "279": {
+      "baseStats": [
+        60,
+        50,
+        100,
+        85,
+        70,
+        65
+      ],
+      "typeIds": [
+        10,
+        2
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "280": {
+      "baseStats": [
+        28,
+        25,
+        25,
+        45,
+        35,
+        40
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        36
+      ],
+      "genderRatio": 127
+    },
+    "281": {
+      "baseStats": [
+        38,
+        35,
+        35,
+        65,
+        55,
+        50
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        36
+      ],
+      "genderRatio": 127
+    },
+    "282": {
+      "baseStats": [
+        68,
+        65,
+        65,
+        125,
+        115,
+        80
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        28,
+        36
+      ],
+      "genderRatio": 127
+    },
+    "283": {
+      "baseStats": [
+        40,
+        30,
+        32,
+        50,
+        52,
+        65
+      ],
+      "typeIds": [
+        6,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "284": {
+      "baseStats": [
+        70,
+        60,
+        62,
+        80,
+        82,
+        60
+      ],
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "285": {
+      "baseStats": [
+        60,
+        40,
+        60,
+        40,
+        60,
+        35
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        27,
+        27
+      ],
+      "genderRatio": 127
+    },
+    "286": {
+      "baseStats": [
+        60,
+        130,
+        80,
+        60,
+        60,
+        70
+      ],
+      "typeIds": [
+        11,
+        1
+      ],
+      "abilityIds": [
+        27,
+        27
+      ],
+      "genderRatio": 127
+    },
+    "287": {
+      "baseStats": [
+        60,
+        60,
+        60,
+        35,
+        35,
+        30
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        54,
+        54
+      ],
+      "genderRatio": 127
+    },
+    "288": {
+      "baseStats": [
+        80,
+        80,
+        80,
+        55,
+        55,
+        90
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        72,
+        72
+      ],
+      "genderRatio": 127
+    },
+    "289": {
+      "baseStats": [
+        150,
+        160,
+        100,
+        95,
+        65,
+        100
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        54,
+        54
+      ],
+      "genderRatio": 127
+    },
+    "290": {
+      "baseStats": [
+        31,
+        45,
+        90,
+        30,
+        30,
+        40
+      ],
+      "typeIds": [
+        6,
+        4
+      ],
+      "abilityIds": [
+        14,
+        14
+      ],
+      "genderRatio": 127
+    },
+    "291": {
+      "baseStats": [
+        61,
+        90,
+        45,
+        50,
+        50,
+        160
+      ],
+      "typeIds": [
+        6,
+        2
+      ],
+      "abilityIds": [
+        3,
+        3
+      ],
+      "genderRatio": 127
+    },
+    "292": {
+      "baseStats": [
+        1,
+        90,
+        45,
+        30,
+        30,
+        40
+      ],
+      "typeIds": [
+        6,
+        7
+      ],
+      "abilityIds": [
+        25,
+        25
+      ],
+      "genderRatio": 255
+    },
+    "293": {
+      "baseStats": [
+        64,
+        51,
+        23,
+        51,
+        23,
+        28
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        43,
+        43
+      ],
+      "genderRatio": 127
+    },
+    "294": {
+      "baseStats": [
+        84,
+        71,
+        43,
+        71,
+        43,
+        48
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        43,
+        43
+      ],
+      "genderRatio": 127
+    },
+    "295": {
+      "baseStats": [
+        104,
+        91,
+        63,
+        91,
+        63,
+        68
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        43,
+        43
+      ],
+      "genderRatio": 127
+    },
+    "296": {
+      "baseStats": [
+        72,
+        60,
+        30,
+        20,
+        30,
+        25
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        47,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "297": {
+      "baseStats": [
+        144,
+        120,
+        60,
+        40,
+        60,
+        50
+      ],
+      "typeIds": [
+        1,
+        1
+      ],
+      "abilityIds": [
+        47,
+        62
+      ],
+      "genderRatio": 63
+    },
+    "298": {
+      "baseStats": [
+        50,
+        20,
+        40,
+        20,
+        40,
+        20
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        47,
+        37
+      ],
+      "genderRatio": 191
+    },
+    "299": {
+      "baseStats": [
+        30,
+        45,
+        135,
+        45,
+        90,
+        30
+      ],
+      "typeIds": [
+        5,
+        5
+      ],
+      "abilityIds": [
+        5,
+        42
+      ],
+      "genderRatio": 127
+    },
+    "300": {
+      "baseStats": [
+        50,
+        45,
+        45,
+        35,
+        35,
+        50
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "301": {
+      "baseStats": [
+        70,
+        65,
+        65,
+        55,
+        55,
+        70
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        56,
+        56
+      ],
+      "genderRatio": 191
+    },
+    "302": {
+      "baseStats": [
+        50,
+        75,
+        75,
+        65,
+        65,
+        50
+      ],
+      "typeIds": [
+        16,
+        7
+      ],
+      "abilityIds": [
+        51,
+        51
+      ],
+      "genderRatio": 127
+    },
+    "303": {
+      "baseStats": [
+        50,
+        85,
+        85,
+        55,
+        55,
+        50
+      ],
+      "typeIds": [
+        8,
+        8
+      ],
+      "abilityIds": [
+        52,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "304": {
+      "baseStats": [
+        50,
+        70,
+        100,
+        40,
+        40,
+        30
+      ],
+      "typeIds": [
+        8,
+        5
+      ],
+      "abilityIds": [
+        5,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "305": {
+      "baseStats": [
+        60,
+        90,
+        140,
+        50,
+        50,
+        40
+      ],
+      "typeIds": [
+        8,
+        5
+      ],
+      "abilityIds": [
+        5,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "306": {
+      "baseStats": [
+        70,
+        110,
+        180,
+        60,
+        60,
+        50
+      ],
+      "typeIds": [
+        8,
+        5
+      ],
+      "abilityIds": [
+        5,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "307": {
+      "baseStats": [
+        30,
+        40,
+        55,
+        40,
+        55,
+        60
+      ],
+      "typeIds": [
+        1,
+        13
+      ],
+      "abilityIds": [
+        74,
+        74
+      ],
+      "genderRatio": 127
+    },
+    "308": {
+      "baseStats": [
+        60,
+        60,
+        75,
+        60,
+        75,
+        80
+      ],
+      "typeIds": [
+        1,
+        13
+      ],
+      "abilityIds": [
+        74,
+        74
+      ],
+      "genderRatio": 127
+    },
+    "309": {
+      "baseStats": [
+        40,
+        45,
+        40,
+        65,
+        40,
+        65
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        31
+      ],
+      "genderRatio": 127
+    },
+    "310": {
+      "baseStats": [
+        70,
+        75,
+        60,
+        105,
+        60,
+        105
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        9,
+        31
+      ],
+      "genderRatio": 127
+    },
+    "311": {
+      "baseStats": [
+        60,
+        50,
+        40,
+        85,
+        75,
+        95
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        57,
+        57
+      ],
+      "genderRatio": 127
+    },
+    "312": {
+      "baseStats": [
+        60,
+        40,
+        50,
+        75,
+        85,
+        95
+      ],
+      "typeIds": [
+        12,
+        12
+      ],
+      "abilityIds": [
+        58,
+        58
+      ],
+      "genderRatio": 127
+    },
+    "313": {
+      "baseStats": [
+        65,
+        73,
+        55,
+        47,
+        75,
+        85
+      ],
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        35,
+        68
+      ],
+      "genderRatio": 0
+    },
+    "314": {
+      "baseStats": [
+        65,
+        47,
+        55,
+        73,
+        75,
+        85
+      ],
+      "typeIds": [
+        6,
+        6
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 254
+    },
+    "315": {
+      "baseStats": [
+        50,
+        60,
+        45,
+        100,
+        80,
+        65
+      ],
+      "typeIds": [
+        11,
+        3
+      ],
+      "abilityIds": [
+        30,
+        38
+      ],
+      "genderRatio": 127
+    },
+    "316": {
+      "baseStats": [
+        70,
+        43,
+        53,
+        43,
+        53,
+        40
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        64,
+        60
+      ],
+      "genderRatio": 127
+    },
+    "317": {
+      "baseStats": [
+        100,
+        73,
+        83,
+        73,
+        83,
+        55
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        64,
+        60
+      ],
+      "genderRatio": 127
+    },
+    "318": {
+      "baseStats": [
+        45,
+        90,
+        20,
+        65,
+        20,
+        65
+      ],
+      "typeIds": [
+        10,
+        16
+      ],
+      "abilityIds": [
+        24,
+        24
+      ],
+      "genderRatio": 127
+    },
+    "319": {
+      "baseStats": [
+        70,
+        120,
+        40,
+        95,
+        40,
+        95
+      ],
+      "typeIds": [
+        10,
+        16
+      ],
+      "abilityIds": [
+        24,
+        24
+      ],
+      "genderRatio": 127
+    },
+    "320": {
+      "baseStats": [
+        130,
+        70,
+        35,
+        70,
+        35,
+        60
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        41,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "321": {
+      "baseStats": [
+        170,
+        90,
+        45,
+        90,
+        45,
+        60
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        41,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "322": {
+      "baseStats": [
+        60,
+        60,
+        40,
+        65,
+        45,
+        35
+      ],
+      "typeIds": [
+        9,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "323": {
+      "baseStats": [
+        70,
+        100,
+        70,
+        105,
+        75,
+        40
+      ],
+      "typeIds": [
+        9,
+        4
+      ],
+      "abilityIds": [
+        40,
+        40
+      ],
+      "genderRatio": 127
+    },
+    "324": {
+      "baseStats": [
+        70,
+        85,
+        140,
+        85,
+        70,
+        20
+      ],
+      "typeIds": [
+        9,
+        9
+      ],
+      "abilityIds": [
+        73,
+        73
+      ],
+      "genderRatio": 127
+    },
+    "325": {
+      "baseStats": [
+        60,
+        25,
+        35,
+        70,
+        80,
+        60
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        47,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "326": {
+      "baseStats": [
+        80,
+        45,
+        65,
+        90,
+        110,
+        80
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        47,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "327": {
+      "baseStats": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        20,
+        20
+      ],
+      "genderRatio": 127
+    },
+    "328": {
+      "baseStats": [
+        45,
+        100,
+        45,
+        45,
+        45,
+        10
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        52,
+        71
+      ],
+      "genderRatio": 127
+    },
+    "329": {
+      "baseStats": [
+        50,
+        70,
+        50,
+        50,
+        50,
+        70
+      ],
+      "typeIds": [
+        4,
+        15
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "330": {
+      "baseStats": [
+        80,
+        100,
+        80,
+        80,
+        80,
+        100
+      ],
+      "typeIds": [
+        4,
+        15
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "331": {
+      "baseStats": [
+        50,
+        85,
+        40,
+        85,
+        40,
+        35
+      ],
+      "typeIds": [
+        11,
+        11
+      ],
+      "abilityIds": [
+        8,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "332": {
+      "baseStats": [
+        70,
+        115,
+        60,
+        115,
+        60,
+        55
+      ],
+      "typeIds": [
+        11,
+        16
+      ],
+      "abilityIds": [
+        8,
+        8
+      ],
+      "genderRatio": 127
+    },
+    "333": {
+      "baseStats": [
+        45,
+        40,
+        60,
+        40,
+        75,
+        50
+      ],
+      "typeIds": [
+        0,
+        2
+      ],
+      "abilityIds": [
+        30,
+        30
+      ],
+      "genderRatio": 127
+    },
+    "334": {
+      "baseStats": [
+        75,
+        70,
+        90,
+        70,
+        105,
+        80
+      ],
+      "typeIds": [
+        15,
+        2
+      ],
+      "abilityIds": [
+        30,
+        30
+      ],
+      "genderRatio": 127
+    },
+    "335": {
+      "baseStats": [
+        73,
+        115,
+        60,
+        60,
+        60,
+        90
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        17,
+        17
+      ],
+      "genderRatio": 127
+    },
+    "336": {
+      "baseStats": [
+        73,
+        100,
+        60,
+        100,
+        60,
+        65
+      ],
+      "typeIds": [
+        3,
+        3
+      ],
+      "abilityIds": [
+        61,
+        61
+      ],
+      "genderRatio": 127
+    },
+    "337": {
+      "baseStats": [
+        70,
+        55,
+        65,
+        95,
+        85,
+        70
+      ],
+      "typeIds": [
+        5,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "338": {
+      "baseStats": [
+        70,
+        95,
+        85,
+        55,
+        65,
+        70
+      ],
+      "typeIds": [
+        5,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "339": {
+      "baseStats": [
+        50,
+        48,
+        43,
+        46,
+        41,
+        60
+      ],
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "340": {
+      "baseStats": [
+        110,
+        78,
+        73,
+        76,
+        71,
+        60
+      ],
+      "typeIds": [
+        10,
+        4
+      ],
+      "abilityIds": [
+        12,
+        12
+      ],
+      "genderRatio": 127
+    },
+    "341": {
+      "baseStats": [
+        43,
+        80,
+        65,
+        50,
+        35,
+        35
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        52,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "342": {
+      "baseStats": [
+        63,
+        120,
+        85,
+        90,
+        55,
+        55
+      ],
+      "typeIds": [
+        10,
+        16
+      ],
+      "abilityIds": [
+        52,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "343": {
+      "baseStats": [
+        40,
+        40,
+        55,
+        40,
+        70,
+        55
+      ],
+      "typeIds": [
+        4,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "344": {
+      "baseStats": [
+        60,
+        70,
+        105,
+        70,
+        120,
+        75
+      ],
+      "typeIds": [
+        4,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 255
+    },
+    "345": {
+      "baseStats": [
+        66,
+        41,
+        77,
+        61,
+        87,
+        23
+      ],
+      "typeIds": [
+        5,
+        11
+      ],
+      "abilityIds": [
+        21,
+        21
+      ],
+      "genderRatio": 31
+    },
+    "346": {
+      "baseStats": [
+        86,
+        81,
+        97,
+        81,
+        107,
+        43
+      ],
+      "typeIds": [
+        5,
+        11
+      ],
+      "abilityIds": [
+        21,
+        21
+      ],
+      "genderRatio": 31
+    },
+    "347": {
+      "baseStats": [
+        45,
+        95,
+        50,
+        40,
+        50,
+        75
+      ],
+      "typeIds": [
+        5,
+        6
+      ],
+      "abilityIds": [
+        4,
+        4
+      ],
+      "genderRatio": 31
+    },
+    "348": {
+      "baseStats": [
+        75,
+        125,
+        100,
+        70,
+        80,
+        45
+      ],
+      "typeIds": [
+        5,
+        6
+      ],
+      "abilityIds": [
+        4,
+        4
+      ],
+      "genderRatio": 31
+    },
+    "349": {
+      "baseStats": [
+        20,
+        15,
+        20,
+        10,
+        55,
+        80
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "350": {
+      "baseStats": [
+        95,
+        60,
+        79,
+        100,
+        125,
+        81
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        63,
+        63
+      ],
+      "genderRatio": 127
+    },
+    "351": {
+      "baseStats": [
+        70,
+        70,
+        70,
+        70,
+        70,
+        70
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        59,
+        59
+      ],
+      "genderRatio": 127
+    },
+    "352": {
+      "baseStats": [
+        60,
+        90,
+        70,
+        60,
+        120,
+        40
+      ],
+      "typeIds": [
+        0,
+        0
+      ],
+      "abilityIds": [
+        16,
+        16
+      ],
+      "genderRatio": 127
+    },
+    "353": {
+      "baseStats": [
+        44,
+        75,
+        35,
+        63,
+        33,
+        45
+      ],
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "354": {
+      "baseStats": [
+        64,
+        115,
+        65,
+        83,
+        63,
+        65
+      ],
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        15,
+        15
+      ],
+      "genderRatio": 127
+    },
+    "355": {
+      "baseStats": [
+        20,
+        40,
+        90,
+        30,
+        90,
+        25
+      ],
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "356": {
+      "baseStats": [
+        40,
+        70,
+        130,
+        60,
+        130,
+        25
+      ],
+      "typeIds": [
+        7,
+        7
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 127
+    },
+    "357": {
+      "baseStats": [
+        99,
+        68,
+        83,
+        72,
+        87,
+        51
+      ],
+      "typeIds": [
+        11,
+        2
+      ],
+      "abilityIds": [
+        34,
+        34
+      ],
+      "genderRatio": 127
+    },
+    "358": {
+      "baseStats": [
+        65,
+        50,
+        70,
+        95,
+        80,
+        65
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 127
+    },
+    "359": {
+      "baseStats": [
+        65,
+        130,
+        60,
+        75,
+        60,
+        75
+      ],
+      "typeIds": [
+        16,
+        16
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 127
+    },
+    "360": {
+      "baseStats": [
+        95,
+        23,
+        48,
+        23,
+        48,
+        23
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        23,
+        23
+      ],
+      "genderRatio": 127
+    },
+    "361": {
+      "baseStats": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ],
+      "typeIds": [
+        14,
+        14
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "362": {
+      "baseStats": [
+        80,
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "typeIds": [
+        14,
+        14
+      ],
+      "abilityIds": [
+        39,
+        39
+      ],
+      "genderRatio": 127
+    },
+    "363": {
+      "baseStats": [
+        70,
+        40,
+        50,
+        55,
+        50,
+        25
+      ],
+      "typeIds": [
+        14,
+        10
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "364": {
+      "baseStats": [
+        90,
+        60,
+        70,
+        75,
+        70,
+        45
+      ],
+      "typeIds": [
+        14,
+        10
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "365": {
+      "baseStats": [
+        110,
+        80,
+        90,
+        95,
+        90,
+        65
+      ],
+      "typeIds": [
+        14,
+        10
+      ],
+      "abilityIds": [
+        47,
+        47
+      ],
+      "genderRatio": 127
+    },
+    "366": {
+      "baseStats": [
+        35,
+        64,
+        85,
+        74,
+        55,
+        32
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        75,
+        75
+      ],
+      "genderRatio": 127
+    },
+    "367": {
+      "baseStats": [
+        55,
+        104,
+        105,
+        94,
+        75,
+        52
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "368": {
+      "baseStats": [
+        55,
+        84,
+        105,
+        114,
+        75,
+        52
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 127
+    },
+    "369": {
+      "baseStats": [
+        100,
+        90,
+        130,
+        45,
+        65,
+        55
+      ],
+      "typeIds": [
+        10,
+        5
+      ],
+      "abilityIds": [
+        33,
+        69
+      ],
+      "genderRatio": 31
+    },
+    "370": {
+      "baseStats": [
+        43,
+        30,
+        55,
+        40,
+        65,
+        97
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        33,
+        33
+      ],
+      "genderRatio": 191
+    },
+    "371": {
+      "baseStats": [
+        45,
+        75,
+        60,
+        40,
+        30,
+        50
+      ],
+      "typeIds": [
+        15,
+        15
+      ],
+      "abilityIds": [
+        69,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "372": {
+      "baseStats": [
+        65,
+        95,
+        100,
+        60,
+        50,
+        50
+      ],
+      "typeIds": [
+        15,
+        15
+      ],
+      "abilityIds": [
+        69,
+        69
+      ],
+      "genderRatio": 127
+    },
+    "373": {
+      "baseStats": [
+        95,
+        135,
+        80,
+        110,
+        80,
+        100
+      ],
+      "typeIds": [
+        15,
+        2
+      ],
+      "abilityIds": [
+        22,
+        22
+      ],
+      "genderRatio": 127
+    },
+    "374": {
+      "baseStats": [
+        40,
+        55,
+        80,
+        35,
+        60,
+        30
+      ],
+      "typeIds": [
+        8,
+        13
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "375": {
+      "baseStats": [
+        60,
+        75,
+        100,
+        55,
+        80,
+        50
+      ],
+      "typeIds": [
+        8,
+        13
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "376": {
+      "baseStats": [
+        80,
+        135,
+        130,
+        95,
+        90,
+        70
+      ],
+      "typeIds": [
+        8,
+        13
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "377": {
+      "baseStats": [
+        80,
+        100,
+        200,
+        50,
+        100,
+        50
+      ],
+      "typeIds": [
+        5,
+        5
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "378": {
+      "baseStats": [
+        80,
+        50,
+        100,
+        100,
+        200,
+        50
+      ],
+      "typeIds": [
+        14,
+        14
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "379": {
+      "baseStats": [
+        80,
+        75,
+        150,
+        75,
+        150,
+        50
+      ],
+      "typeIds": [
+        8,
+        8
+      ],
+      "abilityIds": [
+        29,
+        29
+      ],
+      "genderRatio": 255
+    },
+    "380": {
+      "baseStats": [
+        80,
+        80,
+        90,
+        110,
+        130,
+        110
+      ],
+      "typeIds": [
+        15,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 254
+    },
+    "381": {
+      "baseStats": [
+        80,
+        90,
+        80,
+        130,
+        110,
+        110
+      ],
+      "typeIds": [
+        15,
+        13
+      ],
+      "abilityIds": [
+        26,
+        26
+      ],
+      "genderRatio": 0
+    },
+    "382": {
+      "baseStats": [
+        100,
+        100,
+        90,
+        150,
+        140,
+        90
+      ],
+      "typeIds": [
+        10,
+        10
+      ],
+      "abilityIds": [
+        2,
+        2
+      ],
+      "genderRatio": 255
+    },
+    "383": {
+      "baseStats": [
+        100,
+        150,
+        140,
+        100,
+        90,
+        90
+      ],
+      "typeIds": [
+        4,
+        4
+      ],
+      "abilityIds": [
+        70,
+        70
+      ],
+      "genderRatio": 255
+    },
+    "384": {
+      "baseStats": [
+        105,
+        150,
+        90,
+        150,
+        90,
+        95
+      ],
+      "typeIds": [
+        15,
+        2
+      ],
+      "abilityIds": [
+        76,
+        76
+      ],
+      "genderRatio": 255
+    },
+    "385": {
+      "baseStats": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "typeIds": [
+        8,
+        13
+      ],
+      "abilityIds": [
+        32,
+        32
+      ],
+      "genderRatio": 255
+    },
+    "386": {
+      "baseStats": [
+        50,
+        150,
+        50,
+        150,
+        50,
+        150
+      ],
+      "typeIds": [
+        13,
+        13
+      ],
+      "abilityIds": [
+        46,
+        46
+      ],
+      "genderRatio": 255
+    }
+  }
+}

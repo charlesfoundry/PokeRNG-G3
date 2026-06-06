@@ -1,0 +1,123 @@
+name: Android Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - pubspec.yaml
+      - pubspec.lock
+      - lib/**
+      - assets/**
+      - android/**
+      - .github/workflows/android-release.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.version.outputs.changed }}
+      version_name: ${{ steps.version.outputs.version_name }}
+      build_number: ${{ steps.version.outputs.build_number }}
+      tag: ${{ steps.version.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+
+      - name: Check pubspec version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          current="$(grep -E '^version:' pubspec.yaml | awk '{print $2}')"
+          version_name="${current%%+*}"
+          build_number="${current#*+}"
+          if [ "$build_number" = "$current" ]; then
+            build_number=""
+          fi
+
+          previous=""
+          if git rev-parse HEAD^ >/dev/null 2>&1; then
+            previous="$(git show HEAD^:pubspec.yaml 2>/dev/null | grep -E '^version:' | awk '{print $2}' || true)"
+          fi
+
+          changed="false"
+          if [ -z "$previous" ] || [ "$current" != "$previous" ]; then
+            changed="true"
+          fi
+
+          tag="v${version_name}"
+
+          {
+            echo "changed=$changed"
+            echo "version_name=$version_name"
+            echo "build_number=$build_number"
+            echo "tag=$tag"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Current version: $current"
+          echo "Previous version: ${previous:-<none>}"
+          echo "Release tag: $tag"
+          echo "Version changed: $changed"
+
+  build-release:
+    needs: check-version
+    if: needs.check-version.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Test
+        run: |
+          if [ -d test ]; then
+            flutter test
+          else
+            echo "No test directory in this repository; skipping flutter test."
+          fi
+
+      - name: Build arm64 APK
+        run: flutter build apk --release --target-platform android-arm64
+
+      - name: Rename APK
+        run: |
+          mkdir -p release
+          cp build/app/outputs/flutter-apk/app-release.apk \
+            "release/PokeRNG-G3-${{ needs.check-version.outputs.version_name }}-android-arm64.apk"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.check-version.outputs.tag }}
+          name: PokeRNG G3 ${{ needs.check-version.outputs.version_name }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: release/*.apk
+

@@ -1,0 +1,308 @@
+{
+  "@@locale": "en",
+  "appTitle": "PokeRNG G3",
+  "hunt": "Search",
+  "calibrate": "Calibrate",
+  "breeding": "Eggs",
+  "tools": "Tools",
+  "settings": "Settings",
+  "target": "Target",
+  "encounter": "Encounter",
+  "search": "Search",
+  "searching": "Searching...",
+  "cancelSearch": "Cancel search",
+  "resetDefaults": "Reset defaults",
+  "attempt": "Attempt",
+  "pokemon": "Pokemon",
+  "pokemonSearchLimitHint": "Type a Pokemon number to browse from that number, or enter a name keyword. Up to 50 suggestions are shown.",
+  "shiny": "Shiny",
+  "nature": "Nature",
+  "minimumIv": "Minimum IV",
+  "seed": "Seed",
+  "initialAdvance": "Initial",
+  "maxAdvance": "Max",
+  "delay": "Delay",
+  "results": "Results",
+  "selectAResult": "Select a result",
+  "language": "Language",
+  "languageSystem": "System",
+  "languageChineseSimplified": "简体中文",
+  "languageEnglish": "English",
+  "languageJapanese": "日本語",
+  "gameVersion": "Game version",
+  "defaultSeed": "Default seed",
+  "save": "Save",
+  "observedNature": "Observed nature",
+  "observedIvs": "Observed IVs",
+  "locationEgg": "Location",
+  "breedingUnavailable": "Egg RNG is not implemented yet.",
+  "eggHeldStage": "Held egg",
+  "eggPickupStage": "Pickup",
+  "eggHeldStageHelpEmerald": "Stage where the daycare man has an egg; determines PID, nature, gender, and shininess.",
+  "eggPickupStageHelpEmerald": "Stage where you press A to receive the egg; determines IVs and inheritance.",
+  "eggHeldStageHelpFrlg": "Stage where the daycare man has an egg; determines the low 16 bits of PID.",
+  "eggPickupStageHelpFrlg": "Stage where you press A to receive the egg; determines the high 16 bits of PID, IVs, and inheritance.",
+  "parentA": "Parent 1",
+  "parentB": "Parent 2",
+  "parentAShort": "P1",
+  "parentBShort": "P2",
+  "parentGender": "Parent gender",
+  "parentItem": "Held item",
+  "none": "None",
+  "everstone": "Everstone",
+  "ditto": "Ditto",
+  "compatibility": "Compatibility",
+  "calibration": "Calibration",
+  "minRedraws": "Min redraws",
+  "maxRedraws": "Max redraws",
+  "redraws": "Redraws",
+  "eggRedrawHelp": "Pokedex redraws advance the Emerald egg PID.",
+  "eggSearchRangeNote": "Max - Initial <= {maxAdvanceDelta} for each stage · results <= {maxResults} · both stage ranges are combined",
+  "@eggSearchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "eggSearchCostEstimate": "Current maximum combinations: {count} (held × pickup × redraws)",
+  "@eggSearchCostEstimate": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggSearchCostEstimateFrlg": "Current maximum combinations: {count} (held × pickup)",
+  "@eggSearchCostEstimateFrlg": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggLargeSearchWarning": "Large combination count. Shiny or strict filters can take longer; narrow the range first to verify.",
+  "inheritance": "Inheritance",
+  "inheritRandom": "Random",
+  "eggInputError": "Check Pokemon, seed, both advance ranges, calibration, redraws, and parent IVs. Max - Initial must be <= {maxAdvanceDelta} for each stage.",
+  "@eggInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
+  "method": "Method",
+  "wildMethod1": "Wild 1",
+  "wildMethod2": "Wild 2",
+  "wildMethod4": "Wild 4",
+  "staticMethod1": "Method 1",
+  "staticMethod2": "Method 2",
+  "staticMethod4": "Method 4",
+  "wildMethodHintEmerald": "Emerald wild encounters usually use Wild 2; calibration reverse search checks Wild 1/2/4.",
+  "wildMethodHintFrlg": "FireRed/LeafGreen wild encounters usually use Wild 1; other methods are rarer.",
+  "staticMethodHint": "Stationary, gift, and other fixed Pokemon usually use Method 1.",
+  "ability": "Ability",
+  "gender": "Gender",
+  "any": "Any",
+  "slot": "Slot",
+  "lead": "Lead",
+  "leadNone": "None",
+  "leadPressure": "Pressure",
+  "leadSynchronize": "Synchronize",
+  "leadStatic": "Static",
+  "leadMagnetPull": "Magnet Pull",
+  "leadCuteCharmFemale": "Cute Charm ♀",
+  "leadCuteCharmMale": "Cute Charm ♂",
+  "syncNature": "Sync nature",
+  "feebasTile": "Feebas tile",
+  "ivAnyNote": "Empty or -1 = Any IV",
+  "searchRangeNote": "Max - Initial <= {maxAdvanceDelta} advances · results <= {maxResults}",
+  "@searchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "resultLimitNote": "Showing first {maxResults} matches. Narrow filters or lower range to inspect later matches.",
+  "@resultLimitNote": {
+    "placeholders": {
+      "maxResults": {}
+    }
+  },
+  "selectPokemonEncounterLocationError": "Select a Pokemon, encounter method, and location.",
+  "huntInputError": "Check seed, advances, delay, and IV filter. Max - Initial must be <= {maxAdvanceDelta}.",
+  "@huntInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
+  "runHuntAndEnterObservedIvsError": "Run a hunt search and enter observed IVs.",
+  "noMatchingAdvanceError": "No matching advance in the current search range.",
+  "noResults": "No results. Loosen filters or increase Max Advance.",
+  "searchCancelled": "Search cancelled.",
+  "settingsInputError": "Check TID, SID, and seed.",
+  "about": "About",
+  "version": "Version",
+  "license": "License",
+  "project": "Project",
+  "privacyPolicy": "Privacy Policy",
+  "credits": "Credits",
+  "aboutDescription": "A multi-platform RNG tool for Gen 3 FireRed, LeafGreen, and Emerald.",
+  "unofficialNotice": "Unofficial fan-made RNG utility.",
+  "aboutCredits": "References PokeFinder, EonTimer, and PokemonRNG community research.",
+  "copyProjectUrl": "Copy project URL",
+  "projectUrlCopied": "Project URL copied",
+  "supportDeveloper": "Support developer",
+  "supportDescription": "Optional in-app purchases can support ongoing development.",
+  "supportNoUnlock": "Purchases do not unlock extra features.",
+  "supportUnavailable": "Support purchases are unavailable.",
+  "supportThanks": "Thank you for your support.",
+  "supportCancelled": "Purchase cancelled.",
+  "supportPending": "Purchase is pending approval.",
+  "supportFailed": "Purchase failed. Please try again later.",
+  "retry": "Retry",
+  "targetAdvance": "Target {advance}",
+  "@targetAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "hitAdvance": "Hit {advance}",
+  "@hitAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "deltaValue": "Delta {delta}",
+  "@deltaValue": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
+  "delayValue": "Delay {delay}",
+  "@delayValue": {
+    "placeholders": {
+      "delay": {}
+    }
+  },
+  "encounterGrass": "Grass",
+  "encounterSurfing": "Surfing",
+  "encounterRockSmash": "Rock Smash",
+  "encounterOldRod": "Old Rod",
+  "encounterGoodRod": "Good Rod",
+  "encounterSuperRod": "Super Rod",
+  "staticStarter": "Starter",
+  "staticFossil": "Fossil",
+  "staticGift": "Gift",
+  "staticGameCorner": "Game Corner",
+  "staticStationary": "Stationary",
+  "staticLegend": "Legend",
+  "staticEvent": "Event",
+  "staticRoamer": "Roamer",
+  "abilitySlot": "Ability {slot} - {name}",
+  "@abilitySlot": {
+    "placeholders": {
+      "slot": {},
+      "name": {}
+    }
+  },
+  "statAttack": "Atk",
+  "statDefense": "Def",
+  "statSpeed": "Spe",
+  "statSpecialAttack": "SpA",
+  "statSpecialDefense": "SpD",
+  "natureNeutral": "Neutral",
+  "failedLoadTargetData": "Failed to load target data: {error}",
+  "@failedLoadTargetData": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "resultAdvance": "Adv",
+  "resultPress": "Press",
+  "levelShort": "Lv",
+  "hiddenPower": "HPower",
+  "ivs": "IVs",
+  "stats": "Stats",
+  "statIvCalculator": "Stats / IV calculator",
+  "calculateStats": "Calculate stats",
+  "calculateIvs": "Calculate IVs",
+  "calculatorInputError": "Check Pokemon, level, nature, and input values.",
+  "sendToCalibration": "Send to calibration",
+  "saveTarget": "Save target",
+  "targetSaved": "Target saved",
+  "targetAlreadySaved": "This target is already saved",
+  "savedTargets": "Saved targets",
+  "noSavedTargets": "Long-press or right-click a wild result to save a target.",
+  "deleteTarget": "Delete target",
+  "calibrationTarget": "Calibration target",
+  "noCalibrationTarget": "Long-press or right-click a wild result, then send it to calibration.",
+  "currentTargetAdvance": "Current target Adv",
+  "actualAdvance": "Actual Adv",
+  "calibrationOutput": "Output",
+  "targetDelta": "Total deviation",
+  "calculateNextPress": "Calculate next target Adv",
+  "retailTimer": "Retail timer",
+  "timerConsole": "Console",
+  "timerConsoleGba": "GBA",
+  "timerConsoleNdsSlot2": "NDS Slot 2",
+  "timerConsoleNdsFamily": "NDS/DSi/3DS",
+  "timerPreparation": "Preparation",
+  "timerTargetCountdown": "Target countdown",
+  "timerReady": "Ready",
+  "timerFinished": "Finished",
+  "timerStart": "Start",
+  "timerStop": "Stop",
+  "timerTargetFrame": "Timer target {advance}",
+  "@timerTargetFrame": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "timerTargetDuration": "Target countdown {duration}",
+  "@timerTargetDuration": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "timerPreparationNote": "Start gives a 5-second countdown; act on the 4th cue.",
+  "timerWebSoundUnsupported": "The web timer does not support countdown audio yet.",
+  "timerEmeraldOnlyNote": "Retail RNG is recommended for Emerald only: Emerald starts from seed 0.",
+  "timerInputError": "Check current target Adv.",
+  "observedPokemon": "Observed Pokemon",
+  "observedStats": "Stats",
+  "reverseHitAdvance": "Reverse hit frame",
+  "reverseResults": "Reverse results",
+  "calibrationFrameInputError": "Check target Adv and actual Adv.",
+  "runHuntAndEnterObservedStatsError": "Send a target from results and enter observed Pokemon, Lv, nature, and stats.",
+  "actualAdvanceOutput": "Actual Adv {advance}",
+  "@actualAdvanceOutput": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "actualAdvanceUpdated": "Actual Adv updated. Calculate above.",
+  "nextTargetAdvanceOutput": "{advance} · Delta {delta}",
+  "@nextTargetAdvanceOutput": {
+    "placeholders": {
+      "advance": {},
+      "delta": {}
+    }
+  },
+  "targetDeltaOutput": "Delta {delta}",
+  "@targetDeltaOutput": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
+  "typeFighting": "fighting",
+  "typeFlying": "flying",
+  "typePoison": "poison",
+  "typeGround": "ground",
+  "typeRock": "rock",
+  "typeBug": "bug",
+  "typeGhost": "ghost",
+  "typeSteel": "steel",
+  "typeFire": "fire",
+  "typeWater": "water",
+  "typeGrass": "grass",
+  "typeElectric": "electric",
+  "typePsychic": "psychic",
+  "typeIce": "ice",
+  "typeDragon": "dragon",
+  "typeDark": "dark"
+}

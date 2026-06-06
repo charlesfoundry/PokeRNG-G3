@@ -1,0 +1,308 @@
+{
+  "@@locale": "zh",
+  "appTitle": "PokeRNG G3",
+  "hunt": "检索",
+  "calibrate": "校准",
+  "breeding": "孵蛋",
+  "tools": "工具",
+  "settings": "设置",
+  "target": "目标",
+  "encounter": "遇敌",
+  "search": "搜索",
+  "searching": "搜索中...",
+  "cancelSearch": "取消搜索",
+  "resetDefaults": "恢复默认",
+  "attempt": "尝试",
+  "pokemon": "宝可梦",
+  "pokemonSearchLimitHint": "请输入宝可梦编号从该编号开始浏览，或者输入名字关键字。最多显示 50 个候选。",
+  "shiny": "闪光",
+  "nature": "性格",
+  "minimumIv": "最低 IV",
+  "seed": "Seed",
+  "initialAdvance": "起始帧",
+  "maxAdvance": "最大帧",
+  "delay": "延迟",
+  "results": "结果",
+  "selectAResult": "选择一个结果",
+  "language": "语言",
+  "languageSystem": "跟随系统",
+  "languageChineseSimplified": "简体中文",
+  "languageEnglish": "English",
+  "languageJapanese": "日本語",
+  "gameVersion": "游戏版本",
+  "defaultSeed": "默认 Seed",
+  "save": "保存",
+  "observedNature": "观测性格",
+  "observedIvs": "观测 IV",
+  "locationEgg": "地点",
+  "breedingUnavailable": "孵蛋乱数暂未实现。",
+  "eggHeldStage": "蛋生成帧",
+  "eggPickupStage": "蛋领取帧",
+  "eggHeldStageHelpEmerald": "老人出现蛋的阶段，决定 PID、性格、性别和闪光。",
+  "eggPickupStageHelpEmerald": "按 A 领取蛋的阶段，决定 IV 和遗传来源。",
+  "eggHeldStageHelpFrlg": "老人出现蛋的阶段，决定 PID 低 16 位。",
+  "eggPickupStageHelpFrlg": "按 A 领取蛋的阶段，决定 PID 高 16 位、IV 和遗传来源。",
+  "parentA": "父母 1",
+  "parentB": "父母 2",
+  "parentAShort": "父1",
+  "parentBShort": "父2",
+  "parentGender": "父母性别",
+  "parentItem": "携带道具",
+  "none": "无",
+  "everstone": "不变之石",
+  "ditto": "百变怪",
+  "compatibility": "相性",
+  "calibration": "校准",
+  "minRedraws": "最小查看图鉴",
+  "maxRedraws": "最大查看图鉴",
+  "redraws": "查看图鉴",
+  "eggRedrawHelp": "查看图鉴会推进 Emerald 蛋 PID。",
+  "eggSearchRangeNote": "每段最大 - 起始 <= {maxAdvanceDelta} 帧 · 结果 <= {maxResults} · 两段范围会组合搜索",
+  "@eggSearchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "eggSearchCostEstimate": "当前最多组合：{count}（蛋生成 × 蛋领取 × 查看图鉴）",
+  "@eggSearchCostEstimate": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggSearchCostEstimateFrlg": "当前最多组合：{count}（蛋生成 × 蛋领取）",
+  "@eggSearchCostEstimateFrlg": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "eggLargeSearchWarning": "组合数较大，闪光或严格条件可能较慢；可先缩小范围验证。",
+  "inheritance": "遗传",
+  "inheritRandom": "随机",
+  "eggInputError": "请检查宝可梦、Seed、两段帧范围、校准、查看图鉴次数和父母 IV。每段最大 - 起始必须 <= {maxAdvanceDelta}。",
+  "@eggInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
+  "method": "生成方式",
+  "wildMethod1": "野生 1",
+  "wildMethod2": "野生 2",
+  "wildMethod4": "野生 4",
+  "staticMethod1": "Method 1",
+  "staticMethod2": "Method 2",
+  "staticMethod4": "Method 4",
+  "wildMethodHintEmerald": "綠寶石野生遇敵通常推薦野生 2；校準反查會同時檢查野生 1/2/4。",
+  "wildMethodHintFrlg": "火紅/葉綠野生遇敵通常推薦野生 1；其他方式較少見。",
+  "staticMethodHint": "定點、贈送等固定寶可夢通常使用 Method 1。",
+  "ability": "特性",
+  "gender": "性别",
+  "any": "任意",
+  "slot": "Slot",
+  "lead": "队首特性",
+  "leadNone": "无",
+  "leadPressure": "压迫感",
+  "leadSynchronize": "同步",
+  "leadStatic": "静电",
+  "leadMagnetPull": "磁力",
+  "leadCuteCharmFemale": "迷人之躯 ♀",
+  "leadCuteCharmMale": "迷人之躯 ♂",
+  "syncNature": "同步性格",
+  "feebasTile": "丑丑鱼水格",
+  "ivAnyNote": "空白或 -1 = 任意 IV",
+  "searchRangeNote": "最大 - 起始 <= {maxAdvanceDelta} 帧 · 结果 <= {maxResults}",
+  "@searchRangeNote": {
+    "placeholders": {
+      "maxAdvanceDelta": {},
+      "maxResults": {}
+    }
+  },
+  "resultLimitNote": "只显示前 {maxResults} 个结果。请缩小筛选条件或降低范围来查看后续结果。",
+  "@resultLimitNote": {
+    "placeholders": {
+      "maxResults": {}
+    }
+  },
+  "selectPokemonEncounterLocationError": "请选择宝可梦、遇敌方式和地点。",
+  "huntInputError": "请检查 Seed、帧范围、延迟和 IV 筛选。最大 - 起始必须 <= {maxAdvanceDelta}。",
+  "@huntInputError": {
+    "placeholders": {
+      "maxAdvanceDelta": {}
+    }
+  },
+  "runHuntAndEnterObservedIvsError": "请先运行狩猎搜索，并输入观测 IV。",
+  "noMatchingAdvanceError": "当前搜索范围内没有匹配的帧。",
+  "noResults": "未找到结果。请放宽条件或提高最大帧。",
+  "searchCancelled": "搜索已取消。",
+  "settingsInputError": "请检查 TID、SID 和 Seed。",
+  "about": "关于",
+  "version": "版本",
+  "license": "许可证",
+  "project": "项目",
+  "privacyPolicy": "隐私政策",
+  "credits": "致谢",
+  "aboutDescription": "面向第三世代火红、叶绿和绿宝石的多平台乱数工具。",
+  "unofficialNotice": "非官方乱数辅助工具。",
+  "aboutCredits": "参考 PokeFinder、EonTimer 与 PokemonRNG 社区研究。",
+  "copyProjectUrl": "复制项目地址",
+  "projectUrlCopied": "项目地址已复制",
+  "supportDeveloper": "支持作者",
+  "supportDescription": "可通过自愿内购支持后续开发。",
+  "supportNoUnlock": "购买不会解锁额外功能。",
+  "supportUnavailable": "支持作者暂不可用。",
+  "supportThanks": "感谢支持。",
+  "supportCancelled": "已取消购买。",
+  "supportPending": "购买正在等待批准。",
+  "supportFailed": "购买失败，请稍后再试。",
+  "retry": "重试",
+  "targetAdvance": "目标帧 {advance}",
+  "@targetAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "hitAdvance": "命中帧 {advance}",
+  "@hitAdvance": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "deltaValue": "偏差 {delta}",
+  "@deltaValue": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
+  "delayValue": "延迟 {delay}",
+  "@delayValue": {
+    "placeholders": {
+      "delay": {}
+    }
+  },
+  "encounterGrass": "草丛",
+  "encounterSurfing": "冲浪",
+  "encounterRockSmash": "碎岩",
+  "encounterOldRod": "破旧钓竿",
+  "encounterGoodRod": "好钓竿",
+  "encounterSuperRod": "厉害钓竿",
+  "staticStarter": "初始宝可梦",
+  "staticFossil": "化石",
+  "staticGift": "礼物",
+  "staticGameCorner": "游戏厅",
+  "staticStationary": "固定",
+  "staticLegend": "传说",
+  "staticEvent": "事件",
+  "staticRoamer": "徘徊",
+  "abilitySlot": "特性{slot} - {name}",
+  "@abilitySlot": {
+    "placeholders": {
+      "slot": {},
+      "name": {}
+    }
+  },
+  "statAttack": "攻击",
+  "statDefense": "防御",
+  "statSpeed": "速度",
+  "statSpecialAttack": "特攻",
+  "statSpecialDefense": "特防",
+  "natureNeutral": "平衡",
+  "failedLoadTargetData": "目标数据加载失败：{error}",
+  "@failedLoadTargetData": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "resultAdvance": "帧",
+  "resultPress": "按下",
+  "levelShort": "Lv",
+  "hiddenPower": "觉醒力量",
+  "ivs": "IV",
+  "stats": "能力值",
+  "statIvCalculator": "能力值 / IV 计算器",
+  "calculateStats": "计算能力值",
+  "calculateIvs": "计算 IV",
+  "calculatorInputError": "请检查宝可梦、等级、性格和输入数值。",
+  "sendToCalibration": "发送到校准",
+  "saveTarget": "保存目标",
+  "targetSaved": "目标已保存",
+  "targetAlreadySaved": "这个目标已经保存过",
+  "savedTargets": "目标记录",
+  "noSavedTargets": "在结果页长按或右键某个野生结果，可以保存目标。",
+  "deleteTarget": "删除目标",
+  "calibrationTarget": "校准目标",
+  "noCalibrationTarget": "在结果页长按或右键某个野生结果，然后发送到校准。",
+  "currentTargetAdvance": "本次目标帧",
+  "actualAdvance": "实际帧",
+  "calibrationOutput": "输出",
+  "targetDelta": "总偏差值",
+  "calculateNextPress": "计算下一次目标帧",
+  "retailTimer": "实机定时器",
+  "timerConsole": "实机环境",
+  "timerConsoleGba": "GBA",
+  "timerConsoleNdsSlot2": "NDS Slot 2",
+  "timerConsoleNdsFamily": "NDS/DSi/3DS",
+  "timerPreparation": "准备倒计时",
+  "timerTargetCountdown": "目标倒计时",
+  "timerReady": "等待开始",
+  "timerFinished": "完成",
+  "timerStart": "开始",
+  "timerStop": "停止",
+  "timerTargetFrame": "定时目标帧 {advance}",
+  "@timerTargetFrame": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "timerTargetDuration": "正式计时 {duration}",
+  "@timerTargetDuration": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "timerPreparationNote": "开始后先有5秒倒计时，在第4声瞬间软重启/遇敌。",
+  "timerWebSoundUnsupported": "Web 版本的定时器暂时不支持倒计时提示音。",
+  "timerEmeraldOnlyNote": "实机乱数仅建议用于绿宝石：绿宝石初始 seed 固定为 0。",
+  "timerInputError": "请检查本次目标帧。",
+  "observedPokemon": "实际宝可梦",
+  "observedStats": "能力值",
+  "reverseHitAdvance": "反查实际帧",
+  "reverseResults": "反查结果",
+  "calibrationFrameInputError": "请检查此次目标帧和实际帧。",
+  "runHuntAndEnterObservedStatsError": "请先从结果页发送目标，并输入实际宝可梦、Lv、性格和能力值。",
+  "actualAdvanceOutput": "实际帧 {advance}",
+  "@actualAdvanceOutput": {
+    "placeholders": {
+      "advance": {}
+    }
+  },
+  "actualAdvanceUpdated": "实际帧已刷新，请到上方计算。",
+  "nextTargetAdvanceOutput": "{advance} · 偏差 {delta}",
+  "@nextTargetAdvanceOutput": {
+    "placeholders": {
+      "advance": {},
+      "delta": {}
+    }
+  },
+  "targetDeltaOutput": "偏差 {delta}",
+  "@targetDeltaOutput": {
+    "placeholders": {
+      "delta": {}
+    }
+  },
+  "typeFighting": "格斗",
+  "typeFlying": "飞行",
+  "typePoison": "毒",
+  "typeGround": "地面",
+  "typeRock": "岩石",
+  "typeBug": "虫",
+  "typeGhost": "幽灵",
+  "typeSteel": "钢",
+  "typeFire": "火",
+  "typeWater": "水",
+  "typeGrass": "草",
+  "typeElectric": "电",
+  "typePsychic": "超能力",
+  "typeIce": "冰",
+  "typeDragon": "龙",
+  "typeDark": "恶"
+}
