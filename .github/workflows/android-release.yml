@@ -54,6 +54,14 @@ jobs:
           fi
 
           tag="v${version_name}"
+          tag_exists="false"
+          if git ls-remote --exit-code --tags origin "refs/tags/${tag}" >/dev/null 2>&1; then
+            tag_exists="true"
+          fi
+
+          if [ "$tag_exists" = "false" ]; then
+            changed="true"
+          fi
 
           {
             echo "changed=$changed"
@@ -65,6 +73,7 @@ jobs:
           echo "Current version: $current"
           echo "Previous version: ${previous:-<none>}"
           echo "Release tag: $tag"
+          echo "Release tag exists: $tag_exists"
           echo "Version changed: $changed"
 
   build-release:
@@ -104,7 +113,19 @@ jobs:
           fi
 
       - name: Build arm64 APK
-        run: flutter build apk --release --target-platform android-arm64
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            if flutter build apk --release --target-platform android-arm64; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              exit 1
+            fi
+            echo "Build failed, retrying in $((attempt * 20)) seconds..."
+            sleep $((attempt * 20))
+          done
 
       - name: Rename APK
         run: |
@@ -120,4 +141,3 @@ jobs:
           generate_release_notes: true
           fail_on_unmatched_files: true
           files: release/*.apk
-
