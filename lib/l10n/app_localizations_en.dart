@@ -540,8 +540,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get savedTargets => 'Saved targets';
 
   @override
-  String get noSavedTargets =>
-      'Long-press or right-click a wild result to save a target.';
+  String get noSavedTargets => 'Tap a wild result to save a target.';
 
   @override
   String get deleteTarget => 'Delete target';
@@ -551,7 +550,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noCalibrationTarget =>
-      'Long-press or right-click a wild result, then send it to calibration.';
+      'Tap a wild result, then send it to calibration.';
 
   @override
   String get currentTargetAdvance => 'Current target Adv';

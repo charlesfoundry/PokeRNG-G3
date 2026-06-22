@@ -529,7 +529,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get savedTargets => '保存した目標';
 
   @override
-  String get noSavedTargets => '野生結果を長押し、または右クリックして目標を保存できます。';
+  String get noSavedTargets => '野生結果をタップして目標を保存できます。';
 
   @override
   String get deleteTarget => '目標を削除';
@@ -538,7 +538,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get calibrationTarget => '調整目標';
 
   @override
-  String get noCalibrationTarget => '野生結果を長押し、または右クリックして調整へ送ってください。';
+  String get noCalibrationTarget => '野生結果をタップして調整へ送ってください。';
 
   @override
   String get currentTargetAdvance => '今回の目標 Adv';

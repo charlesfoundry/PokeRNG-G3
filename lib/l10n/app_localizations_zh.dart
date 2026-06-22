@@ -523,7 +523,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get savedTargets => '目标记录';
 
   @override
-  String get noSavedTargets => '在结果页长按或右键某个野生结果，可以保存目标。';
+  String get noSavedTargets => '在结果页点击某个野生结果，可以保存目标。';
 
   @override
   String get deleteTarget => '删除目标';
@@ -532,7 +532,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get calibrationTarget => '校准目标';
 
   @override
-  String get noCalibrationTarget => '在结果页长按或右键某个野生结果，然后发送到校准。';
+  String get noCalibrationTarget => '在结果页点击某个野生结果，然后发送到校准。';
 
   @override
   String get currentTargetAdvance => '本次目标帧';
@@ -1209,7 +1209,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get savedTargets => '目标记录';
 
   @override
-  String get noSavedTargets => '在结果页长按或右键某个野生结果，可以保存目标。';
+  String get noSavedTargets => '在结果页点击某个野生结果，可以保存目标。';
 
   @override
   String get deleteTarget => '删除目标';
@@ -1218,7 +1218,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get calibrationTarget => '校准目标';
 
   @override
-  String get noCalibrationTarget => '在结果页长按或右键某个野生结果，然后发送到校准。';
+  String get noCalibrationTarget => '在结果页点击某个野生结果，然后发送到校准。';
 
   @override
   String get currentTargetAdvance => '本次目标帧';

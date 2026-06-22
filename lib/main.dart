@@ -2832,10 +2832,10 @@ class _ResultContextMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
+    return InkWell(
+      borderRadius: BorderRadius.circular(_controlRadius),
+      onTapUp: (details) => _show(context, details.globalPosition),
       onSecondaryTapDown: (details) => _show(context, details.globalPosition),
-      onLongPressStart: (details) => _show(context, details.globalPosition),
       child: child,
     );
   }

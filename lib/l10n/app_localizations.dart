@@ -1076,7 +1076,7 @@ abstract class AppLocalizations {
   /// No description provided for @noSavedTargets.
   ///
   /// In en, this message translates to:
-  /// **'Long-press or right-click a wild result to save a target.'**
+  /// **'Tap a wild result to save a target.'**
   String get noSavedTargets;
 
   /// No description provided for @deleteTarget.
@@ -1094,7 +1094,7 @@ abstract class AppLocalizations {
   /// No description provided for @noCalibrationTarget.
   ///
   /// In en, this message translates to:
-  /// **'Long-press or right-click a wild result, then send it to calibration.'**
+  /// **'Tap a wild result, then send it to calibration.'**
   String get noCalibrationTarget;
 
   /// No description provided for @currentTargetAdvance.
