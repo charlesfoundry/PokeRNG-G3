@@ -993,6 +993,7 @@ class _HuntPageState extends State<_HuntPage> {
 
     final leadMode = _effectiveLeadMode(
       leadMode: _leadMode,
+      game: widget.profile.game,
       area: selectedArea,
       personalData: data.personal,
       targetPersonal: data.personal[targetSpeciesId],
@@ -1734,6 +1735,7 @@ class _HuntControls extends StatelessWidget {
     final availableLeadModes = staticSelected
         ? const [_LeadMode.none]
         : _availableLeadModes(
+            game: game,
             area: selectedArea,
             personalData: data.personal,
             targetPersonal: selectedPersonal,
@@ -1750,7 +1752,7 @@ class _HuntControls extends StatelessWidget {
         _AutocompleteOptionsPrimer(
           controller: pokemonController,
           focusNode: pokemonFocusNode,
-          token: data.localeName,
+          token: '${data.localeName}:${game.name}',
           child: RawAutocomplete<_SpeciesOption>(
             textEditingController: pokemonController,
             focusNode: pokemonFocusNode,
@@ -1758,7 +1760,10 @@ class _HuntControls extends StatelessWidget {
             optionsBuilder: (textEditingValue) {
               final query = textEditingValue.text.trim().toLowerCase();
               if (query.isEmpty) {
-                return data.speciesOptions.take(_maxSpeciesSuggestions);
+                final start = _defaultSpeciesSuggestionStart(game);
+                return data.speciesOptions
+                    .skip(start - 1)
+                    .take(_maxSpeciesSuggestions);
               }
               final numericStart = _numericSpeciesStart(query);
               if (numericStart != null) {
@@ -2059,14 +2064,29 @@ class _HuntControls extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4, left: 2),
-          child: Text(
-            staticSelected
-                ? l10n.staticMethodHint
-                : game == GameVersion.emerald
-                ? l10n.wildMethodHintEmerald
-                : l10n.wildMethodHintFrlg,
+          child: DefaultTextStyle.merge(
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurfaceVariant,
+              height: 1.25,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  staticSelected
+                      ? l10n.staticMethodHint
+                      : game == GameVersion.emerald
+                      ? l10n.wildMethodHintEmerald
+                      : l10n.wildMethodHintFrlg,
+                ),
+                Text(
+                  staticSelected
+                      ? l10n.leadHintStatic
+                      : game == GameVersion.emerald
+                      ? l10n.leadHintEmerald
+                      : l10n.leadHintFrlg,
+                ),
+              ],
             ),
           ),
         ),
@@ -8037,6 +8057,13 @@ int? _numericSpeciesStart(String query) {
   return value;
 }
 
+int _defaultSpeciesSuggestionStart(GameVersion game) {
+  return switch (game) {
+    GameVersion.emerald => 252,
+    GameVersion.fireRed || GameVersion.leafGreen => 1,
+  };
+}
+
 String _encounterTypeLabel(BuildContext context, WildEncounterType type) {
   final l10n = AppLocalizations.of(context)!;
   return switch (type) {
@@ -8241,10 +8268,15 @@ List<PokemonGender> _legalGenders(Gen3PersonalInfo? info) {
 }
 
 List<_LeadMode> _availableLeadModes({
+  required GameVersion game,
   required WildEncounterArea? area,
   required Gen3PersonalData personalData,
   required Gen3PersonalInfo? targetPersonal,
 }) {
+  if (game != GameVersion.emerald) {
+    return const [_LeadMode.none];
+  }
+
   final result = <_LeadMode>[
     _LeadMode.none,
     _LeadMode.pressure,
@@ -8276,11 +8308,13 @@ List<_LeadMode> _availableLeadModes({
 
 _LeadMode _effectiveLeadMode({
   required _LeadMode leadMode,
+  required GameVersion game,
   required WildEncounterArea area,
   required Gen3PersonalData personalData,
   required Gen3PersonalInfo? targetPersonal,
 }) {
   final available = _availableLeadModes(
+    game: game,
     area: area,
     personalData: personalData,
     targetPersonal: targetPersonal,

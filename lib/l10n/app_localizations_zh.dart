@@ -240,6 +240,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get staticMethodHint => '定點、贈送等固定寶可夢通常使用 Method 1。';
 
   @override
+  String get leadHintEmerald =>
+      '綠寶石野生遇敵支援同步、壓迫感、靜電、磁力、迷人之軀；這些隊首效果僅在適用的野生遇敵中生效。';
+
+  @override
+  String get leadHintFrlg => '火紅/葉綠沒有隊首野外效果；這些特性不會改變遇敵結果。';
+
+  @override
+  String get leadHintStatic => '隊首野外效果只影響野生遇敵；定點、贈送等固定寶可夢不受影響。';
+
+  @override
   String get ability => '特性';
 
   @override
@@ -914,6 +924,16 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get staticMethodHint => '定点、赠送等固定宝可梦通常使用 Method 1。';
+
+  @override
+  String get leadHintEmerald =>
+      '绿宝石野生遇敌支持同步、压迫感、静电、磁力、迷人之躯；这些队首效果仅在适用的野生遇敌中生效。';
+
+  @override
+  String get leadHintFrlg => '火红/叶绿没有队首野外效果；这些特性不会改变遇敌结果。';
+
+  @override
+  String get leadHintStatic => '队首野外效果只影响野生遇敌；定点、赠送等固定宝可梦不受影响。';
 
   @override
   String get ability => '特性';

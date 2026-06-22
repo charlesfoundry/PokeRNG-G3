@@ -545,6 +545,24 @@ abstract class AppLocalizations {
   /// **'Stationary, gift, and other fixed Pokemon usually use Method 1.'**
   String get staticMethodHint;
 
+  /// No description provided for @leadHintEmerald.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerald wild encounters support Synchronize, Pressure, Static, Magnet Pull, and Cute Charm lead effects when applicable.'**
+  String get leadHintEmerald;
+
+  /// No description provided for @leadHintFrlg.
+  ///
+  /// In en, this message translates to:
+  /// **'FireRed/LeafGreen have no lead overworld effects; these Abilities do not change encounter results.'**
+  String get leadHintFrlg;
+
+  /// No description provided for @leadHintStatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Lead overworld effects only apply to wild encounters; stationary and gift Pokemon are not affected.'**
+  String get leadHintStatic;
+
   /// No description provided for @ability.
   ///
   /// In en, this message translates to:

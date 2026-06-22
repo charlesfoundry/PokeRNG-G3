@@ -243,6 +243,17 @@ class AppLocalizationsJa extends AppLocalizations {
   String get staticMethodHint => '固定・配布などのポケモンは通常 Method 1 を使います。';
 
   @override
+  String get leadHintEmerald =>
+      'エメラルドの野生遭遇では、適用可能な場合にシンクロ、プレッシャー、せいでんき、じりょく、メロメロボディの先頭効果を使用できます。';
+
+  @override
+  String get leadHintFrlg =>
+      'ファイアレッド/リーフグリーンには先頭のフィールド効果がなく、これらの特性は遭遇結果を変えません。';
+
+  @override
+  String get leadHintStatic => '先頭のフィールド効果は野生遭遇のみ対象です。固定・配布などのポケモンには影響しません。';
+
+  @override
   String get ability => '特性';
 
   @override
